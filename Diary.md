@@ -4,4 +4,8 @@ Diary
 
 - Created front-end react app
 - Created back-end Express.js directory
-  The next steps will be to begin creating the Express server
+- The next steps will be to begin creating the Express server
+
+13/10/23
+
+- Initalised server and listen on port 3001
