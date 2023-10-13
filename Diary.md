@@ -12,3 +12,4 @@ Diary
 - Removed React-initialised files
 - Displayed welcome message to ensure page outputs
 - Created base template for Register and Login components
+- Established react routing to display different components
