@@ -13,3 +13,7 @@ Diary
 - Displayed welcome message to ensure page outputs
 - Created base template for Register and Login components
 - Established react routing to display different components
+
+16/10/23
+
+- Added React states to store LoginPage details
