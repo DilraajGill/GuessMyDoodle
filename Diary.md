@@ -17,3 +17,4 @@ Diary
 16/10/23
 
 - Added React states to store LoginPage details
+- Added React states to store RegisterPage details
