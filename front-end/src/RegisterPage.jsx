@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  async function submitForm(e) {
+    e.preventDefault();
+    var items = {
+      username,
+      password,
+    };
+    console.log(items);
+    try {
+      axios.post("/auth/register", items);
+    } catch (error) {
+      console.log("Failed to make request: ", error);
+    }
+  }
+
   return (
     <div>
       <h2>Register Page</h2>
-      <form>
+      <form onSubmit={submitForm}>
         <input
           type="text"
           placeholder="Username"
