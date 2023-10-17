@@ -7,3 +7,5 @@ import { Strategy } from "passport-local";
 const router = express.Router()
 // Connect to MongoDB server
 mongoose.connect("mongodb://localhost:27017/project");
+
+export default router;
