@@ -12,7 +12,7 @@ app.use(
       resave: false,
       saveUninitialized: false,
     })
-  );
+);
 
 // Listen on port 3001
 const server = app.listen(3001);

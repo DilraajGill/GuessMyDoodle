@@ -23,4 +23,5 @@ Diary
 17/10/23
 
 - Installed passport and mongoose dependencies
--
+- Establishing authorisation file to handle registration requests
+- Created MongoDB database
