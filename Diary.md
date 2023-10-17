@@ -19,3 +19,8 @@ Diary
 - Added React states to store LoginPage details
 - Added React states to store RegisterPage details
 - Function to handle POST request to server created
+
+17/10/23
+
+- Installed passport and mongoose dependencies
+-
