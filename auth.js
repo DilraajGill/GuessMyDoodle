@@ -12,7 +12,26 @@ const userSchema = mongoose.Schema({
     password: String
 });
 userSchema.plugin(passportLocalMongoose);
-const User = mongoose.Model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+passport.use(new Strategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+router.post("/register", async(req, res) => {
+    try{
+        const {username, password} = req.body;
+        const newUser = await User.register({username}, password);
+        req.login(newUser, async (err) => {
+            if (err){
+                throw err;
+            }
+            res.json({auth: req.isAuthenticated(), username: newUser.username})
+        });
+    } catch (err) {
+        console.log(err);
+    }
+})
 
 
 export default router;

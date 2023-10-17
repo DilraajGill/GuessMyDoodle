@@ -25,3 +25,4 @@ Diary
 - Installed passport and mongoose dependencies
 - Establishing authorisation file to handle registration requests
 - Created MongoDB database
+- Registered details are saved to the database
