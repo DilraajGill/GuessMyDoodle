@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +20,7 @@ function LoginPage() {
       if (response.data.auth){
         setSignedIn(true);
         console.log("valid");
+        navigate("/home");
       }
     } catch (error) {
       console.log("Failed to make request: ", error);
