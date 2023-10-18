@@ -30,3 +30,5 @@ Diary
 18/10/23
 
 - Added React state to store login status
+- Login successfully implemented into Server
+- Home page added to be re-routed to after login
