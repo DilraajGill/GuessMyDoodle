@@ -17,7 +17,7 @@ function LoginPage() {
       const response = await axios.post("/auth/login", items);
       if (response.data.auth){
         setSignedIn(true);
-        console.log(signedIn);
+        console.log("valid");
       }
     } catch (error) {
       console.log("Failed to make request: ", error);
