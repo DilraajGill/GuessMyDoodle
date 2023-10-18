@@ -26,3 +26,7 @@ Diary
 - Establishing authorisation file to handle registration requests
 - Created MongoDB database
 - Registered details are saved to the database
+
+18/10/23
+
+- Added React state to store login status

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function LoginPage() {
+  const [signedIn, setSignedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +14,11 @@ function LoginPage() {
     };
     console.log(items);
     try {
-      axios.post("/auth/login", items);
+      const response = await axios.post("/auth/login", items);
+      if (response.data.auth){
+        setSignedIn(true);
+        console.log(signedIn);
+      }
     } catch (error) {
       console.log("Failed to make request: ", error);
     }
