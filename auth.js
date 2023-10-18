@@ -18,6 +18,10 @@ passport.use(new Strategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+router.post("/login", passport.authenticate("local"), async(req, res) => {
+    res.send({auth: req.isAuthenticated()});
+})
+
 router.post("/register", async(req, res) => {
     try{
         const {username, password} = req.body;
