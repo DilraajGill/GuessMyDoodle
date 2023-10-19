@@ -22,6 +22,10 @@ function Canvas(){
         }
     }
 
+    function endDrawing(){
+        setIsDrawing(false);
+    }
+
     useEffect(() => {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
@@ -32,6 +36,7 @@ function Canvas(){
     return(
         <canvas ref={canvasRef}
             onMouseDown={beginDrawing}
+            onMouseUp={endDrawing}
             onMouseMove={drawCanvas}
         />
     )
