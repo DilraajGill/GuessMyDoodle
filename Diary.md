@@ -32,3 +32,7 @@ Diary
 - Added React state to store login status
 - Login successfully implemented into Server
 - Home page added to be re-routed to after login
+
+19/10/23
+
+- Canvas implemented to provide drawing capabilities
