@@ -17,3 +17,5 @@ function Canvas(){
         <canvas ref={canvasRef}/>
     )
 }
+
+export default Canvas;
