@@ -36,3 +36,4 @@ Diary
 19/10/23
 
 - Canvas implemented to provide drawing capabilities
+- Fixed bug preventing drawing from beginning automatically

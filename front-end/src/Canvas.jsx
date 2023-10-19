@@ -1,21 +1,25 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 
 function Canvas(){
     // Reference canvas object
     const canvasRef = useRef(null);
     // Reference 2D context
     const contextRef = useRef(null);
+    const [isDrawing, setIsDrawing] = useState(false);
 
     function beginDrawing(ev){
         const {offsetX, offsetY} = ev.nativeEvent;
         console.log(`Moving to ${offsetX} ${offsetY}`);
+        setIsDrawing(true);
         contextRef.current.beginPath();
     }
 
     function drawCanvas(ev){
         const { offsetX, offsetY } = ev.nativeEvent;
-        contextRef.current.lineTo(offsetX, offsetY);
-        contextRef.current.stroke();
+        if (isDrawing){
+           contextRef.current.lineTo(offsetX, offsetY);
+         contextRef.current.stroke(); 
+        }
     }
 
     useEffect(() => {
