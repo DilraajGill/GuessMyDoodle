@@ -6,6 +6,12 @@ function Canvas(){
     // Reference 2D context
     const contextRef = useRef(null);
 
+    function beginDrawing(ev){
+        const {offsetX, offsetY} = ev.nativeEvent;
+        console.log(`Moving to ${offsetX} ${offsetY}`);
+        contextRef.current.beginPath();
+    }
+
     useEffect(() => {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
@@ -14,7 +20,9 @@ function Canvas(){
     }, [])
 
     return(
-        <canvas ref={canvasRef}/>
+        <canvas ref={canvasRef}
+            onMouseDown={beginDrawing}
+        />
     )
 }
 
