@@ -12,6 +12,12 @@ function Canvas(){
         contextRef.current.beginPath();
     }
 
+    function drawCanvas(ev){
+        const { offsetX, offsetY } = ev.nativeEvent;
+        contextRef.current.lineTo(offsetX, offsetY);
+        contextRef.current.stroke();
+    }
+
     useEffect(() => {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
@@ -22,6 +28,7 @@ function Canvas(){
     return(
         <canvas ref={canvasRef}
             onMouseDown={beginDrawing}
+            onMouseMove={drawCanvas}
         />
     )
 }
