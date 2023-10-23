@@ -6,6 +6,7 @@ function Canvas(){
     // Reference 2D context
     const contextRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
+    const [lineThickness, setLineThickness] = useState(1);
 
     function beginDrawing(ev){
         const {offsetX, offsetY} = ev.nativeEvent;

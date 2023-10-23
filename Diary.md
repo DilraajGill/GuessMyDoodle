@@ -37,3 +37,7 @@ Diary
 
 - Canvas implemented to provide drawing capabilities
 - Fixed bug preventing drawing from beginning automatically
+
+23/10/23
+
+- Implemented input to adjust line thickness variable
