@@ -37,7 +37,7 @@ function Canvas(){
 
     return(
         <div>
-            <LineThickness/>
+            <LineThickness thickness={lineThickness} setLineThickness={setLineThickness}/>
             <canvas ref={canvasRef}
                 onMouseDown={beginDrawing}
                 onMouseUp={endDrawing}
