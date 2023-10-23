@@ -1,4 +1,5 @@
 import React, {useRef, useEffect, useState} from "react";
+import LineThickness from "./LineThickness";
 
 function Canvas(){
     // Reference canvas object
@@ -35,11 +36,15 @@ function Canvas(){
     }, [])
 
     return(
-        <canvas ref={canvasRef}
-            onMouseDown={beginDrawing}
-            onMouseUp={endDrawing}
-            onMouseMove={drawCanvas}
-        />
+        <div>
+            <LineThickness/>
+            <canvas ref={canvasRef}
+                onMouseDown={beginDrawing}
+                onMouseUp={endDrawing}
+                onMouseMove={drawCanvas}
+            />
+        </div>
+        
     )
 }
 
