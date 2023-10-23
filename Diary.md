@@ -41,3 +41,4 @@ Diary
 23/10/23
 
 - Implemented input to adjust line thickness variable
+- Updated canvas line to adjust to line thickness input
