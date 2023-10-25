@@ -29,6 +29,17 @@ describe("Registration Tests", () => {
                                         .send(testUser)
                                         .set("Content-Type", "application/json");
         expect(response.status).toBe(400);
-        expect(response.body).toHaveProperty("error", "Username exists");
+        expect(response.body).toHaveProperty("name", "UserExistsError");
+    })
+
+    test("missing username", async() => {
+        const testUser = {
+            password: "testing123"
+        };
+        const response = await request.post("/auth/register")
+                                        .send(testUser)
+                                        .set("Content-Type", "application/json");
+        expect(response.status).toBe(400);
+        expect(response.body).toHaveProperty("name", "MissingUsernameError");
     })
 })

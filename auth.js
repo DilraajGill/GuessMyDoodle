@@ -33,9 +33,7 @@ router.post("/register", async(req, res) => {
             res.json({auth: req.isAuthenticated(), username: newUser.username})
         });
     } catch (err) {
-        if (err.name === "UserExistsError"){
-            return res.status(400).json({error: "Username exists"});
-        }
+        res.status(400).json({name: err.name, message: err.message})
     }
 })
 
