@@ -1,9 +1,8 @@
 import supertest from "supertest";
 import app from "./server"
-import { User } from "./auth";
+import mongoose from "mongoose";
 
 const request = supertest(app);
-
 describe("Registration Tests", () => {
 
     test("register new user", async () => {
@@ -16,9 +15,20 @@ describe("Registration Tests", () => {
         const response = await request.post("/auth/register")
                                         .send(testUser)
                                         .set("Content-Type", "application/json");
-        console.log(response);
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty("auth", true);
         expect(response.body).toHaveProperty("username", testUser.username);
+    });
+
+    test("registering with used username", async () => {
+        const testUser = {
+            username: "Test",
+            password: "testing123"
+        };
+        const response = await request.post("/auth/register")
+                                        .send(testUser)
+                                        .set("Content-Type", "application/json");
+        expect(response.status).toBe(400);
+        expect(response.body).toHaveProperty("error", "Username exists");
     })
 })
