@@ -45,4 +45,5 @@ Diary
 
 25/10/23
 
-- Added test to ensure registration is performed correctly
+- Added tests to ensure registration handles errors appropriately
+- Improved auth.js error handling to send error messages back to client
