@@ -42,3 +42,7 @@ Diary
 
 - Implemented input to adjust line thickness variable
 - Updated canvas line to adjust to line thickness input
+
+25/10/23
+
+- Added test to ensure registration is performed correctly
