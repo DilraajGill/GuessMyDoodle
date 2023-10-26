@@ -46,4 +46,15 @@ describe("Login Tests", () => {
                                         .set("Content-Type", "application/json");
         expect(response.status).toBe(400);
     })
+
+    test("login with empty string password", async() => {
+        const testUser = {
+            username: "Test",
+            password: ""
+        }
+        const response = await request.post("/auth/login")
+                                        .send(testUser)
+                                        .set("Content-Type", "application/json");
+        expect(response.status).toBe(400);
+    })
 })
