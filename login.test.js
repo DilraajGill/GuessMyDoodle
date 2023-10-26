@@ -26,4 +26,14 @@ describe("Login Tests", () => {
                                         .set("Content-Type", "application/json");
         expect(response.status).toBe(401);
     })
+
+    test("login with no username", async () => {
+        const testUser = {
+            password: "testing123"
+        }
+        const response = await request.post("/auth/login")
+                                        .send(testUser)
+                                        .set("Content-Type", "application/json");
+        expect(response.status).toBe(400);
+    })
 })
