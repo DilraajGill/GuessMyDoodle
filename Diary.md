@@ -51,3 +51,4 @@ Diary
 -26/10/23
 
 - Added tests to ensure login handle errors appropriately
+- Login tests are all passed
