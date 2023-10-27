@@ -11,7 +11,7 @@ function Canvas(){
 
     function beginDrawing(ev){
         const {offsetX, offsetY} = ev.nativeEvent;
-        console.log(`Moving to ${offsetX} ${offsetY}`);
+        console.log(`Drawing Began`);
         setIsDrawing(true);
         contextRef.current.beginPath();
     }
