@@ -43,6 +43,7 @@ function Canvas(){
                 onMouseDown={beginDrawing}
                 onMouseUp={endDrawing}
                 onMouseMove={drawCanvas}
+                role="canvas"
             />
         </div>
         
