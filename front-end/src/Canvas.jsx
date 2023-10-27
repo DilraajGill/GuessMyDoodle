@@ -19,6 +19,7 @@ function Canvas(){
     function drawCanvas(ev){
         const { offsetX, offsetY } = ev.nativeEvent;
         if (isDrawing){
+            console.log("Drawing");
             contextRef.current.lineWidth = lineThickness;
             contextRef.current.lineTo(offsetX, offsetY);
             contextRef.current.stroke(); 
