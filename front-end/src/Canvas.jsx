@@ -23,6 +23,8 @@ function Canvas(){
             contextRef.current.lineWidth = lineThickness;
             contextRef.current.lineTo(offsetX, offsetY);
             contextRef.current.stroke(); 
+        } else {
+            console.log("Not Drawing");
         }
     }
 

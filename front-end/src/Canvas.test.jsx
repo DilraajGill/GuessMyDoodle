@@ -35,4 +35,14 @@ describe("Canvas Tests", () => {
         fireEvent.mouseMove(canvasScreen, { clientX: 50, clientY: 100});
         expect(consoleTest).toHaveBeenCalledWith("Drawing");
     })
+
+    test("drawing not possible without mouseDown", ()=> {
+        render(<Canvas/>);
+        const canvasScreen = screen.getByRole("canvas");
+        const consoleTest = jest.spyOn(console, "log");
+
+        fireEvent.mouseMove(canvasScreen, { clientX: 50, clientY: 100});
+        expect(consoleTest).toHaveBeenCalledWith("Not Drawing");
+    })
+
 })
