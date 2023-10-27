@@ -26,6 +26,7 @@ function Canvas(){
     }
 
     function endDrawing(){
+        console.log("Drawing Ended");
         setIsDrawing(false);
     }
 
