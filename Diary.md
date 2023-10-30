@@ -56,3 +56,7 @@ Diary
 27/10/23
 
 - Created canvas tests to ensure states update on mouseEvent
+
+30/10/23
+
+- Created test file for managing and updating canvas to all
