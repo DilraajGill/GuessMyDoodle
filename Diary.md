@@ -60,3 +60,7 @@ Diary
 30/10/23
 
 - Created test file for managing and updating canvas to all
+
+-31/10/23
+
+- Pass tests designed to ensure connection with socket.io
