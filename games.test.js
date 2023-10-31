@@ -12,8 +12,7 @@ beforeAll((done) => {
     })
 })
 describe("game tests", () => {
-    test("connection", async (done) => {
+    test("connection", async () => {
         expect(client.connected).toBe(true);
-        done();
     })
 })
