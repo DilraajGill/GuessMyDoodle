@@ -5,11 +5,15 @@ import { io } from "socket.io-client";
 const request = supertest(app);
 
 let client;
-beforeAll(() => {
+beforeAll((done) => {
     client = io.connect("http://localhost:3001");
+    client.on("connect", () => {
+        done();
+    })
 })
 describe("game tests", () => {
-    test("connection", async () => {
+    test("connection", async (done) => {
         expect(client.connected).toBe(true);
+        done();
     })
 })
