@@ -23,4 +23,12 @@ describe("game tests", () => {
             done();
         })
     })
+
+    test("invalid drawing client", (done) => {
+        client.emit("drawing");
+
+        client.once("incorrectDrawing", () => {
+            done();
+        })
+    })
 })
