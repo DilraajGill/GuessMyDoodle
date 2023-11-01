@@ -15,4 +15,12 @@ describe("game tests", () => {
     test("connection", async () => {
         expect(client.connected).toBe(true);
     })
+
+    test("drawing client", (done) => {
+        client.emit("drawing", { x : 190, y : 290 });
+
+        client.once("correctDrawing", () => {
+            done();
+        })
+    })
 })
