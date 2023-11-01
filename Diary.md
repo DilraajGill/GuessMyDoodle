@@ -61,6 +61,12 @@ Diary
 
 - Created test file for managing and updating canvas to all
 
--31/10/23
+31/10/23
 
 - Pass tests designed to ensure connection with socket.io
+
+01/11/23
+
+- Create tests to handle transmitting drawing data
+- Added code to pass tests
+- Added validation to ensure correct transmitted data sent
