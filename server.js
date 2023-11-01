@@ -26,6 +26,9 @@ const io = new SocketIo(server);
 
 io.on("connection", (socket) => {
   console.log("A user has connected");
+  socket.on("drawing client", (data) => {
+    socket.emit("correctDrawing");
+  })
 })
 
 export default app;
