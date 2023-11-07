@@ -15,16 +15,16 @@ function Canvas(){
         const {offsetX, offsetY} = ev.nativeEvent;
         console.log(`Drawing Began`);
         setIsDrawing(true);
-        contextRef.current.beginPath();
+        socket.emit("beginDrawing");
     }
 
     function drawCanvas(ev){
         const { offsetX, offsetY } = ev.nativeEvent;
         if (isDrawing){
             console.log("Drawing");
-            contextRef.current.lineWidth = lineThickness;
-            contextRef.current.lineTo(offsetX, offsetY);
-            contextRef.current.stroke(); 
+            //contextRef.current.lineWidth = lineThickness;
+            //contextRef.current.lineTo(offsetX, offsetY);
+            //contextRef.current.stroke(); 
             socket.emit("drawing", {
                 x: offsetX,
                 y: offsetY,
@@ -56,6 +56,10 @@ function Canvas(){
 
         socket.on("drawing", (data) => {
             drawOntoCanvas(data);
+        })
+
+        socket.on("beginDrawing", ()=>{
+            contextRef.current.beginPath();
         })
     }, [])
 
