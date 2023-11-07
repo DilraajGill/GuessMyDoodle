@@ -22,12 +22,17 @@ app.use("/auth", router);
 
 // Listen on port 3001
 const server = app.listen(3001);
-const io = new SocketIo(server);
+const io = new SocketIo(server, {
+  cors: {
+    origin: "*"
+  }
+});
 
 io.on("connection", (socket) => {
   console.log("A user has connected");
   socket.on("drawing", (data) => {
     if (data && data.x && data.y){
+      socket.broadcast.emit("drawing", data);
       socket.emit("correctDrawing");
     } else { 
       socket.emit("incorrectDrawing");
