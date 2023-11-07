@@ -1,6 +1,7 @@
 import React, {useRef, useEffect, useState} from "react";
 import LineThickness from "./LineThickness";
 import socket from "./SocketManager";
+import ColourChooser from "./ColourChooser";
 
 function Canvas(){
     // Reference canvas object
@@ -69,6 +70,7 @@ function Canvas(){
                 onMouseMove={drawCanvas}
                 role="canvas"
             />
+            <ColourChooser toCanvas={setColour}/>
         </div>
         
     )

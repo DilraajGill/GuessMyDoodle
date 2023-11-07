@@ -14,3 +14,5 @@ function ColourChooser({toCanvas}){
         </div>
     )
 }
+
+export default ColourChooser;
