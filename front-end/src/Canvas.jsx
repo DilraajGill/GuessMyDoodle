@@ -9,6 +9,7 @@ function Canvas(){
     const contextRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [lineThickness, setLineThickness] = useState(1);
+    const [drawings, setDrawings] = useState([]);
 
     function beginDrawing(ev){
         const {offsetX, offsetY} = ev.nativeEvent;
@@ -40,11 +41,22 @@ function Canvas(){
         setIsDrawing(false);
     }
 
+    function drawOntoCanvas(data){
+        const {x, y, thickness} = data;
+        contextRef.current.lineWidth = thickness;
+        contextRef.current.lineTo(x, y);
+        contextRef.current.stroke();
+    }
+
     useEffect(() => {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
         const context = canvasRef.current.getContext("2d");
         contextRef.current = context;
+
+        socket.on("drawing", (data) => {
+            drawOntoCanvas(data);
+        })
     }, [])
 
     return(
