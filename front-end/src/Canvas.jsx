@@ -27,6 +27,7 @@ function Canvas(){
                 x: offsetX,
                 y: offsetY,
                 thickness: lineThickness,
+                colour: colour,
                 type: "draw"
             });
         } else {
@@ -40,8 +41,9 @@ function Canvas(){
     }
 
     function drawOntoCanvas(data){
-        const {x, y, thickness} = data;
+        const {x, y, thickness, colour} = data;
         contextRef.current.lineWidth = thickness;
+        contextRef.current.strokeStyle = colour;
         contextRef.current.lineTo(x, y);
         contextRef.current.stroke();
     }
@@ -64,13 +66,13 @@ function Canvas(){
     return(
         <div>
             <LineThickness thickness={lineThickness} setLineThickness={setLineThickness}/>
+            <ColourChooser toCanvas={setColour}/>
             <canvas ref={canvasRef}
                 onMouseDown={beginDrawing}
                 onMouseUp={endDrawing}
                 onMouseMove={drawCanvas}
                 role="canvas"
             />
-            <ColourChooser toCanvas={setColour}/>
         </div>
         
     )
