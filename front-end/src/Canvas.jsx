@@ -12,7 +12,6 @@ function Canvas(){
     const [drawings, setDrawings] = useState([]);
 
     function beginDrawing(ev){
-        const {offsetX, offsetY} = ev.nativeEvent;
         console.log(`Drawing Began`);
         setIsDrawing(true);
         socket.emit("beginDrawing");
