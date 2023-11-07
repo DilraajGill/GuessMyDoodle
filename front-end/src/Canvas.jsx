@@ -10,6 +10,7 @@ function Canvas(){
     const [isDrawing, setIsDrawing] = useState(false);
     const [lineThickness, setLineThickness] = useState(1);
     const [drawings, setDrawings] = useState([]);
+    const [colour, setColour] = useState("#000");
 
     function beginDrawing(ev){
         console.log(`Drawing Began`);
