@@ -70,3 +70,7 @@ Diary
 - Create tests to handle transmitting drawing data
 - Added code to pass tests
 - Added validation to ensure correct transmitted data sent
+
+07/11/23
+
+- Create socket manager for front end socket to connect to back-end
