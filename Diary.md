@@ -74,3 +74,5 @@ Diary
 07/11/23
 
 - Create socket manager for front end socket to connect to back-end
+- Bug fix to stop drawing from not displaying correctly
+- All drawings are sent to server, before sent back to client (including client drawing)
