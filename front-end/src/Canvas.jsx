@@ -1,5 +1,6 @@
 import React, {useRef, useEffect, useState} from "react";
 import LineThickness from "./LineThickness";
+import socket from "./SocketManager";
 
 function Canvas(){
     // Reference canvas object
@@ -23,6 +24,12 @@ function Canvas(){
             contextRef.current.lineWidth = lineThickness;
             contextRef.current.lineTo(offsetX, offsetY);
             contextRef.current.stroke(); 
+            socket.emit("drawing", {
+                x: offsetX,
+                y: offsetY,
+                thickness: lineThickness,
+                type: "draw"
+            });
         } else {
             console.log("Not Drawing");
         }
