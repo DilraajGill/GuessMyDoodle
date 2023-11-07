@@ -22,9 +22,6 @@ function Canvas(){
         const { offsetX, offsetY } = ev.nativeEvent;
         if (isDrawing){
             console.log("Drawing");
-            //contextRef.current.lineWidth = lineThickness;
-            //contextRef.current.lineTo(offsetX, offsetY);
-            //contextRef.current.stroke(); 
             socket.emit("drawing", {
                 x: offsetX,
                 y: offsetY,

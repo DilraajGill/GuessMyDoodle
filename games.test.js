@@ -19,7 +19,7 @@ describe("game tests", () => {
     test("drawing client", (done) => {
         client.emit("drawing", { x : 190, y : 290 });
 
-        client.once("correctDrawing", () => {
+        client.once("drawing", (data) => {
             done();
         })
     })
