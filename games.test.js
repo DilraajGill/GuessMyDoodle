@@ -31,4 +31,12 @@ describe("game tests", () => {
             done();
         })
     })
+
+    test("test begin drawing", (done) => {
+        client.emit("beginDrawing");
+        
+        client.once("beginDrawing", () => {
+            done();
+        })
+    })
 })
