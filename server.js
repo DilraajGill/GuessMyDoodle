@@ -38,15 +38,19 @@ io.on("connection", (socket) => {
     socket.emit("drawing-not-allowed");
   }
   socket.on("drawing", (data) => {
-    if (data && data.x && data.y){
-      io.emit("drawing", data);
-      socket.emit("correctDrawing");
-    } else { 
-      socket.emit("incorrectDrawing");
-    }    
+    if (socket === firstConnection){
+      if (data && data.x && data.y){
+        io.emit("drawing", data);
+        socket.emit("correctDrawing");
+      } else { 
+        socket.emit("incorrectDrawing");
+      } 
+    }   
   })
   socket.on("beginDrawing", () => {
-    io.emit("beginDrawing");
+    if (socket === firstConnection){
+      io.emit("beginDrawing");
+    }
   })
 
   socket.on("test-drawing-allowed", () => {
