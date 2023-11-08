@@ -52,6 +52,8 @@ io.on("connection", (socket) => {
   socket.on("test-drawing-allowed", () => {
     if (socket === firstConnection){
       socket.emit("drawing-allowed");
+    } else{
+      socket.emit("drawing-not-allowed");
     }
   })
 })
