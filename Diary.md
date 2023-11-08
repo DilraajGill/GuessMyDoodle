@@ -83,3 +83,5 @@ Diary
 - Added new tests to track first connection
 - Refactored code to pass tests
 - Refactored code to allow only first connection to draw
+- Added states and context to manage login status
+- Imported into HomePage
