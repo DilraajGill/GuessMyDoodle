@@ -41,6 +41,7 @@ describe("game tests", () => {
     })
 
     test("first one drawing only", (done) => {
+        client.emit("test-drawing-allowed");
         client.once("drawing-allowed", () => {
             done();
         })

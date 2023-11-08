@@ -28,19 +28,31 @@ const io = new SocketIo(server, {
   }
 });
 
+var firstConnection; 
 io.on("connection", (socket) => {
   console.log("A user has connected");
+  if (!firstConnection){
+    socket.emit("drawing-allowed");
+    firstConnection = socket;
+  } else {
+    socket.emit("drawing-not-allowed");
+  }
   socket.on("drawing", (data) => {
     if (data && data.x && data.y){
       io.emit("drawing", data);
       socket.emit("correctDrawing");
     } else { 
       socket.emit("incorrectDrawing");
-    }
-    
+    }    
   })
   socket.on("beginDrawing", () => {
     io.emit("beginDrawing");
+  })
+
+  socket.on("test-drawing-allowed", () => {
+    if (socket === firstConnection){
+      socket.emit("drawing-allowed");
+    }
   })
 })
 
