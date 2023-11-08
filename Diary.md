@@ -77,3 +77,9 @@ Diary
 - Bug fix to stop drawing from not displaying correctly
 - All drawings are sent to server, before sent back to client (including client drawing)
 - Modified and added new tests through TDD process
+
+08/11/23
+
+- Added new tests to track first connection
+- Refactored code to pass tests
+- Refactored code to allow only first connection to draw
