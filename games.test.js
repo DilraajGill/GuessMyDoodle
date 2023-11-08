@@ -5,8 +5,10 @@ import { io } from "socket.io-client";
 const request = supertest(app);
 
 let client;
+let secondClient;
 beforeAll((done) => {
     client = io.connect("http://localhost:3001");
+    secondClient = io.connect("http://localhost:3001");
     client.on("connect", () => {
         done();
     })
@@ -43,6 +45,13 @@ describe("game tests", () => {
     test("first one drawing only", (done) => {
         client.emit("test-drawing-allowed");
         client.once("drawing-allowed", () => {
+            done();
+        })
+    })
+
+    test("second user cannot draw", (done) => {
+        secondClient.emit("test-drawing-allowed");
+        secondClient.once("drawing-not-allowed", () => {
             done();
         })
     })
