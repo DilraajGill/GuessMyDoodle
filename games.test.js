@@ -39,4 +39,10 @@ describe("game tests", () => {
             done();
         })
     })
+
+    test("first one drawing only", (done) => {
+        client.once("drawing-allowed", () => {
+            done();
+        })
+    })
 })
