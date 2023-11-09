@@ -18,6 +18,8 @@ function HomePage(){
                     // Temporary points assignment
                     points: 0
                 })
+            } else {
+                navigation("/login");
             }
         }
         ensureLogin();
