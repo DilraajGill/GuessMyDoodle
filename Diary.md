@@ -91,3 +91,6 @@ Diary
 - Built tests for HomePage to ensure those logged in can only view
 - Created code to pass front-end tests
 - Store user details in React context
+- Built back-end tests to authenticate users
+- Created code to pass back-end tests
+- Unauthenticated users sent straight to login page
