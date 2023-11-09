@@ -90,3 +90,4 @@ Diary
 
 - Built tests for HomePage to ensure those logged in can only view
 - Created code to pass front-end tests
+- Store user details in React context
