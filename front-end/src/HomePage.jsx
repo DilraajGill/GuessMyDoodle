@@ -11,6 +11,14 @@ function HomePage(){
     useEffect(() => {
         async function ensureLogin(){
             const response = await checkAuthentication(axios, navigation);
+            if (response.auth){
+                setSignedIn({
+                    auth: true,
+                    username: response.username,
+                    // Temporary points assignment
+                    points: 0
+                })
+            }
         }
         ensureLogin();
     })
