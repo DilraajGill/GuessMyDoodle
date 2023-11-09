@@ -10,7 +10,7 @@ function HomePage(){
 
     useEffect(() => {
         async function ensureLogin(){
-            const response = await checkAuthentication(axios, navigation);
+            const response = await checkAuthentication({axios, navigation});
             if (response.auth){
                 setSignedIn({
                     auth: true,

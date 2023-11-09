@@ -1,8 +1,10 @@
 import supertest from "supertest";
 import app from "./server";
+
 const request = supertest(app);
 
 describe("check-authentication", () => {
+    let cookie;
     test("authentication when signed in", async () => {
         const testUser = {
             username: "Test",
@@ -11,7 +13,8 @@ describe("check-authentication", () => {
         const response = await request.post("/auth/login")
                                         .send(testUser)
                                         .set("Content-Type", "application/json");
-        const testAuth = await request.get("/auth/check-auth");
+        cookie = response.headers["set-cookie"];
+        const testAuth = (await request.get("/auth/check-auth").set("Cookie", cookie));
         expect(testAuth.body.auth).toEqual(true);
     })
 

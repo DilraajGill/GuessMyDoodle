@@ -38,7 +38,11 @@ router.post("/register", async(req, res) => {
 })
 
 router.get("/check-auth", async(req, res) => {
-    console.log("request received");
+    if (req.isAuthenticated() && req.user){
+        res.send({auth: true, username: req.user.username});
+    } else {
+        res.send({auth: false});
+    }
 })
 
 
