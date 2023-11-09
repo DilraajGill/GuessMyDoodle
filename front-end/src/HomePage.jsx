@@ -2,18 +2,17 @@ import React, {useEffect} from "react";
 import axios from "axios";
 import { authContext } from "./App";
 import { useNavigate } from "react-router-dom";
+import checkAuthentication from "./checkAuthentication";
 
 function HomePage(){
     const [signedIn, setSignedIn] = React.useContext(authContext);
     const navigation = useNavigate();
 
     useEffect(() => {
-        async function checkAuthentication(){
-            const response = await axios.get("/auth/check-auth");
-            if (response.data.auth){
-                console.log("Signed In");
-            }
+        async function ensureLogin(){
+            const response = await checkAuthentication(axios, navigation);
         }
+        ensureLogin();
     })
 
     return(

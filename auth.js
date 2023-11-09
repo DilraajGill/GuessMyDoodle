@@ -37,5 +37,9 @@ router.post("/register", async(req, res) => {
     }
 })
 
+router.get("/check-auth", async(req, res) => {
+    console.log("request received");
+})
+
 
 export default router;

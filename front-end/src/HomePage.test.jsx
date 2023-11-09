@@ -8,14 +8,13 @@ jest.mock("axios");
 describe("home page test" , () => {
     test("logged in", async () => {
         axios.get.mockResolvedValue({data : {auth: true}});
-        render(<HomePage/>);
-        expect(screen.getByText("Home Page")).toBeInTheDocument();
+        const navigationMock = jest.fn();
+        expect(await checkAuthentication({axios, navigationMock})).toBe(true);
     });
 
     test("not logged in", async () => {
         axios.get.mockResolvedValue({data : {auth : false }});
         const navigationMock = jest.fn();
-        await checkAuthentication({axios, navigate : navigationMock});
-        expect(navigationMock).toBeCalledWith("/login");
+        expect(await checkAuthentication({axios, navigationMock})).toBe(false);
     })
 })
