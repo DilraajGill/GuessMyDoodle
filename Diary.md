@@ -85,3 +85,8 @@ Diary
 - Refactored code to allow only first connection to draw
 - Added states and context to manage login status
 - Imported into HomePage
+
+09/11/23
+
+- Built tests for HomePage to ensure those logged in can only view
+- Created code to pass front-end tests
