@@ -3,6 +3,8 @@ import app from "./server";
 import { io } from "socket.io-client";
 
 const request = supertest(app);
+let client;
+let secondClient;
 beforeAll((done) => {
     client = io.connect("http://localhost:3001");
     client.on("connect", () => {

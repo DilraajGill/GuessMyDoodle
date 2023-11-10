@@ -60,6 +60,10 @@ io.on("connection", (socket) => {
       socket.emit("drawing-not-allowed");
     }
   })
+
+  socket.on("send-message", (data) => {
+    socket.emit("correct-message");
+  })
 })
 
 export default app;
