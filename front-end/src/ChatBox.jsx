@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 
-function Chat(){
+function ChatBox(){
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
 }
+
+export default ChatBox;
