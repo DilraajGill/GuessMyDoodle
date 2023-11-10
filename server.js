@@ -62,7 +62,9 @@ io.on("connection", (socket) => {
   })
 
   socket.on("send-message", (data) => {
+    const {text, username} = data;
     socket.emit("correct-message");
+    io.emit("receive-message", ({text, username}));
   })
 })
 

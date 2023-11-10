@@ -13,15 +13,15 @@ beforeAll((done) => {
     secondClient = io.connect("http://localhost:3001");
 })
 describe("messaging", () => {
-    test("send message", () => {
-        client.emit("send-message" ({text: "Hello", username: "Test"}));
-        client.once("correct-message", (data) => {
+    test("send message", (done) => {
+        client.emit("send-message", ({text: "Hello", username: "Test"}));
+        client.once("correct-message", () => {
             done();
         })
     })
-    test ("receive message", () => {
+    test ("receive message", (done) => {
         client.emit("send-message", ({text: "Hello", username: "Test"}));
-        secondClient.once("receive-message", (done) => {
+        secondClient.once("receive-message", (data) => {
             done();
         })
     })
