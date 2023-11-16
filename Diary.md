@@ -94,3 +94,14 @@ Diary
 - Built back-end tests to authenticate users
 - Created code to pass back-end tests
 - Unauthenticated users sent straight to login page
+
+15/11/23
+
+- Created interim report
+- Populated interim report with a plan
+
+16/11/23
+
+- Updated interim report
+- Commited gitignore file to avoid commiting node_modules folder
+- Removed node_modules folder from the repository
