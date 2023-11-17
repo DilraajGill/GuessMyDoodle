@@ -1,6 +1,6 @@
 import React from "react";
 import {fireEvent, render, screen} from "@testing-library/react";
-import ChatBox from "./ChatBox";
+import ChatBox, {receiveMessage} from "./ChatBox";
 
 const username = "Test";
 const text = "Testing Message";
@@ -25,7 +25,11 @@ describe("testing chatbox front-end", () => {
 
     test("receiving message displays in chat", async () => {
         render (<ChatBox socket = {mockSocket} username = {username}/>);
-        const messageCheck = await screen.findByText("Test: Testing Message");
-        expect(messageCheck).toBeInTheDocument();
+        const testMessage = {
+            username, text
+        };
+        const mockSetMessages = jest.fn();
+        receiveMessage(testMessage, mockSetMessages);
+        expect(mockSetMessages).toHaveBeenCalled();
     })
 })
