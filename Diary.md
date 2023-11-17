@@ -113,3 +113,12 @@ Diary
 - Updated interim report
 - Commited gitignore file to avoid commiting node_modules folder
 - Removed node_modules folder from the repository
+
+17/11/23
+
+- Refactored ChatBox code to pass tests
+- Exported ChatBox function to test handling messages
+- Added ChatBox to canvas component
+Next Steps: 
+Add the context into the canvas and use that username, rather than hard-coded value
+Create Lobby.jsx to store components rather than adding to Canvas
