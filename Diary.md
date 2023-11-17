@@ -94,6 +94,14 @@ Diary
 - Built back-end tests to authenticate users
 - Created code to pass back-end tests
 - Unauthenticated users sent straight to login page
+10/11/23
+
+- Attempted to create front-end TDD tests for ChatBox
+- Refactored to create front-end code for Chatbox
+- Created back-end TDD tests for ChatBox
+- Refactored to create back-end code for ChatBox
+- Fix issue with compiling front-end code
+  This is done by researching Jest mocking to learn how to mock responses from Axios
 
 15/11/23
 
