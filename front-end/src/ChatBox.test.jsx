@@ -5,19 +5,11 @@ import ChatBox from "./ChatBox";
 const username = "Test";
 const text = "Testing Message";
 
-jest.mock("socket.io-client", () => {
-    const emit = jest.fn();
-    const on = jest.fn((message, callback) => {
-        if (message === "receive-message"){
-            callback({username, text});
-        };
-    });
-    return jest.fn(() => {
-        return { emit, on }
-    })
-})
+const mockSocket = {
+    on: jest.fn(),
+    emit: jest.fn()
+};
 
-const mockSocket = require("socket.io-client");
 describe("testing chatbox front-end", () => {
     test("sending message displays in chat", async () => {
         render(<ChatBox socket = {mockSocket} username = {username} />);

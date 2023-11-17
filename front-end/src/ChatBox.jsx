@@ -14,6 +14,20 @@ function ChatBox({socket, username}){
         socket.emit("send-message", {username, text: newMessage});
         setNewMessage("");
     }
+
+    return(
+        <div>
+            <div>
+                {messages.map((message, index) => {
+                    <div key = {index}>
+                        <strong>{message.username}: </strong>{message.text}
+                    </div>
+                })}
+            </div>
+            <input type="text" value={newMessage} onChange={(e) => { setNewMessage(e.target.value)}} role="textbox"></input>
+            <button onClick={handleSend}>Send</button>
+        </div>
+    )
 }
 
 export default ChatBox;
