@@ -2,6 +2,7 @@ import React, {useRef, useEffect, useState} from "react";
 import LineThickness from "./LineThickness";
 import socket from "./SocketManager";
 import ColourChooser from "./ColourChooser";
+import ChatBox from "./ChatBox";
 
 function Canvas(){
     // Reference canvas object
@@ -73,6 +74,7 @@ function Canvas(){
                 onMouseMove={drawCanvas}
                 role="canvas"
             />
+            <ChatBox socket={socket} username="Test Name"/>
         </div>
         
     )
