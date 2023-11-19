@@ -16,7 +16,7 @@ function HomePage() {
           auth: true,
           username: response.username,
           // Temporary points assignment
-          points: 0,
+          points: response.points,
         });
       } else {
         navigation("/login");
