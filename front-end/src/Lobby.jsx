@@ -24,7 +24,7 @@ function Lobby() {
           auth: true,
           username: response.username,
           // Temporary points
-          points: 0,
+          points: response.points,
         });
       } else {
         navigation("/login");
@@ -47,7 +47,7 @@ function Lobby() {
         colour={selectedColour}
         socket={socket}
       />
-      <ChatBox socket={socket} username="Test Name 123" />
+      <ChatBox socket={socket} username={signedIn.username} />
     </div>
   );
 }
