@@ -4,11 +4,12 @@ import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Canvas from "./Canvas";
+import Lobby from "./Lobby";
 
 export const authContext = React.createContext();
 
 function App() {
-  const [signedIn, setSignedIn] = React.useState({auth: false});
+  const [signedIn, setSignedIn] = React.useState({ auth: false });
   return (
     <authContext.Provider value={[signedIn, setSignedIn]}>
       <BrowserRouter>
@@ -16,11 +17,11 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/lobby/lobbyId" element={<Lobby />} />
           <Route path="canvas" element={<Canvas />} />
         </Routes>
       </BrowserRouter>
     </authContext.Provider>
-    
   );
 }
 
