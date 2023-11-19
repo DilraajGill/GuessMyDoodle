@@ -94,7 +94,7 @@ Diary
 - Built back-end tests to authenticate users
 - Created code to pass back-end tests
 - Unauthenticated users sent straight to login page
-10/11/23
+  10/11/23
 
 - Attempted to create front-end TDD tests for ChatBox
 - Refactored to create front-end code for Chatbox
@@ -119,6 +119,12 @@ Diary
 - Refactored ChatBox code to pass tests
 - Exported ChatBox function to test handling messages
 - Added ChatBox to canvas component
-Next Steps: 
-Add the context into the canvas and use that username, rather than hard-coded value
-Create Lobby.jsx to store components rather than adding to Canvas
+  Next Steps:
+  Add the context into the canvas and use that username, rather than hard-coded value
+  Create Lobby.jsx to store components rather than adding to Canvas
+
+19/11/23
+
+- Created Lobby.test.jsx to begin creating lobby functionality through TDD
+- Designed first test and written code to pass test
+- Updated interim report
