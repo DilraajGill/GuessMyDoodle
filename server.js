@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import session from "express-session"
+import session from "express-session";
 import router from "./auth.js";
 import { Server as SocketIo } from "socket.io";
 
@@ -9,11 +9,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
-    session({
-      secret: "HiddenSecret.",
-      resave: false,
-      saveUninitialized: false,
-    })
+  session({
+    secret: "HiddenSecret.",
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -24,48 +24,55 @@ app.use("/auth", router);
 const server = app.listen(3001);
 const io = new SocketIo(server, {
   cors: {
-    origin: "*"
-  }
+    origin: "*",
+  },
 });
 
-var firstConnection; 
+var firstConnection;
 io.on("connection", (socket) => {
   console.log("A user has connected");
-  if (!firstConnection){
+  if (!firstConnection) {
     socket.emit("drawing-allowed");
     firstConnection = socket;
   } else {
     socket.emit("drawing-not-allowed");
   }
+
+  socket.on("join-lobby", (data) => {
+    const { lobbyId, username } = data;
+    console.log(`${username} is trying to join ${lobbyId}`);
+    socket.username = username;
+  });
+
   socket.on("drawing", (data) => {
-    if (socket === firstConnection){
-      if (data && data.x && data.y){
+    if (socket === firstConnection) {
+      if (data && data.x && data.y) {
         io.emit("drawing", data);
         socket.emit("correctDrawing");
-      } else { 
+      } else {
         socket.emit("incorrectDrawing");
-      } 
-    }   
-  })
+      }
+    }
+  });
   socket.on("beginDrawing", () => {
-    if (socket === firstConnection){
+    if (socket === firstConnection) {
       io.emit("beginDrawing");
     }
-  })
+  });
 
   socket.on("test-drawing-allowed", () => {
-    if (socket === firstConnection){
+    if (socket === firstConnection) {
       socket.emit("drawing-allowed");
-    } else{
+    } else {
       socket.emit("drawing-not-allowed");
     }
-  })
+  });
 
   socket.on("send-message", (data) => {
-    const {text, username} = data;
+    const { text, username } = data;
     socket.emit("correct-message");
-    io.emit("receive-message", ({text, username}));
-  })
-})
+    io.emit("receive-message", { text, username });
+  });
+});
 
 export default app;

@@ -26,12 +26,16 @@ function Lobby() {
           // Temporary points
           points: response.points,
         });
+        socket.emit("join-lobby", {
+          lobbyId,
+          username: response.username,
+        });
       } else {
         navigation("/login");
       }
     }
     ensureLogin();
-  });
+  }, []);
 
   return (
     <div>
