@@ -8,8 +8,10 @@ const router = express.Router();
 // Connect to MongoDB server
 mongoose.connect("mongodb://localhost:27017/project");
 const userSchema = mongoose.Schema({
-  email: String,
+  email: { type: String, required: true, unique: true },
   password: String,
+  username: { type: String, required: true, unique: true },
+  points: { type: Number, default: 0 },
 });
 userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("User", userSchema);
@@ -24,8 +26,8 @@ router.post("/login", passport.authenticate("local"), async (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const newUser = await User.register({ username }, password);
+    const { username, password, email } = req.body;
+    const newUser = await User.register({ email, username }, password);
     req.login(newUser, async (err) => {
       if (err) {
         throw err;
