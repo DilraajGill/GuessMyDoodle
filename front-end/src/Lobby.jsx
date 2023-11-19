@@ -7,8 +7,10 @@ import ChatBox from "./ChatBox";
 import socket from "./SocketManager";
 import axios from "axios";
 import checkAuthentication from "./checkAuthentication";
+import { authContext } from "./App";
 
 function Lobby() {
+  const [signedIn, setSignedIn] = React.useContext(authContext);
   const { lobbyId } = useParams();
   const [selectedColour, setSelectedColour] = React.useState("#00000");
   const [lineThickness, setLineThickness] = React.useState(2);
@@ -34,6 +36,7 @@ function Lobby() {
   return (
     <div>
       <h1>Lobby ID: {lobbyId}</h1>
+      <h2>Username: {signedIn.username}</h2>
       <LineThickness
         thickness={lineThickness}
         setLineThickness={setLineThickness}

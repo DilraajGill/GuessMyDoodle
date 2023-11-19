@@ -4,6 +4,10 @@ async function checkAuthentication({ axios }) {
   if (!response.data.auth) {
     return { auth: false };
   }
-  return { auth: true };
+  return {
+    auth: true,
+    username: response.data.username,
+    points: response.data.points,
+  };
 }
 export default checkAuthentication;
