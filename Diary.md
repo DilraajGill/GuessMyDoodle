@@ -128,3 +128,4 @@ Diary
 - Created Lobby.test.jsx to begin creating lobby functionality through TDD
 - Designed first test and written code to pass test
 - Updated interim report
+- Reconfigured registering tests and page to add email field
