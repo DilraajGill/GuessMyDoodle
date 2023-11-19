@@ -29,6 +29,8 @@ const io = new SocketIo(server, {
 });
 
 var firstConnection;
+var games = {};
+
 io.on("connection", (socket) => {
   console.log("A user has connected");
   if (!firstConnection) {
