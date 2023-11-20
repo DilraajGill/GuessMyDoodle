@@ -83,6 +83,7 @@ io.on("connection", (socket) => {
       socket.emit("incorrectDrawing");
     } else if (socket === games[lobbyId].host) {
       io.to(lobbyId).emit("drawing", data);
+      games[lobbyId].addDrawing(data);
     }
   });
   socket.on("beginDrawing", (data) => {

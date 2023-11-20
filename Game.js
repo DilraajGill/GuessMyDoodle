@@ -8,6 +8,7 @@ class Game {
     this.id = lobbyId;
     this.io = io;
     this.drawing;
+    this.drawingHistory = [];
   }
   addPlayer(socket, username) {
     this.players.push({ socket, username });
@@ -30,6 +31,9 @@ class Game {
   start(numberRounds, minutesOfDrawing) {
     this.maxRounds = numberRounds;
     this.selectedTimer = minutesOfDrawing * 60;
+  }
+  addDrawing(data) {
+    this.drawingHistory.push(data);
   }
 }
 
