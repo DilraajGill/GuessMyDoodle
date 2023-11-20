@@ -19,10 +19,10 @@ describe("request new lobby", () => {
       .post("/create-lobby")
       .set("Cookie", cookie);
     console.log(lobbyResponse);
-    expect(lobbyResponse.body.auth).toEqual(true);
+    expect(lobbyResponse.body).toHaveProperty("lobbyId");
   });
   test("invalid request", async () => {
     const lobbyResponse = await request.post("/create-lobby");
-    expect(lobbyResponse.body.auth).toEqual(false);
+    expect(lobbyResponse.body.error).toBe("User not authenticated");
   });
 });
