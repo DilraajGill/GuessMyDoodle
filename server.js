@@ -65,7 +65,16 @@ io.on("connection", (socket) => {
   socket.on("join-lobby", (data) => {
     const { lobbyId, username } = data;
     console.log(`${username} is trying to join ${lobbyId}`);
-    socket.username = username;
+    if (!games[lobbyId]) {
+      socket.emit("invalid-game");
+    } else {
+      socket.username = username;
+      socket.lobbyId = lobbyId;
+      socket.points = 0;
+      games[lobbyId].addPlayer(socket, username);
+      socket.join(lobbyId);
+      console.log(`Added ${username} to the lobby`);
+    }
   });
 
   socket.on("drawing", (data) => {
