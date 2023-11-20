@@ -1,5 +1,5 @@
 import Game from "./Game";
-const gameSession = new Game();
+const gameSession = new Game("abcde");
 const mockSocket = { emit: jest.fn(), id: "first" };
 
 describe("Game class tests", () => {

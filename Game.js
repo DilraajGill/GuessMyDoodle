@@ -1,10 +1,11 @@
 class Game {
-  constructor() {
+  constructor(lobbyId) {
     this.players = [];
     this.host = null;
     this.maxRounds = 0;
     this.selectedTimer = 0;
     this.timer = 60;
+    this.id = lobbyId;
   }
   addPlayer(socket, username) {
     this.players.push({ socket, username });
@@ -17,7 +18,9 @@ class Game {
       (player) => player.socket.id !== socketId
     );
   }
-  getPlayerList() {}
+  getPlayerList() {
+    return this.players.map((player) => player.username);
+  }
   isHost(socket) {
     return this.host === socket;
   }
