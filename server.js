@@ -3,7 +3,9 @@ import passport from "passport";
 import session from "express-session";
 import router from "./auth.js";
 import { Server as SocketIo } from "socket.io";
+import Game from "./Game.js";
 
+var games = {};
 // Initialise the server and establish middleware
 const app = express();
 app.use(express.json());
@@ -20,6 +22,14 @@ app.use(passport.session());
 
 app.use("/auth", router);
 
+app.post("/create-lobby", (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ auth: false });
+  } else {
+    return res.status(201).json({ auth: true });
+  }
+});
+
 // Listen on port 3001
 const server = app.listen(3001);
 const io = new SocketIo(server, {
@@ -29,7 +39,6 @@ const io = new SocketIo(server, {
 });
 
 var firstConnection;
-var games = {};
 
 io.on("connection", (socket) => {
   console.log("A user has connected");
