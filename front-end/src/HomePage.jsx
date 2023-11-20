@@ -35,7 +35,14 @@ function HomePage() {
     }
   }
 
-  return <h1>Home Page</h1>;
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <h2>Welcome {signedIn.username}</h2>
+      <h2>Your Points: {signedIn.points}</h2>
+      <button onClick={createLobby}>Create Lobby!</button>
+    </div>
+  );
 }
 
 export default HomePage;
