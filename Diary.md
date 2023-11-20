@@ -129,3 +129,7 @@ Diary
 - Designed first test and written code to pass test
 - Updated interim report
 - Reconfigured registering tests and page to add email field
+
+20/11/23
+
+- Created Game class to manage interactions of lobby
