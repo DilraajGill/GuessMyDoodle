@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 
-function Canvas({ lineThickness, colour, socket }) {
+function Canvas({ lineThickness, colour, socket, lobbyId }) {
   // Reference canvas object
   const canvasRef = useRef(null);
   // Reference 2D context
@@ -11,7 +11,7 @@ function Canvas({ lineThickness, colour, socket }) {
   function beginDrawing(ev) {
     console.log(`Drawing Began`);
     setIsDrawing(true);
-    socket.emit("beginDrawing");
+    socket.emit("beginDrawing", { lobbyId });
   }
 
   function drawCanvas(ev) {
@@ -24,6 +24,7 @@ function Canvas({ lineThickness, colour, socket }) {
         thickness: lineThickness,
         colour: colour,
         type: "draw",
+        lobbyId,
       });
     } else {
       console.log("Not Drawing");
@@ -54,6 +55,7 @@ function Canvas({ lineThickness, colour, socket }) {
     });
 
     socket.on("beginDrawing", () => {
+      console.log("Began Path");
       contextRef.current.beginPath();
     });
   }, []);

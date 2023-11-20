@@ -57,6 +57,7 @@ function Lobby() {
         lineThickness={lineThickness}
         colour={selectedColour}
         socket={socket}
+        lobbyId={lobbyId}
       />
       <ChatBox socket={socket} username={signedIn.username} />
     </div>
