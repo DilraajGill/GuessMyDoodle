@@ -22,12 +22,25 @@ app.use(passport.session());
 
 app.use("/auth", router);
 
+function generateLobbyID() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let output = "";
+  for (let x = 0; x < 5; x++) {
+    output += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return output;
+}
+
 app.post("/create-lobby", (req, res) => {
   if (!req.isAuthenticated()) {
-    return res.status(401).json({ auth: false });
-  } else {
-    return res.status(201).json({ auth: true });
+    return res.status(401).json({ error: "User not authenticated" });
   }
+  const generatedID = generateLobbyID();
+  while (games[generatedID]) {
+    generatedID = generateLobbyID();
+  }
+  games[generatedID] = new Game(generatedID);
+  return res.status(201).json({ lobbyId: generatedID });
 });
 
 // Listen on port 3001
