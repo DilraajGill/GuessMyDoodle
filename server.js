@@ -39,7 +39,7 @@ app.post("/create-lobby", (req, res) => {
   while (games[generatedID]) {
     generatedID = generateLobbyID();
   }
-  games[generatedID] = new Game(generatedID);
+  games[generatedID] = new Game(generatedID, io);
   return res.status(201).json({ lobbyId: generatedID });
 });
 
@@ -71,26 +71,23 @@ io.on("connection", (socket) => {
       socket.username = username;
       socket.lobbyId = lobbyId;
       socket.points = 0;
-      games[lobbyId].addPlayer(socket, username);
       socket.join(lobbyId);
+      games[lobbyId].addPlayer(socket, username);
       console.log(`Added ${username} to the lobby`);
     }
   });
 
   socket.on("drawing", (data) => {
-    if (socket === firstConnection) {
-      if (data && data.x && data.y) {
-        io.emit("drawing", data);
-        socket.emit("correctDrawing");
-      } else {
-        socket.emit("incorrectDrawing");
-      }
+    const { lobbyId } = data;
+    if (!games[lobbyId]) {
+      socket.emit("incorrectDrawing");
+    } else if (socket === games[lobbyId].host) {
+      io.to(lobbyId).emit("drawing", data);
     }
   });
-  socket.on("beginDrawing", () => {
-    if (socket === firstConnection) {
-      io.emit("beginDrawing");
-    }
+  socket.on("beginDrawing", (data) => {
+    const { lobbyId } = data;
+    io.to(lobbyId).emit("beginDrawing");
   });
 
   socket.on("test-drawing-allowed", () => {

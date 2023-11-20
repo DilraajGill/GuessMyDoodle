@@ -7,11 +7,13 @@ class Game {
     this.timer = 60;
     this.id = lobbyId;
     this.io = io;
+    this.drawing;
   }
   addPlayer(socket, username) {
     this.players.push({ socket, username });
     if (!this.host) {
       this.host = socket;
+      this.drawing = socket;
     }
   }
   removePlayer(socketId) {
