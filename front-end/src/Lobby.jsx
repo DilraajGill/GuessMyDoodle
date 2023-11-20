@@ -59,7 +59,7 @@ function Lobby() {
         socket={socket}
         lobbyId={lobbyId}
       />
-      <ChatBox socket={socket} username={signedIn.username} />
+      <ChatBox socket={socket} username={signedIn.username} lobbyId />
     </div>
   );
 }

@@ -99,9 +99,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send-message", (data) => {
-    const { text, username } = data;
+    const { text, username, lobbyId } = data;
     socket.emit("correct-message");
-    io.emit("receive-message", { text, username });
+    io.to(lobbyId).emit("receive-message", { text, username });
   });
 });
 
