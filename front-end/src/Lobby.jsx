@@ -14,6 +14,7 @@ function Lobby() {
   const { lobbyId } = useParams();
   const [selectedColour, setSelectedColour] = React.useState("#00000");
   const [lineThickness, setLineThickness] = React.useState(2);
+  const [validGame, setValidGame] = React.useState(true);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -23,7 +24,6 @@ function Lobby() {
         setSignedIn({
           auth: true,
           username: response.username,
-          // Temporary points
           points: response.points,
         });
         socket.emit("join-lobby", {
@@ -35,8 +35,15 @@ function Lobby() {
       }
     }
     ensureLogin();
+
+    socket.on("invalid-game", () => {
+      setValidGame(false);
+    });
   }, []);
 
+  if (!validGame) {
+    return <h1>Invalid Game</h1>;
+  }
   return (
     <div>
       <h1>Lobby ID: {lobbyId}</h1>
