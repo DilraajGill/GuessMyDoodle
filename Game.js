@@ -1,11 +1,12 @@
 class Game {
-  constructor(lobbyId) {
+  constructor(lobbyId, io) {
     this.players = [];
     this.host = null;
     this.maxRounds = 0;
     this.selectedTimer = 0;
     this.timer = 60;
     this.id = lobbyId;
+    this.io = io;
   }
   addPlayer(socket, username) {
     this.players.push({ socket, username });
