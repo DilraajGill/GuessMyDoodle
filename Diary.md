@@ -132,4 +132,12 @@ Diary
 
 20/11/23
 
+- Create Game class tests for TDD process
 - Created Game class to manage interactions of lobby
+- Integrated Game class into server file
+- Create generating lobby back-end tests
+- Created code to pass tests
+- Ensure only created lobbies can be joined (no random lobbies)
+  Next Steps:
+  Make sure drawings from one lobby do not affect another lobby
+  If a user joins late, display the history of drawings
