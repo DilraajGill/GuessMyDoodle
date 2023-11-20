@@ -25,6 +25,16 @@ function HomePage() {
     ensureLogin();
   });
 
+  async function createLobby() {
+    try {
+      const response = await axios.post("/create-lobby");
+      const lobbyId = response.data.lobbyId;
+      navigation(`/lobby/${lobbyId}`);
+    } catch (error) {
+      console.log("Error making lobby");
+    }
+  }
+
   return <h1>Home Page</h1>;
 }
 
