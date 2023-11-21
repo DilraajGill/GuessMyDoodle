@@ -68,6 +68,10 @@ io.on("connection", (socket) => {
     socket.emit("correct-message");
     games.messageGame(lobbyId, text, username);
   });
+
+  socket.on("disconnect", () => {
+    games.removePlayer(socket);
+  });
 });
 
 export default app;

@@ -68,6 +68,14 @@ class GameDispatcher {
   beganDrawing(lobbyId) {
     this.io.to(lobbyId).emit("beginDrawing");
   }
+  removePlayer(socket) {
+    if (this.checkExists(socket.lobbyId)) {
+      this.games[socket.lobbyId].removePlayer(socket.id);
+      this.io
+        .to(socket.lobbyId)
+        .emit("set-players", this.games[socket.lobbyId].getPlayerList());
+    }
+  }
 }
 
 export default GameDispatcher;
