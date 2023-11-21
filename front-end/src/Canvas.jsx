@@ -66,7 +66,11 @@ function Canvas({ lineThickness, colour, socket, lobbyId }) {
 
   useEffect(() => {
     drawings.forEach((drawing) => {
-      drawOntoCanvas(drawing);
+      if (drawing.type === "draw") {
+        drawOntoCanvas(drawing);
+      } else if (drawing.type === "move") {
+        contextRef.current.beginPath();
+      }
     });
   }, [drawings]);
 

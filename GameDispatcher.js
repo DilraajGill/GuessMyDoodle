@@ -68,6 +68,7 @@ class GameDispatcher {
   }
   beganDrawing(lobbyId) {
     this.io.to(lobbyId).emit("beginDrawing");
+    this.games[lobbyId].addDrawing({ type: "move" });
   }
   removePlayer(socket) {
     if (this.checkExists(socket.lobbyId)) {
