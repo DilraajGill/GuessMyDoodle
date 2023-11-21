@@ -58,7 +58,17 @@ function Canvas({ lineThickness, colour, socket, lobbyId }) {
       console.log("Began Path");
       contextRef.current.beginPath();
     });
+
+    socket.on("initial-drawings", (data) => {
+      setDrawings(data);
+    });
   }, []);
+
+  useEffect(() => {
+    drawings.forEach((drawing) => {
+      drawOntoCanvas(drawing);
+    });
+  }, [drawings]);
 
   return (
     <div>

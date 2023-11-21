@@ -45,6 +45,7 @@ class GameDispatcher {
       this.io
         .to(lobbyId)
         .emit("set-players", this.games[lobbyId].getPlayerList());
+      this.games[lobbyId].initialiseState(socket);
     } else {
       socket.emit("invalid-game");
     }

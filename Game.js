@@ -9,6 +9,7 @@ class Game {
     this.io = io;
     this.drawing;
     this.drawingHistory = [];
+    this.state = "drawing";
   }
   addPlayer(socket, username) {
     this.players.push({ socket, username });
@@ -34,6 +35,14 @@ class Game {
   }
   addDrawing(data) {
     this.drawingHistory.push(data);
+  }
+  getDrawing() {
+    return this.drawingHistory;
+  }
+  initialiseState(socket) {
+    if (this.state === "drawing") {
+      socket.emit("initial-drawings", this.getDrawing());
+    }
   }
 }
 
