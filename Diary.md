@@ -149,3 +149,6 @@ Diary
 - Passed unit tests
 - Moved server code interacting with game to GameDispatcher methods
 - Use methods within server to interact
+- Completed next steps planned on 20/11/23
+  Next Steps:
+  Add lobby customisation component
