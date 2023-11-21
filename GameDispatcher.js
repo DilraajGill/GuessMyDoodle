@@ -33,6 +33,15 @@ class GameDispatcher {
     }
     return output;
   }
+  joinGame(lobbyId, socket) {
+    if (this.checkExists(lobbyId)) {
+      socket.join(lobbyId);
+      this.games[lobbyId].addPlayer(socket, socket.username);
+    }
+  }
+  messageGame(lobbyId, text, username) {
+    this.io.to(lobbyId).emit("receive-message", { text, username });
+  }
 }
 
 export default GameDispatcher;
