@@ -141,3 +141,11 @@ Diary
   Next Steps:
   Make sure drawings from one lobby do not affect another lobby
   If a user joins late, display the history of drawings
+
+21/11/23
+
+- Created GameDispatcher class to dispatch requests to appropriate games
+- Unit tests created to make GameDispatcher functionality
+- Passed unit tests
+- Moved server code interacting with game to GameDispatcher methods
+- Use methods within server to interact
