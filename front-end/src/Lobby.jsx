@@ -15,6 +15,7 @@ function Lobby() {
   const [selectedColour, setSelectedColour] = React.useState("#00000");
   const [lineThickness, setLineThickness] = React.useState(2);
   const [validGame, setValidGame] = React.useState(true);
+  const [players, setPlayers] = React.useState([]);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -39,6 +40,10 @@ function Lobby() {
     socket.on("invalid-game", () => {
       setValidGame(false);
     });
+
+    socket.on("set-players", (data) => {
+      setPlayers(data);
+    });
   }, []);
 
   if (!validGame) {
@@ -48,6 +53,12 @@ function Lobby() {
     <div>
       <h1>Lobby ID: {lobbyId}</h1>
       <h2>Username: {signedIn.username}</h2>
+      <h3>Players:</h3>
+      {players.map((player, index) => (
+        <div key={index}>
+          <strong>{player}</strong>
+        </div>
+      ))}
       <LineThickness
         thickness={lineThickness}
         setLineThickness={setLineThickness}

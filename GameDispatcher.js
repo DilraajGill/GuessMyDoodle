@@ -42,6 +42,9 @@ class GameDispatcher {
       socket.join(lobbyId);
       this.games[lobbyId].addPlayer(socket, username);
       console.log(`Added ${username} to the lobby`);
+      this.io
+        .to(lobbyId)
+        .emit("set-players", this.games[lobbyId].getPlayerList());
     } else {
       socket.emit("invalid-game");
     }
