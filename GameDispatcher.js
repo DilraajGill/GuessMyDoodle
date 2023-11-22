@@ -82,6 +82,7 @@ class GameDispatcher {
     if (this.checkExists(socket.lobbyId)) {
       if (this.checkHost(socket.lobbyId, socket)) {
         this.io.to(socket.lobbyId).emit("set-minutes", minutes);
+        this.games[socket.lobbyId].setMinutes(minutes);
       }
     }
   }
@@ -89,6 +90,7 @@ class GameDispatcher {
     if (this.checkExists(socket.lobbyId)) {
       if (this.checkHost(socket.lobbyId, socket)) {
         this.io.to(socket.lobbyId).emit("set-rounds", rounds);
+        this.games[socket.lobbyId].setRounds(rounds);
       }
     }
   }
