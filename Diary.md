@@ -152,3 +152,10 @@ Diary
 - Completed next steps planned on 20/11/23
   Next Steps:
   Add lobby customisation component
+
+22/11/23
+
+- Added lobby customisation component
+- Created new methods in GameDispatcher and Game classes to support customisations
+  Next Steps:
+  Create Round class to handle each turn
