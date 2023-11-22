@@ -19,6 +19,7 @@ function Lobby() {
   const [players, setPlayers] = React.useState([]);
   const [minutes, setMinutes] = React.useState(1);
   const [rounds, setRounds] = React.useState(1);
+  const [gameState, setGameState] = React.useState({ state: "settings" });
   const navigation = useNavigate();
 
   useEffect(() => {

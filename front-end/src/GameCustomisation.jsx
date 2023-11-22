@@ -9,6 +9,10 @@ function GameCustomisation({ socket, rounds, minutes }) {
     socket.emit("update-minutes", ev.target.value);
   }
 
+  function startGame() {
+    socket.emit("start-game");
+  }
+
   return (
     <div>
       <label>
@@ -31,6 +35,7 @@ function GameCustomisation({ socket, rounds, minutes }) {
           onChange={minutesUpdate}
         />
       </label>
+      <button onClick={startGame}>Start Game</button>
     </div>
   );
 }
