@@ -2,7 +2,7 @@ import React from "react";
 
 function GameCustomisation({ socket, rounds, minutes }) {
   function roundUpdate(ev) {
-    socket.emit("update-round", ev.target.value);
+    socket.emit("update-rounds", ev.target.value);
   }
 
   function minutesUpdate(ev) {

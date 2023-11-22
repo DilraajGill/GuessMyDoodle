@@ -69,6 +69,14 @@ io.on("connection", (socket) => {
     games.messageGame(lobbyId, text, username);
   });
 
+  socket.on("update-rounds", (rounds) => {
+    games.updateRounds(socket, rounds);
+  });
+
+  socket.on("update-minutes", (minutes) => {
+    games.updateMinutes(socket, minutes);
+  });
+
   socket.on("disconnect", () => {
     games.removePlayer(socket);
   });
