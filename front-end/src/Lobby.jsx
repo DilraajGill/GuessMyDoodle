@@ -19,7 +19,7 @@ function Lobby() {
   const [players, setPlayers] = React.useState([]);
   const [minutes, setMinutes] = React.useState(1);
   const [rounds, setRounds] = React.useState(1);
-  const [gameState, setGameState] = React.useState({ state: "settings" });
+  const [gameState, setGameState] = React.useState("settings");
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function Lobby() {
     });
 
     socket.on("set-state", (state) => {
-      setGameState({ state });
+      setGameState(state);
     });
   }, []);
 
@@ -75,18 +75,34 @@ function Lobby() {
           <strong>{player}</strong>
         </div>
       ))}
-      <LineThickness
-        thickness={lineThickness}
-        setLineThickness={setLineThickness}
-      />
-      <ColourChooser toCanvas={setSelectedColour} />
-      <Canvas
-        lineThickness={lineThickness}
-        colour={selectedColour}
-        socket={socket}
-        lobbyId={lobbyId}
-      />
-      <ChatBox socket={socket} username={signedIn.username} lobbyId={lobbyId} />
+      {gameState === "settings" ? (
+        <div>
+          <GameCustomisation
+            socket={socket}
+            rounds={rounds}
+            minutes={minutes}
+          />
+        </div>
+      ) : (
+        <div>
+          <LineThickness
+            thickness={lineThickness}
+            setLineThickness={setLineThickness}
+          />
+          <ColourChooser toCanvas={setSelectedColour} />
+          <Canvas
+            lineThickness={lineThickness}
+            colour={selectedColour}
+            socket={socket}
+            lobbyId={lobbyId}
+          />
+          <ChatBox
+            socket={socket}
+            username={signedIn.username}
+            lobbyId={lobbyId}
+          />
+        </div>
+      )}
     </div>
   );
 }
