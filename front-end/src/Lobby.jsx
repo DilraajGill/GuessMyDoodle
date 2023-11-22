@@ -56,6 +56,10 @@ function Lobby() {
     socket.on("set-minutes", (minutes) => {
       setMinutes(minutes);
     });
+
+    socket.on("set-state", (state) => {
+      setGameState({ state });
+    });
   }, []);
 
   if (!validGame) {

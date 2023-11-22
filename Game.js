@@ -41,10 +41,10 @@ class Game {
   }
   initialiseState(socket) {
     if (this.state === "drawing") {
-      socket.emit("setState", "drawing");
+      socket.emit("set-state", "drawing");
       socket.emit("initial-drawings", this.getDrawing());
     } else if (this.state === "settings") {
-      socket.emit("setState", "settings");
+      socket.emit("set-state", "settings");
       socket.emit("set-minutes", this.selectedTimer);
       socket.emit("set-rounds", this.maxRounds);
     }
@@ -57,7 +57,7 @@ class Game {
   }
   start() {
     this.state = "drawing";
-    socket.emit("setState", this.state);
+    socket.emit("set-state", this.state);
   }
 }
 
