@@ -101,6 +101,11 @@ class GameDispatcher {
       }
     }
   }
+  initialiseDrawings(socket) {
+    if (this.checkExists(socket.lobbyId)) {
+      this.games[socket.lobbyId].initialiseState(socket);
+    }
+  }
 }
 
 export default GameDispatcher;

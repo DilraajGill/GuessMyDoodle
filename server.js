@@ -84,6 +84,10 @@ io.on("connection", (socket) => {
   socket.on("start-game", () => {
     games.startGame(socket);
   });
+
+  socket.on("initialise-drawings", () => {
+    games.initialiseDrawings(socket);
+  });
 });
 
 export default app;

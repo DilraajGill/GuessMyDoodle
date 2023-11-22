@@ -57,7 +57,7 @@ class Game {
   }
   start() {
     this.state = "drawing";
-    socket.emit("set-state", this.state);
+    this.io.to(this.id).emit("set-state", this.state);
   }
 }
 

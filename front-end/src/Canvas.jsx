@@ -50,6 +50,8 @@ function Canvas({ lineThickness, colour, socket, lobbyId }) {
     const context = canvasRef.current.getContext("2d");
     contextRef.current = context;
 
+    socket.emit("initialise-drawings");
+
     socket.on("drawing", (data) => {
       drawOntoCanvas(data);
     });
