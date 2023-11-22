@@ -8,6 +8,7 @@ import socket from "./SocketManager";
 import axios from "axios";
 import checkAuthentication from "./checkAuthentication";
 import { authContext } from "./App";
+import GameCustomisation from "./GameCustomisation";
 
 function Lobby() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
@@ -16,6 +17,8 @@ function Lobby() {
   const [lineThickness, setLineThickness] = React.useState(2);
   const [validGame, setValidGame] = React.useState(true);
   const [players, setPlayers] = React.useState([]);
+  const [minutes, setMinutes] = React.useState(1);
+  const [rounds, setRounds] = React.useState(1);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -43,6 +46,14 @@ function Lobby() {
 
     socket.on("set-players", (data) => {
       setPlayers(data);
+    });
+
+    socket.on("set-rounds", (rounds) => {
+      setRounds(rounds);
+    });
+
+    socket.on("set-minutes", (minutes) => {
+      setMinutes(minutes);
     });
   }, []);
 
