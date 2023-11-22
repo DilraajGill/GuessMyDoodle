@@ -94,6 +94,13 @@ class GameDispatcher {
       }
     }
   }
+  startGame(socket) {
+    if (this.checkExists(socket.lobbyId)) {
+      if (this.checkHost(socket.lobbyId, socket)) {
+        this.games[socket.lobbyId].start();
+      }
+    }
+  }
 }
 
 export default GameDispatcher;

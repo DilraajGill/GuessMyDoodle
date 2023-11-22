@@ -55,6 +55,10 @@ class Game {
   setRounds(rounds) {
     this.maxRounds = rounds;
   }
+  start() {
+    this.state = "drawing";
+    socket.emit("setState", this.state);
+  }
 }
 
 export default Game;

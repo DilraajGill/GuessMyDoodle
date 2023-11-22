@@ -80,6 +80,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     games.removePlayer(socket);
   });
+
+  socket.on("start-game", () => {
+    games.startGame(socket);
+  });
 });
 
 export default app;
