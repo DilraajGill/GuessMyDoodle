@@ -78,6 +78,20 @@ class GameDispatcher {
         .emit("set-players", this.games[socket.lobbyId].getPlayerList());
     }
   }
+  updateMinutes(socket, minutes) {
+    if (this.checkExists(socket.lobbyId)) {
+      if (this.checkHost(socket.lobbyId, socket)) {
+        this.io.to(socket.lobbyId).emit("set-minutes", minutes);
+      }
+    }
+  }
+  updateRounds(socket, rounds) {
+    if (this.checkExists(socket.lobbyId)) {
+      if (this.checkHost(socket.lobbyId, socket)) {
+        this.io.to(socket.lobbyId).emit("set-rounds", rounds);
+      }
+    }
+  }
 }
 
 export default GameDispatcher;
