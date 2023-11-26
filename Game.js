@@ -29,10 +29,6 @@ class Game {
   isHost(socket) {
     return this.host === socket;
   }
-  start(numberRounds, minutesOfDrawing) {
-    this.maxRounds = numberRounds;
-    this.selectedTimer = minutesOfDrawing * 60;
-  }
   addDrawing(data) {
     this.drawingHistory.push(data);
   }
@@ -58,6 +54,9 @@ class Game {
   start() {
     this.state = "drawing";
     this.io.to(this.id).emit("set-state", this.state);
+  }
+  isDrawing(socket) {
+    return this.drawing === socket;
   }
 }
 

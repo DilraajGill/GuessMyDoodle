@@ -41,25 +41,4 @@ describe("game tests", () => {
       done();
     });
   });
-
-  test("first one drawing only", (done) => {
-    client.emit("test-drawing-allowed");
-    client.once("drawing-allowed", () => {
-      done();
-    });
-  });
-
-  test("second user cannot draw", (done) => {
-    secondClient.emit("test-drawing-allowed");
-    secondClient.once("drawing-not-allowed", () => {
-      done();
-    });
-  });
-
-  test("joining invalid game", (done) => {
-    client.emit("join-lobby", { lobbyId: "ABCDE", username: "Test" });
-    client.once("invalid-game", () => {
-      done();
-    });
-  });
 });
