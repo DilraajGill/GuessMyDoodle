@@ -159,3 +159,9 @@ Diary
 - Created new methods in GameDispatcher and Game classes to support customisations
   Next Steps:
   Create Round class to handle each turn
+
+26/11/23
+
+- Refactored test code
+- Removed unused test files
+- Added test code to previous files to ensure testing all functionality
