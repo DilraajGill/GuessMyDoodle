@@ -32,12 +32,12 @@ describe("Testing Game dispatcher", () => {
     Games.joinGame(addedLobby, mockSocket, "Test");
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
-  test("send message to dispatcher", () => {
+  test("send message to dispatcher and broadcast to lobby", () => {
     Games.messageGame(addedLobby, "Hello", "Test");
     expect(mockSocket.join).toHaveBeenCalled();
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
-  test("add drawing", () => {
+  test("add drawing and broadcast to lobby", () => {
     Games.addDrawing(addedLobby, mockSocket, { x: 190, y: 290 });
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
@@ -45,11 +45,11 @@ describe("Testing Game dispatcher", () => {
     const outcome = Games.remove(addedLobby);
     expect(outcome).toBe(true);
   });
-  test("update minutes", () => {
+  test("update minutes broadcasts to lobby", () => {
     Games.updateMinutes(mockSocket, 2);
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
-  test("update max rounds", () => {
+  test("update max rounds broadcasts to lobby", () => {
     Games.updateRounds(mockSocket, 2);
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
