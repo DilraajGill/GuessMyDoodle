@@ -50,4 +50,9 @@ describe("Game class tests", () => {
     const notHost = { id: "second" };
     expect(gameSession.isDrawing(notHost)).toBe(false);
   });
+  test("began drawing", () => {
+    const drawingInformation = { x: 190, y: 290 };
+    gameSession.addDrawing(drawingInformation);
+    expect(gameSession.drawingHistory).toContain(drawingInformation);
+  });
 });
