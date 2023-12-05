@@ -61,7 +61,7 @@ class GameDispatcher {
   addDrawing(lobbyId, socket, data) {
     if (!this.checkExists(lobbyId)) {
       socket.emit("incorrectDrawing");
-    } else if (this.checkHost(lobbyId, socket)) {
+    } else if (this.checkDrawing(lobbyId, socket)) {
       this.io.to(lobbyId).emit("drawing", data);
       this.games[lobbyId].addDrawing(data);
     }
@@ -105,6 +105,9 @@ class GameDispatcher {
     if (this.checkExists(socket.lobbyId)) {
       this.games[socket.lobbyId].initialiseState(socket);
     }
+  }
+  checkDrawing(lobbyId, socket) {
+    return this.games[lobbyId].isDrawing(socket);
   }
 }
 
