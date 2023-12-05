@@ -169,3 +169,7 @@ Diary
 5/12/23
 
 - Refactored front end test code
+- Created Round class
+- Created Round class test file
+- Developed tests for Round class
+- Through TDD process, created Round class functionality
