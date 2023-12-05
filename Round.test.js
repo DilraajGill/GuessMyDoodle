@@ -7,7 +7,7 @@ describe("round class tests", () => {
   ];
   const lobbyId = "ABCDE";
   const words = ["Dilraaj", "Custom", "Words"];
-  round = new Round(mockPlayers, lobbyId, words);
+  const round = new Round(mockPlayers, lobbyId, words);
 
   test("initialise round", () => {
     round.initialise();
@@ -20,7 +20,7 @@ describe("round class tests", () => {
     expect(round.hasNextDrawer()).toBe(true);
   });
   test("setting word should update variable", () => {
-    newWord = "NewWord";
+    const newWord = "NewWord";
     round.setWord(newWord);
     expect(round.selectedWord).toBe(newWord);
   });
@@ -28,7 +28,7 @@ describe("round class tests", () => {
     expect(round.allGuessedCorrect()).toBe(false);
   });
   test("user guessing correctly returns true", () => {
-    selectedUser = round.players[1];
+    const selectedUser = round.players[1];
     expect(round.guess("NewWord", selectedUser)).toBe(true);
     expect(round.players[1].hasGuessedCorrectly).toBe(true);
   });
