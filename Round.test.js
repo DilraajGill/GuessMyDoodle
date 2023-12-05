@@ -32,4 +32,8 @@ describe("round class tests", () => {
     expect(round.guess("NewWord", selectedUser)).toBe(true);
     expect(round.players[1].hasGuessedCorrectly).toBe(true);
   });
+  test("reset guessed correctly tag", () => {
+    round.resetGuesses();
+    expect(round.players[1].hasGuessedCorrectly).toBe(false);
+  });
 });
