@@ -1,48 +1,90 @@
 import React from "react";
 import Canvas from "./Canvas";
-import {fireEvent, render, screen} from "@testing-library/react";
-import 'jest-canvas-mock';
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import "jest-canvas-mock";
 
 describe("Canvas Tests", () => {
-    test("rendering canvas", () => {
-        render(<Canvas/>);
-        expect(screen.getByRole("canvas")).toBeInTheDocument();
-    })
+  const mockSocket = {
+    emit: jest.fn(),
+    on: jest.fn(),
+  };
+  const mockLineThickness = 2;
+  const mockColour = "#00000";
+  const mockLobbyId = "ABCDE";
 
-    test("begin drawing called", () => {
-        render(<Canvas/>)
-        const canvasScreen = screen.getByRole("canvas");
-        const consoleTest = jest.spyOn(console, "log");
-        fireEvent.mouseDown(canvasScreen, { clientX: 50, clientY: 50 });
-        expect(consoleTest).toHaveBeenCalledWith("Drawing Began");
-        consoleTest.mockRestore()
-    })
+  test("rendering canvas", () => {
+    render(
+      <Canvas
+        lineThickness={mockLineThickness}
+        colour={mockColour}
+        socket={mockSocket}
+        lobbyId={mockLobbyId}
+      />
+    );
+    expect(screen.getByRole("canvas")).toBeInTheDocument();
+  });
 
-    test("end drawing called", () => {
-        render(<Canvas/>);
-        const canvasScreen = screen.getByRole("canvas");
-        const consoleTest = jest.spyOn(console, "log");
-        fireEvent.mouseUp(canvasScreen);
-        expect(consoleTest).toHaveBeenCalledWith("Drawing Ended");
-    })
+  test("begin drawing called", () => {
+    render(
+      <Canvas
+        lineThickness={mockLineThickness}
+        colour={mockColour}
+        socket={mockSocket}
+        lobbyId={mockLobbyId}
+      />
+    );
+    const canvasScreen = screen.getByRole("canvas");
+    fireEvent.mouseDown(canvasScreen, { clientX: 50, clientY: 50 });
+    expect(mockSocket.emit).toHaveBeenCalledWith("beginDrawing", {
+      lobbyId: mockLobbyId,
+    });
+  });
 
-    test("moving drawing called", () => {
-        render(<Canvas/>);
-        const canvasScreen = screen.getByRole("canvas");
-        const consoleTest = jest.spyOn(console, "log");
+  test("end drawing called", () => {
+    render(
+      <Canvas
+        lineThickness={mockLineThickness}
+        colour={mockColour}
+        socket={mockSocket}
+        lobbyId={mockLobbyId}
+      />
+    );
+    const canvasScreen = screen.getByRole("canvas");
+    fireEvent.mouseUp(canvasScreen);
+    expect(mockSocket.emit).not.toHaveBeenCalledWith("drawing");
+  });
 
-        fireEvent.mouseDown(canvasScreen, { clientX: 50, clientY: 90});
-        fireEvent.mouseMove(canvasScreen, { clientX: 50, clientY: 100});
-        expect(consoleTest).toHaveBeenCalledWith("Drawing");
-    })
+  test("moving drawing called", async () => {
+    render(
+      <Canvas
+        lineThickness={mockLineThickness}
+        colour={mockColour}
+        socket={mockSocket}
+        lobbyId={mockLobbyId}
+      />
+    );
+    const canvasScreen = screen.getByRole("canvas");
+    fireEvent.mouseDown(canvasScreen, { clientX: 50, clientY: 90 });
+    fireEvent.mouseMove(canvasScreen, {
+      nativeEvent: { offsetX: 50, offsetY: 100 },
+    });
+    fireEvent.mouseMove(canvasScreen, {
+      nativeEvent: { offsetX: 100, offsetY: 200 },
+    });
+    expect(mockSocket.emit).toBeCalledWith("drawing", expect.any(Object));
+  });
 
-    test("drawing not possible without mouseDown", ()=> {
-        render(<Canvas/>);
-        const canvasScreen = screen.getByRole("canvas");
-        const consoleTest = jest.spyOn(console, "log");
-
-        fireEvent.mouseMove(canvasScreen, { clientX: 50, clientY: 100});
-        expect(consoleTest).toHaveBeenCalledWith("Not Drawing");
-    })
-
-})
+  test("drawing not possible without mouseDown", () => {
+    render(
+      <Canvas
+        lineThickness={mockLineThickness}
+        colour={mockColour}
+        socket={mockSocket}
+        lobbyId={mockLobbyId}
+      />
+    );
+    const canvasScreen = screen.getByRole("canvas");
+    fireEvent.mouseMove(canvasScreen, { clientX: 50, clientY: 100 });
+    expect(mockSocket.emit).not.toHaveBeenCalledWith("drawing");
+  });
+});
