@@ -36,6 +36,11 @@ class Round {
         player.hasGuessedCorrectly || player === this.getCurrentDrawer()
     );
   }
+  resetGuesses() {
+    this.players.forEach((player) => {
+      player.hasGuessedCorrectly = false;
+    });
+  }
 }
 
 export default Round;
