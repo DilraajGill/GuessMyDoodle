@@ -165,3 +165,7 @@ Diary
 - Refactored test code
 - Removed unused test files
 - Added test code to previous files to ensure testing all functionality
+
+5/12/23
+
+- Refactored front end test code
