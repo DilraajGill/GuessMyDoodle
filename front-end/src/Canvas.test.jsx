@@ -4,6 +4,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "jest-canvas-mock";
 
 describe("Canvas Tests", () => {
+  // Define mock objects to be passed to component
   const mockSocket = {
     emit: jest.fn(),
     on: jest.fn(),
@@ -33,6 +34,7 @@ describe("Canvas Tests", () => {
         lobbyId={mockLobbyId}
       />
     );
+    // Ensure socket transmission is called when on mouseDown
     const canvasScreen = screen.getByRole("canvas");
     fireEvent.mouseDown(canvasScreen, { clientX: 50, clientY: 50 });
     expect(mockSocket.emit).toHaveBeenCalledWith("beginDrawing", {
@@ -51,6 +53,7 @@ describe("Canvas Tests", () => {
     );
     const canvasScreen = screen.getByRole("canvas");
     fireEvent.mouseUp(canvasScreen);
+    // Ensure it has stopped drawing once the mouse is no longer down
     expect(mockSocket.emit).not.toHaveBeenCalledWith("drawing");
   });
 
@@ -64,6 +67,7 @@ describe("Canvas Tests", () => {
       />
     );
     const canvasScreen = screen.getByRole("canvas");
+    // Ensure transmission of game information once drawing on canvas
     fireEvent.mouseDown(canvasScreen, { clientX: 50, clientY: 90 });
     fireEvent.mouseMove(canvasScreen, {
       nativeEvent: { offsetX: 50, offsetY: 100 },
@@ -83,6 +87,7 @@ describe("Canvas Tests", () => {
         lobbyId={mockLobbyId}
       />
     );
+    // Ensure that the mouse not being down will not cause it to draw
     const canvasScreen = screen.getByRole("canvas");
     fireEvent.mouseMove(canvasScreen, { clientX: 50, clientY: 100 });
     expect(mockSocket.emit).not.toHaveBeenCalledWith("drawing");

@@ -12,6 +12,7 @@ const mockSocket = {
 
 describe("testing chatbox front-end", () => {
   test("sending message displays in chat", async () => {
+    // Test to ensure sending messages will display in the chat
     render(<ChatBox socket={mockSocket} username={username} />);
     const input = screen.getByRole("textbox");
     fireEvent.change(input, {
@@ -25,6 +26,7 @@ describe("testing chatbox front-end", () => {
   });
 
   test("receiving message displays in chat", async () => {
+    // Test to ensure that received messages will be displayed in the chat
     render(<ChatBox socket={mockSocket} username={username} />);
     const testMessage = {
       username,

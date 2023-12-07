@@ -4,6 +4,7 @@ import Lobby from "./Lobby";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
 describe("testing lobby home page", () => {
+  // test to ensure lobby id is displayed on screen
   test("display lobby id at the top", () => {
     const lobbyId = "abcdef";
     render(
