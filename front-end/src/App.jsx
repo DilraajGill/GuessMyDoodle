@@ -7,8 +7,15 @@ import Canvas from "./Canvas";
 import Lobby from "./Lobby";
 
 // Create context to store authentication
+/**
+ * Context to store authentication state
+ */
 export const authContext = React.createContext();
 
+/**
+ * Root component to load the entire application
+ * @returns {React.Component} The App component to display pages
+ */
 function App() {
   // Create state to be apssed into contxt
   const [signedIn, setSignedIn] = React.useState({ auth: false });

@@ -3,13 +3,19 @@ import axios from "axios";
 import { authContext } from "./App";
 import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
-
+/**
+ * @class HomePage
+ * Displays the home page for the User
+ */
 function HomePage() {
   // Access context from app and define navigation object
   const [signedIn, setSignedIn] = React.useContext(authContext);
   const navigation = useNavigate();
 
   // Ensure the user is signed in
+  /**
+   * Ensure the user is authenticated to proceed further
+   */
   useEffect(() => {
     async function ensureLogin() {
       const response = await checkAuthentication({ axios });
@@ -27,7 +33,9 @@ function HomePage() {
     }
     ensureLogin();
   });
-
+  /**
+   * Create a lobby with a random unique ID and navigate to it
+   */
   async function createLobby() {
     try {
       // Communicate with back-end to make lobby and navigate to this lobby

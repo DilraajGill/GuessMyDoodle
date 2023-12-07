@@ -4,10 +4,19 @@ import passport from "passport";
 import passportLocalMongoose from "passport-local-mongoose";
 import { Strategy } from "passport-local";
 
+/**
+ * Express router to handle authentication
+ * @type {express.Router}
+ * @class AuthRouter
+ */
 const router = express.Router();
 // Connect to MongoDB server
 mongoose.connect("mongodb://localhost:27017/project");
 // Create schema for User information
+/**
+ * Mongoose Schema for user information
+ * @memberof AuthRouter
+ */
 const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: String,
@@ -24,11 +33,27 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Create route for logging in
+/**
+ * Route for sending login form to be processed
+ * @name post/login
+ * @function login
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.post("/login", passport.authenticate("local"), async (req, res) => {
   res.send({ auth: req.isAuthenticated() });
 });
 
 // Create route for registering a new user
+/**
+ * Route for sending register form to be processed
+ * @name post/register
+ * @function register
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.post("/register", async (req, res) => {
   try {
     const { username, password, email } = req.body;
@@ -47,6 +72,14 @@ router.post("/register", async (req, res) => {
 });
 
 // Define a route for checking authentication status
+/**
+ * Route for validating authentication
+ * @name post/check-auth
+ * @function checkAuth
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.get("/check-auth", async (req, res) => {
   if (req.isAuthenticated() && req.user) {
     // Send user information

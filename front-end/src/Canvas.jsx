@@ -1,21 +1,49 @@
 import React, { useRef, useEffect, useState } from "react";
 
+/**
+ * Canvas component for drawing onto
+ * @param {number} lineThickness - The thickness of the line
+ * @param {string} colour - The colour of the line
+ * @param {object} socket - The socket for real-time communication
+ * @param {string} lobbyId - The ID of the lobby
+ * @returns {object} Canvas element that updates to show other drawings and yours
+ */
 function Canvas({ lineThickness, colour, socket, lobbyId }) {
   // Reference canvas object
+  /**
+   * Reference to the canvas element
+   */
   const canvasRef = useRef(null);
   // Reference 2D context
+  /**
+   * Reference to the canvas 2D Drawing context
+   */
   const contextRef = useRef(null);
   // Define states to store drawing information
+  /**
+   * State to track if user is drawing
+   */
   const [isDrawing, setIsDrawing] = useState(false);
+  /**
+   * State to track previous drawings made before user joined
+   */
   const [drawings, setDrawings] = useState([]);
 
   // Emit if the user has started drawing
+  /**
+   * Establish that the user has began drawing
+   * @param {MouseEvent} ev - Mouse event triggering it
+   */
   function beginDrawing(ev) {
     console.log(`Drawing Began`);
     setIsDrawing(true);
     socket.emit("beginDrawing", { lobbyId });
   }
   // Send drawing information to the back-end server to begin checks
+  /**
+   * Handles transmission of user drawing to the back-end server
+   * @param {MouseEvent} ev - Mouse event triggering it
+   */
   function drawCanvas(ev) {
     const { offsetX, offsetY } = ev.nativeEvent;
     if (isDrawing) {
@@ -33,11 +61,18 @@ function Canvas({ lineThickness, colour, socket, lobbyId }) {
     }
   }
   // Adjust the state to show user has stopped drawing
+  /**
+   * Handles the end of the drawing session (once mouse has gone up)
+   */
   function endDrawing() {
     console.log("Drawing Ended");
     setIsDrawing(false);
   }
   // Draw on the canvas for the information received
+  /**
+   * Draw canvas drawings onto the canvas according to received socket transmission
+   * @param {object} data - The drawing data sent by server
+   */
   function drawOntoCanvas(data) {
     const { x, y, thickness, colour } = data;
     contextRef.current.lineWidth = thickness;

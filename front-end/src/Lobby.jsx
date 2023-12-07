@@ -11,6 +11,10 @@ import { authContext } from "./App";
 import GameCustomisation from "./GameCustomisation";
 import CurrentlyDrawing from "./CurrentlyDrawing";
 
+/**
+ * Lobby to handle all interaction of settings, drawing and communication
+ * @class Lobby
+ */
 function Lobby() {
   // Define react states and parameters
   const [signedIn, setSignedIn] = React.useContext(authContext);
@@ -25,6 +29,11 @@ function Lobby() {
   const [currentlyDrawing, setCurrentlyDrawing] = React.useState("");
   const navigation = useNavigate();
 
+  /**
+   * Ran at the start to ensure only authorised users are permitted
+   * @function ensureLogin
+   * @memberof Lobby
+   */
   useEffect(() => {
     // Ensure that the user is signed in, else emit them to the login page
     async function ensureLogin() {

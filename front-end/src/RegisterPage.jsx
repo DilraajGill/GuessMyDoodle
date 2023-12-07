@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+/**
+ * React component to create the register page
+ * @class RegisterPage
+ */
 function RegisterPage() {
   // Define states to store input about registration
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   // Submit request to the back end server
+  /**
+   * Submit the request to the back-end server to process form
+   * @param {mouseEvent} e - Mouse event triggered when clicking submt
+   */
   async function submitForm(e) {
     e.preventDefault();
     var items = {

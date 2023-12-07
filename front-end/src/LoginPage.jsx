@@ -2,13 +2,24 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Login Page to allow the user to authenticate themselves
+ * @class LoginPage
+ */
 function LoginPage() {
   // Define navigate object and React states to store information
   const navigate = useNavigate();
+  /**
+   * Define React states to store values of username and password
+   */
   const [signedIn, setSignedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // Submit the form to the back end server to sign in
+  /**
+   * Submit the form containing username and password of the user account
+   * @param {mouseEvent} e - Mouse event to trigger submission of the form
+   */
   async function submitForm(e) {
     e.preventDefault();
     var items = {

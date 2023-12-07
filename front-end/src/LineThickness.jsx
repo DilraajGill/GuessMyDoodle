@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Adjust the line thickness for the user when drawing
+ * @param {*} thickness - React state storing the thickness of the drawing
+ */
 function LineThickness({ thickness, setLineThickness }) {
   // Component to adjust the line thickness of brush
   return (

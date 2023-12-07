@@ -6,9 +6,17 @@ import { Server as SocketIo } from "socket.io";
 import GameDispatcher from "./GameDispatcher.js";
 
 // Initialise the server and establish middleware
+/**
+ * Initialise Express server and establish middleware
+ * @class Server
+ */
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+/**
+ * @memberof Server
+ * Configuring session with required middlewares and key
+ */
 app.use(
   session({
     secret: "HiddenSecret.",
@@ -22,6 +30,14 @@ app.use(passport.session());
 // Use authentication routes made in auth.js file
 app.use("/auth", router);
 // Route for creating a new lobby
+/**
+ * Create lobby ID and return back to user if authenticated
+ * @memberof Server
+ * @name post/create-lobby
+ * @function create-lobby
+ * @param {express.Request} req - Request Object
+ * @param {express.Response} res - Response Object
+ */
 app.post("/create-lobby", (req, res) => {
   // Check the request is authenticated
   if (!req.isAuthenticated()) {
@@ -41,6 +57,12 @@ const io = new SocketIo(server, {
 
 // Create GameDispatcher object to dispatch requests to
 const games = new GameDispatcher(io);
+/**
+ * Define event handlers for socket communication
+ * @memberof Server
+ * @function io.on
+ * @param {object} socket - Socket object used for real-time communication
+ */
 io.on("connection", (socket) => {
   console.log("A user has connected");
   // Handler for joining a lobby

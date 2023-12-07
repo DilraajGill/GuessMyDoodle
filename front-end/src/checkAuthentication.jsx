@@ -1,3 +1,10 @@
+/**
+ * Check if the user is authorised to be accessing this web page
+ * @async
+ * @function checkAuthentication
+ * @param {AxiosInstance} Axios - Instance of Axios for making HTTP requests
+ * @returns {object} Object containing authentication properties
+ */
 async function checkAuthentication({ axios }) {
   // Ensure the user is authenticated
   const response = await axios.get("/auth/check-auth");
