@@ -180,3 +180,9 @@ Diary
   Next Steps:
   At the end of the round, remove components (conditional rendering)
   Distribute a word at the start of user's turn
+
+7/12/23
+
+- Create tests to display who is drawing
+- Developed code to pass the tests
+- Integrate new code into Lobby
