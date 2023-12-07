@@ -1,3 +1,4 @@
+import Round from "./Round.js";
 class Game {
   constructor(lobbyId, io) {
     this.players = [];
@@ -9,7 +10,9 @@ class Game {
     this.io = io;
     this.drawing;
     this.drawingHistory = [];
+    this.roundCount = 0;
     this.state = "settings";
+    this.words = ["dilraaj", "gill", "hello"];
   }
   addPlayer(socket, username) {
     this.players.push({ socket, username });
@@ -54,9 +57,41 @@ class Game {
   start() {
     this.state = "drawing";
     this.io.to(this.id).emit("set-state", this.state);
+    this.timer = this.selectedTimer * 60;
+    this.round = new Round(this.players, this.lobbyId, this.words);
+    this.beginTimer();
   }
   isDrawing(socket) {
-    return this.drawing === socket;
+    return this.round.checkDrawing(socket);
+  }
+  beginTimer() {
+    if (this.roundCount < this.maxRounds) {
+      this.timerId = setInterval(() => {
+        if (this.timer <= 0) {
+          clearInterval(this.timerId);
+          if (this.round) {
+            if (this.round.hasNextDrawer()) {
+              console.log("Going to next player");
+              this.round.nextDrawer();
+              this.timer = this.selectedTimer * 60;
+              this.beginTimer();
+            } else {
+              delete this.round;
+              console.log("Next Round");
+              this.round = new Round(this.players, this.lobbyId, this.words);
+              this.timer = this.selectedTimer * 60;
+              this.roundCount += 1;
+              this.beginTimer();
+            }
+          }
+        } else {
+          if (this.round.allGuessedCorrect()) {
+            this.timer = 0;
+          }
+          this.timer--;
+        }
+      }, 1000);
+    }
   }
 }
 

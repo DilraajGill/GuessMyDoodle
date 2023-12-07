@@ -9,6 +9,7 @@ class Round {
     this.words = words;
     this.selectedWord;
     this.lobbyId = lobbyId;
+    this.initialise();
   }
   initialise() {
     this.drawingIndex = 0;
@@ -40,6 +41,17 @@ class Round {
     this.players.forEach((player) => {
       player.hasGuessedCorrectly = false;
     });
+  }
+  checkDrawing(socket) {
+    return this.getCurrentDrawer().socket === socket;
+  }
+  nextDrawer() {
+    this.selectedWord = "";
+    this.drawingIndex += 1;
+    this.players[this.drawingIndex].hasDrawn = true;
+    console.log(
+      `Currently Drawing: ${this.getCurrentDrawer().socket.username}`
+    );
   }
 }
 
