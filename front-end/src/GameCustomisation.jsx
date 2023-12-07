@@ -1,14 +1,15 @@
 import React from "react";
 
 function GameCustomisation({ socket, rounds, minutes }) {
+  // Update the number of rounds being modified
   function roundUpdate(ev) {
     socket.emit("update-rounds", ev.target.value);
   }
-
+  // Update the number of minutes being modified
   function minutesUpdate(ev) {
     socket.emit("update-minutes", ev.target.value);
   }
-
+  // Start the game if the user has correct permissions
   function startGame() {
     socket.emit("start-game");
   }

@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
 
 function HomePage() {
+  // Access context from app and define navigation object
   const [signedIn, setSignedIn] = React.useContext(authContext);
   const navigation = useNavigate();
 
+  // Ensure the user is signed in
   useEffect(() => {
     async function ensureLogin() {
       const response = await checkAuthentication({ axios });
@@ -19,6 +21,7 @@ function HomePage() {
           points: response.points,
         });
       } else {
+        // If not signed in, navigate them to the /login page
         navigation("/login");
       }
     }
@@ -27,6 +30,7 @@ function HomePage() {
 
   async function createLobby() {
     try {
+      // Communicate with back-end to make lobby and navigate to this lobby
       const response = await axios.post("/create-lobby");
       const lobbyId = response.data.lobbyId;
       navigation(`/lobby/${lobbyId}`);

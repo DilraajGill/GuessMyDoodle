@@ -6,12 +6,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Canvas from "./Canvas";
 import Lobby from "./Lobby";
 
+// Create context to store authentication
 export const authContext = React.createContext();
 
 function App() {
+  // Create state to be apssed into contxt
   const [signedIn, setSignedIn] = React.useState({ auth: false });
   return (
     <authContext.Provider value={[signedIn, setSignedIn]}>
+      {/* Define routes for different pages */}
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />

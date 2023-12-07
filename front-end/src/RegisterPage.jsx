@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function RegisterPage() {
+  // Define states to store input about registration
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
+  // Submit request to the back end server
   async function submitForm(e) {
     e.preventDefault();
     var items = {
@@ -25,6 +26,7 @@ function RegisterPage() {
     <div>
       <h2>Register Page</h2>
       <form onSubmit={submitForm}>
+        {/* Input fields for email, username, password */}
         <input
           type="text"
           placeholder="Email"
