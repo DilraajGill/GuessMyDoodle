@@ -86,6 +86,12 @@ class Game {
             if (this.round.hasNextDrawer()) {
               // If the timer is over and someone else is left to draw, then go to them
               console.log("Going to next player");
+              this.io
+                .to(this.id)
+                .emit(
+                  "currently-drawing",
+                  this.round.getCurrentDrawer().socket.username
+                );
               this.round.nextDrawer();
               this.timer = this.selectedTimer * 60;
               this.beginTimer();
@@ -94,6 +100,12 @@ class Game {
               delete this.round;
               console.log("Next Round");
               this.round = new Round(this.players, this.lobbyId, this.words);
+              this.io
+                .to(this.id)
+                .emit(
+                  "currently-drawing",
+                  this.round.getCurrentDrawer().socket.username
+                );
               this.timer = this.selectedTimer * 60;
               this.roundCount += 1;
               this.beginTimer();

@@ -21,6 +21,7 @@ function Lobby() {
   const [minutes, setMinutes] = React.useState(1);
   const [rounds, setRounds] = React.useState(1);
   const [gameState, setGameState] = React.useState("settings");
+  const [currentlyDrawing, setCurrentlyDrawing] = React.useState("");
   const navigation = useNavigate();
 
   useEffect(() => {
