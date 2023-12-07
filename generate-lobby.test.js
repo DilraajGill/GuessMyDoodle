@@ -5,6 +5,7 @@ const request = supertest(app);
 
 describe("request new lobby", () => {
   let cookie;
+  // test to ensure authorised user can create a lobby
   test("valid request", async () => {
     const testUser = {
       username: "Test",
@@ -21,6 +22,7 @@ describe("request new lobby", () => {
     console.log(lobbyResponse);
     expect(lobbyResponse.body).toHaveProperty("lobbyId");
   });
+  // test to ensure unauthorised users cannot create a lobby
   test("invalid request", async () => {
     const lobbyResponse = await request.post("/create-lobby");
     expect(lobbyResponse.body.error).toBe("User not authenticated");
