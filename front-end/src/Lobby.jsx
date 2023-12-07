@@ -9,6 +9,7 @@ import axios from "axios";
 import checkAuthentication from "./checkAuthentication";
 import { authContext } from "./App";
 import GameCustomisation from "./GameCustomisation";
+import CurrentlyDrawing from "./CurrentlyDrawing";
 
 function Lobby() {
   // Define react states and parameters
@@ -63,6 +64,10 @@ function Lobby() {
     socket.on("set-state", (state) => {
       setGameState(state);
     });
+    socket.on("currently-drawing", (data) => {
+      console.log(data);
+      setCurrentlyDrawing(data);
+    });
   }, []);
   // If the game is invalid, it should display to user
   if (!validGame) {
@@ -90,6 +95,7 @@ function Lobby() {
       ) : (
         <div>
           {/* If drawing state, display drawing tools */}
+          <CurrentlyDrawing username={currentlyDrawing} />
           <LineThickness
             thickness={lineThickness}
             setLineThickness={setLineThickness}

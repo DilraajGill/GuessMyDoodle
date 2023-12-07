@@ -70,6 +70,9 @@ class Game {
     this.io.to(this.id).emit("set-state", this.state);
     this.timer = this.selectedTimer * 60;
     this.round = new Round(this.players, this.lobbyId, this.words);
+    this.io
+      .to(this.id)
+      .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
     this.beginTimer();
   }
   isDrawing(socket) {
@@ -86,13 +89,13 @@ class Game {
             if (this.round.hasNextDrawer()) {
               // If the timer is over and someone else is left to draw, then go to them
               console.log("Going to next player");
+              this.round.nextDrawer();
               this.io
                 .to(this.id)
                 .emit(
                   "currently-drawing",
                   this.round.getCurrentDrawer().socket.username
                 );
-              this.round.nextDrawer();
               this.timer = this.selectedTimer * 60;
               this.beginTimer();
             } else {
