@@ -16,12 +16,14 @@ app.use(
     saveUninitialized: false,
   })
 );
+// Initialise passport for authentication
 app.use(passport.initialize());
 app.use(passport.session());
-
+// Use authentication routes made in auth.js file
 app.use("/auth", router);
-
+// Route for creating a new lobby
 app.post("/create-lobby", (req, res) => {
+  // Check the request is authenticated
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not authenticated" });
   }
@@ -37,24 +39,26 @@ const io = new SocketIo(server, {
   },
 });
 
+// Create GameDispatcher object to dispatch requests to
 const games = new GameDispatcher(io);
 io.on("connection", (socket) => {
   console.log("A user has connected");
-
+  // Handler for joining a lobby
   socket.on("join-lobby", (data) => {
     const { lobbyId, username } = data;
     games.joinGame(lobbyId, socket, username);
   });
-
+  // Handler for drawing events
   socket.on("drawing", (data) => {
     const { lobbyId } = data;
     games.addDrawing(lobbyId, socket, data);
   });
+  // Handler for when the user begins drawing
   socket.on("beginDrawing", (data) => {
     const { lobbyId } = data;
     games.beganDrawing(lobbyId);
   });
-
+  // Handler for testing if permission has been given to draw
   socket.on("test-drawing-allowed", () => {
     if (socket === firstConnection) {
       socket.emit("drawing-allowed");
@@ -62,29 +66,29 @@ io.on("connection", (socket) => {
       socket.emit("drawing-not-allowed");
     }
   });
-
+  // Handler for sending message to rest of the lobby
   socket.on("send-message", (data) => {
     const { text, username, lobbyId } = data;
     socket.emit("correct-message");
     games.messageGame(lobbyId, text, username);
   });
-
+  // Handler for updating number of rounds for specific lobby
   socket.on("update-rounds", (rounds) => {
     games.updateRounds(socket, rounds);
   });
-
+  // Handler for updating number of minutes for specific lobby
   socket.on("update-minutes", (minutes) => {
     games.updateMinutes(socket, minutes);
   });
-
+  // Handler for removing disconnected users
   socket.on("disconnect", () => {
     games.removePlayer(socket);
   });
-
+  // Handler for starting a game
   socket.on("start-game", () => {
     games.startGame(socket);
   });
-
+  // Handler to establish state of current progression in lobby
   socket.on("initialise-drawings", () => {
     games.initialiseDrawings(socket);
   });
