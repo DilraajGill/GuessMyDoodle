@@ -1,5 +1,6 @@
 import Game from "./Game";
 import { Server } from "socket.io";
+// create mock object for server functions
 jest.mock("socket.io", () => {
   return {
     Server: jest.fn(() => ({

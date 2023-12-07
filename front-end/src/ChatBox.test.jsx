@@ -15,10 +15,12 @@ describe("testing chatbox front-end", () => {
     // Test to ensure sending messages will display in the chat
     render(<ChatBox socket={mockSocket} username={username} />);
     const input = screen.getByRole("textbox");
+    // submit the form
     fireEvent.change(input, {
       target: { value: text },
     });
     fireEvent.click(screen.getByText("Send"));
+    // expect mocksocket to be called to send message to server
     expect(mockSocket.emit).toHaveBeenCalledWith("send-message", {
       username,
       text,
@@ -34,6 +36,7 @@ describe("testing chatbox front-end", () => {
     };
     const mockSetMessages = jest.fn();
     receiveMessage(testMessage, mockSetMessages);
+    // ensure receiveMessage runs the callback
     expect(mockSetMessages).toHaveBeenCalled();
   });
 });

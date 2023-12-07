@@ -6,23 +6,28 @@ const request = supertest(app);
 describe("Login Tests", () => {
   // test to enusre legitimate account is allowed access
   test("login with user", async () => {
+    // login with a test user that has account in database
     const testUser = {
       username: "Test",
       password: "testing123",
     };
+    // submit response
     const response = await request
       .post("/auth/login")
       .send(testUser)
       .set("Content-Type", "application/json");
+    // expect HTML response to be successful
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("auth", true);
   });
   // test to ensure illegitimate account is not granted access
   test("login with invalid user", async () => {
+    // attempt login with invalid credentials
     const testUser = {
       username: "WrongUser",
       password: "WrongPassword",
     };
+    // submit request and expect invalid HTML response
     const response = await request
       .post("/auth/login")
       .send(testUser)
@@ -42,9 +47,11 @@ describe("Login Tests", () => {
   });
 
   test("login with no password", async () => {
+    // create test user with missing property
     const testUser = {
       username: "Test",
     };
+    // expect status 400 on response
     const response = await request
       .post("/auth/login")
       .send(testUser)
@@ -53,10 +60,12 @@ describe("Login Tests", () => {
   });
   // test to ensure empty fields does not result in successful authentication
   test("login with empty string password", async () => {
+    // create test user with empty property
     const testUser = {
       username: "Test",
       password: "",
     };
+    // expect invalid response from server
     const response = await request
       .post("/auth/login")
       .send(testUser)

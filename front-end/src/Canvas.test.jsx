@@ -22,6 +22,7 @@ describe("Canvas Tests", () => {
         lobbyId={mockLobbyId}
       />
     );
+    // expect it to be in the document
     expect(screen.getByRole("canvas")).toBeInTheDocument();
   });
 
