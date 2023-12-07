@@ -43,4 +43,10 @@ describe("round class tests", () => {
     round.resetGuesses();
     expect(round.players[1].hasGuessedCorrectly).toBe(false);
   });
+  // test to make sure at end of timer, currently drawing will adjust
+  test("going to next user will swap currentlyDrawing tag", () => {
+    round.nextDrawer();
+    expect(round.getCurrentDrawer().username).toBe("Dilraaj2");
+    expect(round.players[0].hasDrawn).toBe(true);
+  });
 });
