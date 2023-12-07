@@ -173,3 +173,10 @@ Diary
 - Created Round class test file
 - Developed tests for Round class
 - Through TDD process, created Round class functionality
+
+6/12/23
+
+- Created timer to change who is drawing at the end of their elapsed timer
+  Next Steps:
+  At the end of the round, remove components (conditional rendering)
+  Distribute a word at the start of user's turn
