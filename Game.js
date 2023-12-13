@@ -170,6 +170,13 @@ class Game {
     // Check if the socket is the one allowed access to draw
     return this.round.checkDrawing(socket);
   }
+  setWord(word) {
+    this.round.setWord(word);
+  }
+
+  guessWord(word, socket) {
+    return this.round.guess(word, socket);
+  }
   /**
    * Begin timer necessary for game functionality
    */

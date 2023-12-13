@@ -100,9 +100,18 @@ class GameDispatcher {
    * @param {string} text - Message to be sent
    * @param {string} username - Username sending the message
    */
-  messageGame(lobbyId, text, username) {
+  messageGame(lobbyId, text, socket) {
     if (this.checkExists(lobbyId)) {
-      this.io.to(lobbyId).emit("receive-message", { text, username });
+      if (this.games[lobbyId].guessWord(text, socket)) {
+        this.io.to(lobbyId).emit("receive-message", {
+          text: `${socket.username} has guessed correctly!`,
+          username: "Server",
+        });
+      } else {
+        this.io
+          .to(lobbyId)
+          .emit("receive-message", { text, username: socket.username });
+      }
     }
   }
   // Check if the socket is host of the lobby ID
@@ -211,6 +220,13 @@ class GameDispatcher {
    */
   checkDrawing(lobbyId, socket) {
     return this.games[lobbyId].isDrawing(socket);
+  }
+  setWord(lobbyId, socket, word) {
+    if (this.checkExists(lobbyId)) {
+      if (this.checkDrawing(lobbyId, socket)) {
+        this.games[lobbyId].setWord(word);
+      }
+    }
   }
 }
 

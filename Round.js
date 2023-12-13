@@ -79,9 +79,12 @@ class Round {
    * @param {Object} selectedUser - The player who has made the guess
    * @returns {boolean} returns true if the guess is correct
    */
-  guess(word, selectedUser) {
+  guess(word, socket) {
     if (word === this.selectedWord) {
-      selectedUser.hasGuessedCorrectly = true;
+      const player = this.players.find((user) => user.socket === socket);
+      if (!player.hasGuessedCorrectly) {
+        player.hasGuessedCorrectly = true;
+      }
       return true;
     }
   }

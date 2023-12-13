@@ -92,7 +92,7 @@ io.on("connection", (socket) => {
   socket.on("send-message", (data) => {
     const { text, username, lobbyId } = data;
     socket.emit("correct-message");
-    games.messageGame(lobbyId, text, username);
+    games.messageGame(lobbyId, text, socket);
   });
   // Handler for updating number of rounds for specific lobby
   socket.on("update-rounds", (rounds) => {
@@ -113,6 +113,9 @@ io.on("connection", (socket) => {
   // Handler to establish state of current progression in lobby
   socket.on("initialise-drawings", () => {
     games.initialiseDrawings(socket);
+  });
+  socket.on("selected-word", (word) => {
+    games.setWord(socket.lobbyId, socket, word);
   });
 });
 
