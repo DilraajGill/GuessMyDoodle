@@ -45,6 +45,7 @@ class Round {
     this.drawingIndex = 0;
     this.players[this.drawingIndex].hasDrawn = true;
     this.getCurrentDrawer().socket.emit("drawing-permitted");
+    this.getCurrentDrawer().socket.emit("choose-words", this.words);
   }
   // Check who is currently drawing
   /**
@@ -121,6 +122,7 @@ class Round {
     this.selectedWord = "";
     this.drawingIndex += 1;
     this.players[this.drawingIndex].hasDrawn = true;
+    this.getCurrentDrawer().socket.emit("choose-words", this.words);
     console.log(
       `Currently Drawing: ${this.getCurrentDrawer().socket.username}`
     );
