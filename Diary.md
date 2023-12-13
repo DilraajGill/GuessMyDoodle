@@ -186,3 +186,13 @@ Diary
 - Create tests to display who is drawing
 - Developed code to pass the tests
 - Integrate new code into Lobby
+
+13/12/23
+
+- Updated tests to provide displaying words functionality
+- Create new tests for displaying words
+- Developed code to pass new tests
+- Refactored code to integrate word selection
+  Next Steps
+  At the end of gameplay, remove components (Still needs doing)
+  Update points on back-end and display to front-end
