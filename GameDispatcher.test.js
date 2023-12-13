@@ -38,13 +38,13 @@ describe("Testing Game dispatcher", () => {
   });
   // test to display message to rest of lobby
   test("send message to dispatcher and broadcast to lobby", () => {
+    Games.startGame(mockSocket);
     Games.messageGame(addedLobby, "Hello", "Test");
     expect(mockSocket.join).toHaveBeenCalled();
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
   // test to add drawing and display to rest of lobby
   test("add drawing and broadcast to lobby", () => {
-    Games.startGame(mockSocket);
     Games.addDrawing(addedLobby, mockSocket, { x: 190, y: 290 });
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });

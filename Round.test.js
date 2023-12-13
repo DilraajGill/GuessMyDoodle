@@ -34,7 +34,7 @@ describe("round class tests", () => {
   });
   // test to ensure flag tracking who has guessed correctly is working
   test("user guessing correctly returns true", () => {
-    const selectedUser = round.players[1];
+    const selectedUser = round.players[1].socket;
     expect(round.guess("NewWord", selectedUser)).toBe(true);
     expect(round.players[1].hasGuessedCorrectly).toBe(true);
   });
