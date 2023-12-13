@@ -1,7 +1,6 @@
 import React from "react";
 
 function ChooseWords({ list, click }) {
-  console.log(list);
   return (
     <div>
       <h3>Select a word:</h3>

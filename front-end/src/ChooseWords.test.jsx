@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import ChooseWords from "./chooseWords";
+import ChooseWords from "./ChooseWords";
 
 describe("display selection of words", () => {
   const listOfWords = ["Dilraaj", "Was", "Here"];

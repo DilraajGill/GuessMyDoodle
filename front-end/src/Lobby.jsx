@@ -10,6 +10,7 @@ import checkAuthentication from "./checkAuthentication";
 import { authContext } from "./App";
 import GameCustomisation from "./GameCustomisation";
 import CurrentlyDrawing from "./CurrentlyDrawing";
+import ChooseWords from "./ChooseWords";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -27,6 +28,8 @@ function Lobby() {
   const [rounds, setRounds] = React.useState(1);
   const [gameState, setGameState] = React.useState("settings");
   const [currentlyDrawing, setCurrentlyDrawing] = React.useState("");
+  const [toSelectWord, setToSelectWord] = React.useState(false);
+  const [wordOptions, setWordOptions] = React.useState([]);
   const navigation = useNavigate();
 
   /**
@@ -77,11 +80,23 @@ function Lobby() {
       console.log(data);
       setCurrentlyDrawing(data);
     });
+
+    socket.on("choose-words", (words) => {
+      setWordOptions(words);
+      setToSelectWord(true);
+      console.log(words);
+    });
   }, []);
   // If the game is invalid, it should display to user
   if (!validGame) {
     return <h1>Invalid Game</h1>;
   }
+
+  function handleWordClick(word) {
+    setToSelectWord(false);
+    socket.emit("selected-word", word);
+  }
+
   return (
     <div>
       <h1>Lobby ID: {lobbyId}</h1>
@@ -103,24 +118,31 @@ function Lobby() {
         </div>
       ) : (
         <div>
-          {/* If drawing state, display drawing tools */}
-          <CurrentlyDrawing username={currentlyDrawing} />
-          <LineThickness
-            thickness={lineThickness}
-            setLineThickness={setLineThickness}
-          />
-          <ColourChooser toCanvas={setSelectedColour} />
-          <Canvas
-            lineThickness={lineThickness}
-            colour={selectedColour}
-            socket={socket}
-            lobbyId={lobbyId}
-          />
-          <ChatBox
-            socket={socket}
-            username={signedIn.username}
-            lobbyId={lobbyId}
-          />
+          {toSelectWord ? (
+            <div>
+              <ChooseWords list={wordOptions} click={handleWordClick} />
+            </div>
+          ) : (
+            <div>
+              <CurrentlyDrawing username={currentlyDrawing} />
+              <LineThickness
+                thickness={lineThickness}
+                setLineThickness={setLineThickness}
+              />
+              <ColourChooser toCanvas={setSelectedColour} />
+              <Canvas
+                lineThickness={lineThickness}
+                colour={selectedColour}
+                socket={socket}
+                lobbyId={lobbyId}
+              />
+              <ChatBox
+                socket={socket}
+                username={signedIn.username}
+                lobbyId={lobbyId}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
