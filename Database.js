@@ -18,6 +18,22 @@ const userSchema = mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 export const User = mongoose.model("User", userSchema);
 
-export async function updateUserPoints(username, points) {}
+export async function updateUserPoints(username, points) {
+  try {
+    await User.findOneAndUpdate(
+      { username: username },
+      { $inc: { points: points } }
+    );
+  } catch (error) {
+    console.error("Error updating points");
+  }
+}
 
-export async function fetchUserPoints(username) {}
+export async function fetchUserPoints(username) {
+  try {
+    const user = await User.findOne({ username: username });
+    return user.points;
+  } catch (error) {
+    console.error("Error fetching user");
+  }
+}
