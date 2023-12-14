@@ -67,6 +67,7 @@ class Game {
    */
   addPlayer(socket, username) {
     // Add user to list of players and if first player, it will become the host too
+    socket.points = 0;
     this.players.push({ socket, username });
     if (!this.host) {
       this.host = socket;
@@ -175,7 +176,12 @@ class Game {
   }
 
   guessWord(word, socket) {
-    return this.round.guess(word, socket);
+    if (this.round.guess(word, socket)) {
+      socket.points += this.timer * (5000 / (this.selectedTimer * 60));
+      console.log(`${socket.username} now has ${socket.points} points!`);
+      return true;
+    }
+    return false;
   }
   /**
    * Begin timer necessary for game functionality

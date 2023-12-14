@@ -52,7 +52,6 @@ class GameDispatcher {
       generatedID = this.generateLobbyID();
     }
     this.games[generatedID] = new Game(generatedID, this.io);
-    console.log(this.games);
     return generatedID;
   }
   // Generate a lobbyID from random characters of length 5 characters
