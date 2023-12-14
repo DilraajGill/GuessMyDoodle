@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import passport from "passport";
-import passportLocalMongoose from "passport-local-mongoose";
 import { Strategy } from "passport-local";
 
 /**
@@ -12,20 +11,6 @@ import { Strategy } from "passport-local";
 const router = express.Router();
 // Connect to MongoDB server
 mongoose.connect("mongodb://localhost:27017/project");
-// Create schema for User information
-/**
- * Mongoose Schema for user information
- * @memberof AuthRouter
- */
-const userSchema = mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: String,
-  username: { type: String, required: true, unique: true },
-  points: { type: Number, default: 0 },
-});
-// Add Passport-Local plugin and create the model
-userSchema.plugin(passportLocalMongoose);
-const User = mongoose.model("User", userSchema);
 
 // Optimise passport for using strategy
 passport.use(new Strategy(User.authenticate()));
