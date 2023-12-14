@@ -229,6 +229,18 @@ class Game {
           this.timer--;
         }
       }, 1000);
+    } else {
+      this.updatePoints();
+    }
+  }
+  updatePoints() {
+    for (const player of this.players) {
+      try {
+      } catch (error) {
+        console.error(
+          `Error updating points for ${player.username}: ${error.message}`
+        );
+      }
     }
   }
 }
