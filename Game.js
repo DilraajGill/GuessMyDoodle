@@ -1,4 +1,5 @@
 import Round from "./Round.js";
+import { updateUserPoints } from "./Database.js";
 /**
  * Represent a game session
  */
@@ -233,9 +234,12 @@ class Game {
       this.updatePoints();
     }
   }
-  updatePoints() {
+  async updatePoints() {
     for (const player of this.players) {
       try {
+        await updateUserPoints(player.username, player.socket.points);
+        console.log(`Updated points for ${player.username}`);
+        player.socket.points = 0;
       } catch (error) {
         console.error(
           `Error updating points for ${player.username}: ${error.message}`
