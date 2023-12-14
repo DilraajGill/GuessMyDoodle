@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import passport from "passport";
 import { Strategy } from "passport-local";
+import { User } from "./Database.js";
 
 /**
  * Express router to handle authentication

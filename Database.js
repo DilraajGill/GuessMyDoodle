@@ -16,8 +16,8 @@ const userSchema = mongoose.Schema({
 });
 // Add Passport-Local plugin and create the model
 userSchema.plugin(passportLocalMongoose);
-const User = mongoose.model("User", userSchema);
+export const User = mongoose.model("User", userSchema);
 
-async function updateUserPoints(username, points) {}
+export async function updateUserPoints(username, points) {}
 
-async function fetchUserPoints(username) {}
+export async function fetchUserPoints(username) {}
