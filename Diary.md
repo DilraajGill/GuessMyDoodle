@@ -196,3 +196,10 @@ Diary
   Next Steps
   At the end of gameplay, remove components (Still needs doing)
   Update points on back-end and display to front-end
+
+14/12/23
+
+- Refactored authentication to import User model
+- Update points on back-end
+  Next Steps
+  At the end of gameplay, remove components
