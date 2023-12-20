@@ -63,6 +63,10 @@ describe("Testing Game dispatcher", () => {
     Games.updateRounds(mockSocket, 2);
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
+  test("update privacy to lobby", () => {
+    Games.updatePrivacy(mockSocket, "public");
+    expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
+  });
   // test to remove player through dispatcher
   test("remove added player", () => {
     Games.removePlayer(mockSocket);

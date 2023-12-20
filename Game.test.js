@@ -41,6 +41,10 @@ describe("Game class tests", () => {
     gameSession.setMinutes(2);
     expect(gameSession.selectedTimer).toBe(2);
   });
+  test("updating privacy", () => {
+    gameSession.setPrivacy("public");
+    expect(gameSession.privacy).toBe("public");
+  });
   // test to ensure access only to the host
   test("checking who is host", () => {
     console.log(gameSession.host);
