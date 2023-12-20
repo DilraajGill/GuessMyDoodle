@@ -188,6 +188,14 @@ class GameDispatcher {
       }
     }
   }
+  updatePrivacy(socket, privacy) {
+    if (this.checkExists(socket.lobbyId)) {
+      if (this.checkHost(socket.lobbyId, socket)) {
+        this.io.to(socket.lobbyId).emit("set-privacy", privacy);
+        this.games[socket.lobbyId].setPrivacy(privacy);
+      }
+    }
+  }
   // Start the game after checking if user has permissions
   /**
    * Start the game after checking permissions

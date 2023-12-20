@@ -102,6 +102,9 @@ io.on("connection", (socket) => {
   socket.on("update-minutes", (minutes) => {
     games.updateMinutes(socket, minutes);
   });
+  socket.on("update-privacy", (privacy) => {
+    games.updatePrivacy(socket, privacy);
+  });
   // Handler for removing disconnected users
   socket.on("disconnect", () => {
     games.removePlayer(socket);

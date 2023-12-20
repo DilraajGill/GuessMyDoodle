@@ -60,6 +60,7 @@ class Game {
      * Potential words to select
      */
     this.words = ["dilraaj", "gill", "hello"];
+    this.privacy = "private";
   }
   /**
    * Add player to session
@@ -150,6 +151,9 @@ class Game {
   setRounds(rounds) {
     // Adjust the number of rounds to be played
     this.maxRounds = rounds;
+  }
+  setPrivacy(privacy) {
+    this.privacy = privacy;
   }
   /**
    * Start the game and begin timer

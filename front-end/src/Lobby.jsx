@@ -73,6 +73,9 @@ function Lobby() {
     socket.on("set-minutes", (minutes) => {
       setMinutes(minutes);
     });
+    socket.on("set-privacy", (privacy) => {
+      setLobbyType(privacy);
+    });
     // Handler to set the state of session
     socket.on("set-state", (state) => {
       setGameState(state);
@@ -115,6 +118,7 @@ function Lobby() {
             socket={socket}
             rounds={rounds}
             minutes={minutes}
+            lobbyType={lobbyType}
           />
         </div>
       ) : gameState === "drawing" ? (
