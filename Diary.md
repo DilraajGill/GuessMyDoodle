@@ -207,5 +207,5 @@ Diary
 20/12/23
 
 - Added text to end of gameplay
-  Next Steps
-  Add further settings for public and private lobbies
+- Defined tests for further settings (public and private lobbies)
+- Added further settings for public and private lobbies
