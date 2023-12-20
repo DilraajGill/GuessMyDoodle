@@ -203,3 +203,9 @@ Diary
 - Update points on back-end
   Next Steps
   At the end of gameplay, remove components
+
+20/12/23
+
+- Added text to end of gameplay
+  Next Steps
+  Add further settings for public and private lobbies
