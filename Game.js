@@ -131,6 +131,8 @@ class Game {
       socket.emit("set-state", "settings");
       socket.emit("set-minutes", this.selectedTimer);
       socket.emit("set-rounds", this.maxRounds);
+    } else if (this.state === "end") {
+      socket.emit("set-state", "end");
     }
   }
   /**
@@ -232,6 +234,7 @@ class Game {
       }, 1000);
     } else {
       this.updatePoints();
+      this.io.to(this.id).emit("set-state", "end");
     }
   }
   async updatePoints() {

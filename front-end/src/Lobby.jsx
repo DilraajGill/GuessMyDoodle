@@ -116,7 +116,7 @@ function Lobby() {
             minutes={minutes}
           />
         </div>
-      ) : (
+      ) : gameState === "drawing" ? (
         <div>
           {toSelectWord ? (
             <div>
@@ -143,6 +143,10 @@ function Lobby() {
               />
             </div>
           )}
+        </div>
+      ) : (
+        <div>
+          <h1>The Game Has Finished!</h1>
         </div>
       )}
     </div>
