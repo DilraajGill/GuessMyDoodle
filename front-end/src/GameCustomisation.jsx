@@ -6,7 +6,7 @@ import React from "react";
  * @param {number} rounds
  * @param {number} minutes
  */
-function GameCustomisation({ socket, rounds, minutes }) {
+function GameCustomisation({ socket, rounds, minutes, lobbyType }) {
   // Update the number of rounds being modified
   /**
    * Update the number of rounds being played
@@ -23,6 +23,10 @@ function GameCustomisation({ socket, rounds, minutes }) {
   function minutesUpdate(ev) {
     socket.emit("update-minutes", ev.target.value);
   }
+
+  function privacyUpdate(ev) {
+    socket.emit("update-privacy", ev.target.value);
+  }
   // Start the game if the user has correct permissions
   /**
    * If the user has the correct permissions, start the game
@@ -34,6 +38,25 @@ function GameCustomisation({ socket, rounds, minutes }) {
   return (
     <div>
       <label>
+        Private Lobby
+        <input
+          type="radio"
+          value="private"
+          checked={lobbyType === "private"}
+          onChange={privacyUpdate}
+        />
+      </label>
+      <label>
+        Public Lobby
+        <input
+          type="radio"
+          value="public"
+          checked={lobbyType === "public"}
+          onChange={privacyUpdate}
+        />
+      </label>
+      <br />
+      <label>
         Number of Rounds
         <input
           type="range"
@@ -43,6 +66,7 @@ function GameCustomisation({ socket, rounds, minutes }) {
           onChange={roundUpdate}
         />
       </label>
+      <br />
       <label>
         Number of Minutes
         <input

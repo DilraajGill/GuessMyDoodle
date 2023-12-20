@@ -30,6 +30,7 @@ function Lobby() {
   const [currentlyDrawing, setCurrentlyDrawing] = React.useState("");
   const [toSelectWord, setToSelectWord] = React.useState(false);
   const [wordOptions, setWordOptions] = React.useState([]);
+  const [lobbyType, setLobbyType] = React.useState("private");
   const navigation = useNavigate();
 
   /**
