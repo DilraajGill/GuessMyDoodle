@@ -7,7 +7,7 @@ describe("round class tests", () => {
     { username: "Dilraaj3", socket: { emit: jest.fn() } },
   ];
   const lobbyId = "ABCDE";
-  const words = ["Dilraaj", "Custom", "Words"];
+  const words = ["Dilraaj", "Custom", "Words", "Multiple", "Characters"];
   const round = new Round(mockPlayers, lobbyId, words);
 
   test("initialise round", () => {
@@ -21,6 +21,10 @@ describe("round class tests", () => {
   test("should have next drawer avaiable", () => {
     // test to ensure there is another drawer available
     expect(round.hasNextDrawer()).toBe(true);
+  });
+  test("return 3 words from list", () => {
+    const result = round.getRandomWords();
+    expect(result).toHaveLength(3);
   });
   test("setting word should update variable", () => {
     // test to ensuure setWord method updates variable
