@@ -95,6 +95,7 @@ function GameCustomisation({
           onChange={wordsUpdate}
           rows={5}
           cols={50}
+          placeholder="Separate words by adding a comma (,)"
         />
       </label>
       <button onClick={startGame}>Start Game</button>
