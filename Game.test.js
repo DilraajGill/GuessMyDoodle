@@ -55,6 +55,12 @@ describe("Game class tests", () => {
     const notHost = { id: "second" };
     expect(gameSession.isHost(notHost)).toBe(false);
   });
+  test("split custom words to array", () => {
+    gameSession.customWords = "Dilraaj Gill, Was, Here";
+    const result = gameSession.splitCustomWords();
+    expect(result).toHaveLength(3);
+    expect(result).toEqual(["Dilraaj Gill", "Was", "Here"]);
+  });
   // test to ensure the first person to join is granted access
   test("first allowed to draw", () => {
     gameSession.start();
