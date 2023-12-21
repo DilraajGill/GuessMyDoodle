@@ -68,7 +68,7 @@ describe("Testing Game dispatcher", () => {
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
   test("update words to lobby", () => {
-    words = "Hello my name is Dilraaj";
+    const words = "Hello my name is Dilraaj";
     Games.updateWords(mockSocket, words);
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
