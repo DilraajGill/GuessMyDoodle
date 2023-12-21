@@ -98,6 +98,7 @@ function GameCustomisation({
           placeholder="Separate words by adding a comma (,)"
         />
       </label>
+      <br />
       <button onClick={startGame}>Start Game</button>
     </div>
   );

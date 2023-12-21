@@ -45,7 +45,8 @@ class Round {
     this.drawingIndex = 0;
     this.players[this.drawingIndex].hasDrawn = true;
     this.getCurrentDrawer().socket.emit("drawing-permitted");
-    this.getCurrentDrawer().socket.emit("choose-words", this.words);
+    let choices = this.getRandomWords();
+    this.getCurrentDrawer().socket.emit("choose-words", choices);
   }
   // Check who is currently drawing
   /**
@@ -82,11 +83,15 @@ class Round {
   guess(word, socket) {
     if (word === this.selectedWord) {
       const player = this.players.find((user) => user.socket === socket);
-      if (!player.hasGuessedCorrectly) {
+      if (
+        !player.hasGuessedCorrectly &&
+        !(player === this.getCurrentDrawer())
+      ) {
         player.hasGuessedCorrectly = true;
+        return true;
       }
-      return true;
     }
+    return false;
   }
   // Check if everyone in the list has guessed correctly or is currently drawing
   /**
@@ -125,10 +130,21 @@ class Round {
     this.selectedWord = "";
     this.drawingIndex += 1;
     this.players[this.drawingIndex].hasDrawn = true;
-    this.getCurrentDrawer().socket.emit("choose-words", this.words);
+    let choices = this.getRandomWords();
+    this.getCurrentDrawer().socket.emit("choose-words", choices);
     console.log(
       `Currently Drawing: ${this.getCurrentDrawer().socket.username}`
     );
+  }
+  getRandomWords() {
+    const result = [];
+    while (result.length < 3) {
+      let index = Math.floor(Math.random() * this.words.length);
+      if (!result.includes(this.words[index])) {
+        result.push(this.words[index]);
+      }
+    }
+    return result;
   }
 }
 

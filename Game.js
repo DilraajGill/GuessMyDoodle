@@ -166,6 +166,8 @@ class Game {
    */
   start() {
     // Start the lobby and adjust state
+    this.customWords = this.splitCustomWords(this.customWords);
+    this.words = this.words.concat(this.customWords);
     this.state = "drawing";
     this.io.to(this.id).emit("set-state", this.state);
     this.timer = this.selectedTimer * 60;
