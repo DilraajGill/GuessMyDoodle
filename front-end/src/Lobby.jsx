@@ -31,6 +31,7 @@ function Lobby() {
   const [toSelectWord, setToSelectWord] = React.useState(false);
   const [wordOptions, setWordOptions] = React.useState([]);
   const [lobbyType, setLobbyType] = React.useState("private");
+  const [customWords, setCustomWords] = React.useState("");
   const navigation = useNavigate();
 
   /**
@@ -76,6 +77,9 @@ function Lobby() {
     socket.on("set-privacy", (privacy) => {
       setLobbyType(privacy);
     });
+    socket.on("set-words", (words) => {
+      setCustomWords(words);
+    });
     // Handler to set the state of session
     socket.on("set-state", (state) => {
       setGameState(state);
@@ -119,6 +123,7 @@ function Lobby() {
             rounds={rounds}
             minutes={minutes}
             lobbyType={lobbyType}
+            customWords={customWords}
           />
         </div>
       ) : gameState === "drawing" ? (

@@ -6,7 +6,13 @@ import React from "react";
  * @param {number} rounds
  * @param {number} minutes
  */
-function GameCustomisation({ socket, rounds, minutes, lobbyType }) {
+function GameCustomisation({
+  socket,
+  rounds,
+  minutes,
+  lobbyType,
+  customWords,
+}) {
   // Update the number of rounds being modified
   /**
    * Update the number of rounds being played
@@ -26,6 +32,10 @@ function GameCustomisation({ socket, rounds, minutes, lobbyType }) {
 
   function privacyUpdate(ev) {
     socket.emit("update-privacy", ev.target.value);
+  }
+
+  function wordsUpdate(ev) {
+    socket.emit("update-words", ev.target.value);
   }
   // Start the game if the user has correct permissions
   /**
@@ -75,6 +85,15 @@ function GameCustomisation({ socket, rounds, minutes, lobbyType }) {
           max="3"
           value={minutes}
           onChange={minutesUpdate}
+        />
+      </label>
+      <label>
+        Custom words
+        <textarea
+          value={customWords}
+          onChange={wordsUpdate}
+          rows={5}
+          cols={50}
         />
       </label>
       <button onClick={startGame}>Start Game</button>
