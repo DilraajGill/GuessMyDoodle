@@ -132,6 +132,8 @@ class Game {
       socket.emit("set-state", "settings");
       socket.emit("set-minutes", this.selectedTimer);
       socket.emit("set-rounds", this.maxRounds);
+      socket.emit("set-privacy", this.privacy);
+      socket.emit("set-words", this.words);
     } else if (this.state === "end") {
       socket.emit("set-state", "end");
     }
@@ -154,6 +156,9 @@ class Game {
   }
   setPrivacy(privacy) {
     this.privacy = privacy;
+  }
+  setWords(words) {
+    this.words = words;
   }
   /**
    * Start the game and begin timer

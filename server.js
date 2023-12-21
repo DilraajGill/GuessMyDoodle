@@ -105,6 +105,9 @@ io.on("connection", (socket) => {
   socket.on("update-privacy", (privacy) => {
     games.updatePrivacy(socket, privacy);
   });
+  socket.on("update-words", (words) => {
+    games.updateWords(socket, words);
+  });
   // Handler for removing disconnected users
   socket.on("disconnect", () => {
     games.removePlayer(socket);

@@ -87,6 +87,7 @@ function GameCustomisation({
           onChange={minutesUpdate}
         />
       </label>
+      <br />
       <label>
         Custom words
         <textarea

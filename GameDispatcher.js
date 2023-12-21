@@ -196,6 +196,14 @@ class GameDispatcher {
       }
     }
   }
+  updateWords(socket, words) {
+    if (this.checkExists(socket.lobbyId)) {
+      if (this.checkHost(socket.lobbyId, socket)) {
+        this.io.to(socket.lobbyId).emit("set-words", words);
+        this.games[socket.lobbyId].setWords(words);
+      }
+    }
+  }
   // Start the game after checking if user has permissions
   /**
    * Start the game after checking permissions
