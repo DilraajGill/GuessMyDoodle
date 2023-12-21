@@ -60,6 +60,7 @@ class Game {
      * Potential words to select
      */
     this.words = ["dilraaj", "gill", "hello"];
+    this.customWords = "";
     this.privacy = "private";
   }
   /**
@@ -133,7 +134,7 @@ class Game {
       socket.emit("set-minutes", this.selectedTimer);
       socket.emit("set-rounds", this.maxRounds);
       socket.emit("set-privacy", this.privacy);
-      socket.emit("set-words", this.words);
+      socket.emit("set-words", this.customWords);
     } else if (this.state === "end") {
       socket.emit("set-state", "end");
     }
@@ -158,7 +159,7 @@ class Game {
     this.privacy = privacy;
   }
   setWords(words) {
-    this.words = words;
+    this.customWords = words;
   }
   /**
    * Start the game and begin timer
@@ -258,6 +259,10 @@ class Game {
         );
       }
     }
+  }
+  splitCustomWords() {
+    const arrayWords = this.customWords.split(",").map((word) => word.trim());
+    return arrayWords;
   }
 }
 
