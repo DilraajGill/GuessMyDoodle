@@ -244,14 +244,14 @@ class GameDispatcher {
     }
   }
   getPublic() {
-    const publicGames = {};
+    const publicGames = [];
     for (const lobbyId in this.games) {
       const game = this.games[lobbyId];
       if (game && game.privacy === "public") {
-        publicGames[lobbyId] = {
+        publicGames.push({
           id: game.id,
           playerCount: game.players.length,
-        };
+        });
       }
     }
     return publicGames;
