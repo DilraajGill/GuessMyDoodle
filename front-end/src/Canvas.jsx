@@ -8,7 +8,7 @@ import React, { useRef, useEffect, useState } from "react";
  * @param {string} lobbyId - The ID of the lobby
  * @returns {object} Canvas element that updates to show other drawings and yours
  */
-function Canvas({ lineThickness, colour, socket, lobbyId }) {
+function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
   // Reference canvas object
   /**
    * Reference to the canvas element

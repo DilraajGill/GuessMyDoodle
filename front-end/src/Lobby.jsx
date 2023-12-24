@@ -33,6 +33,7 @@ function Lobby() {
   const [wordOptions, setWordOptions] = React.useState([]);
   const [lobbyType, setLobbyType] = React.useState("private");
   const [customWords, setCustomWords] = React.useState("");
+  const [drawingTool, setDrawingTool] = React.useState("draw");
   const navigation = useNavigate();
 
   /**
@@ -138,6 +139,12 @@ function Lobby() {
             </div>
           ) : (
             <div>
+              <input type="button" onClick={() => setDrawingTool("draw")}>
+                Draw
+              </input>
+              <input type="button" onClick={() => setDrawingTool("eraser")}>
+                Eraser
+              </input>
               <CurrentlyDrawing username={currentlyDrawing} />
               <LineThickness
                 thickness={lineThickness}
@@ -145,6 +152,7 @@ function Lobby() {
               />
               <ColourChooser toCanvas={setSelectedColour} />
               <Canvas
+                type={drawingTool}
                 lineThickness={lineThickness}
                 colour={selectedColour}
                 socket={socket}
