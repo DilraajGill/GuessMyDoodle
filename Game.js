@@ -70,8 +70,7 @@ class Game {
    */
   addPlayer(socket, username) {
     // Add user to list of players and if first player, it will become the host too
-    socket.points = 0;
-    this.players.push({ socket, username });
+    this.players.push({ socket, username, points: 0 });
     if (!this.host) {
       this.host = socket;
       this.drawing = socket;
@@ -192,9 +191,14 @@ class Game {
 
   guessWord(word, socket) {
     if (this.round.guess(word, socket)) {
-      socket.points += this.timer * (5000 / (this.selectedTimer * 60));
-      console.log(`${socket.username} now has ${socket.points} points!`);
-      return true;
+      const player = this.players.find(
+        (player) => player.socket.id === socket.id
+      );
+      if (player) {
+        player.points += this.timer * (5000 / (this.selectedTimer * 60));
+        console.log(`${player.username} now has ${player.points} points!`);
+        return true;
+      }
     }
     return false;
   }
@@ -252,9 +256,9 @@ class Game {
   async updatePoints() {
     for (const player of this.players) {
       try {
-        await updateUserPoints(player.username, player.socket.points);
+        await updateUserPoints(player.username, player.points);
         console.log(`Updated points for ${player.username}`);
-        player.socket.points = 0;
+        player.points = 0;
       } catch (error) {
         console.error(
           `Error updating points for ${player.username}: ${error.message}`
