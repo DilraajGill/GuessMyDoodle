@@ -150,6 +150,10 @@ class GameDispatcher {
     this.io.to(lobbyId).emit("beginDrawing");
     this.games[lobbyId].addDrawing({ type: "move" });
   }
+  endDrawing(lobbyId) {
+    this.io.to(lobbyId).emit("endDrawing");
+    this.games[lobbyId].addDrawing({ type: "end" });
+  }
   // Remove a player from the lobby
   /**
    * Remove a player from a session

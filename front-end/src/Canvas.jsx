@@ -67,6 +67,7 @@ function Canvas({ lineThickness, colour, socket, lobbyId }) {
   function endDrawing() {
     console.log("Drawing Ended");
     setIsDrawing(false);
+    socket.emit("endDrawing", { lobbyId });
   }
   // Draw on the canvas for the information received
   /**
@@ -97,6 +98,9 @@ function Canvas({ lineThickness, colour, socket, lobbyId }) {
       console.log("Began Path");
       contextRef.current.beginPath();
     });
+    socket.on("endDrawing", () => {
+      contextRef.current.closePath();
+    });
     // Define handler to receive the intial drawings
     socket.on("initial-drawings", (data) => {
       setDrawings(data);
@@ -110,6 +114,8 @@ function Canvas({ lineThickness, colour, socket, lobbyId }) {
         drawOntoCanvas(drawing);
       } else if (drawing.type === "move") {
         contextRef.current.beginPath();
+      } else if (drawing.type === "end") {
+        contextRef.current.closePath();
       }
     });
   }, [drawings]);

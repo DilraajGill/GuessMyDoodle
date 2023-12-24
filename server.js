@@ -84,6 +84,10 @@ io.on("connection", (socket) => {
     const { lobbyId } = data;
     games.beganDrawing(lobbyId);
   });
+  socket.on("endDrawing", (data) => {
+    const { lobbyId } = data;
+    games.endDrawing(lobbyId);
+  });
   // Handler for testing if permission has been given to draw
   socket.on("test-drawing-allowed", () => {
     if (socket === firstConnection) {
