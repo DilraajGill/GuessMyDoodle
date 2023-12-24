@@ -3,6 +3,7 @@ import axios from "axios";
 import { authContext } from "./App";
 import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
+import getPublic from "./getPublic";
 /**
  * @class HomePage
  * Displays the home page for the User
@@ -33,11 +34,13 @@ function HomePage() {
       }
     }
     async function loadLobbies() {
-      const response = await axios.get("/get-public");
-      setLobbies(response);
+      const response = await getPublic({ axios });
+      console.log(response.data);
+      setLobbies(response.data);
     }
     ensureLogin();
-  });
+    loadLobbies();
+  }, []);
   /**
    * Create a lobby with a random unique ID and navigate to it
    */
