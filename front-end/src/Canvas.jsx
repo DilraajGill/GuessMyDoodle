@@ -47,12 +47,12 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
   function drawCanvas(ev) {
     const { offsetX, offsetY } = ev.nativeEvent;
     if (isDrawing) {
-      console.log("Drawing");
+      console.log(`${type}`);
       socket.emit("drawing", {
         x: offsetX,
         y: offsetY,
         thickness: lineThickness,
-        colour: colour,
+        colour: type === "draw" ? colour : "#FFFF",
         type: "draw",
         lobbyId,
       });

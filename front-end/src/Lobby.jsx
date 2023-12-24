@@ -21,7 +21,7 @@ function Lobby() {
   // Define react states and parameters
   const [signedIn, setSignedIn] = React.useContext(authContext);
   const { lobbyId } = useParams();
-  const [selectedColour, setSelectedColour] = React.useState("#00000");
+  const [selectedColour, setSelectedColour] = React.useState("#000000");
   const [lineThickness, setLineThickness] = React.useState(2);
   const [validGame, setValidGame] = React.useState(true);
   const [players, setPlayers] = React.useState([]);
@@ -139,12 +139,12 @@ function Lobby() {
             </div>
           ) : (
             <div>
-              <input type="button" onClick={() => setDrawingTool("draw")}>
+              <button type="button" onClick={() => setDrawingTool("draw")}>
                 Draw
-              </input>
-              <input type="button" onClick={() => setDrawingTool("eraser")}>
+              </button>
+              <button type="button" onClick={() => setDrawingTool("eraser")}>
                 Eraser
-              </input>
+              </button>
               <CurrentlyDrawing username={currentlyDrawing} />
               <LineThickness
                 thickness={lineThickness}
