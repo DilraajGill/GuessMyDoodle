@@ -4,6 +4,7 @@ import { authContext } from "./App";
 import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
+import LobbyCard from "./LobbyCard";
 /**
  * @class HomePage
  * Displays the home page for the User
@@ -55,13 +56,25 @@ function HomePage() {
     }
   }
 
+  function handleLobbyClick(lobbyId) {
+    navigation(`/lobby/${lobbyId}`);
+  }
+
   return (
     <div>
       <h1>Home Page</h1>
       <h2>Welcome {signedIn.username}</h2>
       <h2>Your Points: {signedIn.points}</h2>
       <button onClick={createLobby}>Create Lobby!</button>
-      <div></div>
+      <div>
+        {lobbies.map((lobby) => (
+          <LobbyCard
+            key={lobby.id}
+            lobby={lobby}
+            onClick={() => handleLobbyClick(lobby.id)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
