@@ -94,6 +94,12 @@ class Game {
     // Output list of players via their username
     return this.players.map((player) => player.username);
   }
+  getPlayerAndPoints() {
+    return this.players.map((player) => ({
+      username: player.username,
+      points: player.points,
+    }));
+  }
   /**
    * Check if the socket is the host of lobby / game
    * @param {object} socket - Socket to compare

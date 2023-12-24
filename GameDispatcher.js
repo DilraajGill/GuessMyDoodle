@@ -86,7 +86,7 @@ class GameDispatcher {
       console.log(`Added ${username} to the lobby`);
       this.io
         .to(lobbyId)
-        .emit("set-players", this.games[lobbyId].getPlayerList());
+        .emit("set-players", this.games[lobbyId].getPlayerAndPoints());
       this.games[lobbyId].initialiseState(socket);
     } else {
       socket.emit("invalid-game");
@@ -106,6 +106,9 @@ class GameDispatcher {
           text: `${socket.username} has guessed correctly!`,
           username: "Server",
         });
+        this.io
+          .to(lobbyId)
+          .emit("set-players", this.games[lobbyId].getPlayerAndPoints());
       } else {
         this.io
           .to(lobbyId)

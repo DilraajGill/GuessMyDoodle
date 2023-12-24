@@ -11,6 +11,7 @@ import { authContext } from "./App";
 import GameCustomisation from "./GameCustomisation";
 import CurrentlyDrawing from "./CurrentlyDrawing";
 import ChooseWords from "./ChooseWords";
+import PlayerCard from "./PlayerCard";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -111,9 +112,12 @@ function Lobby() {
       <h2>Username: {signedIn.username}</h2>
       <h3>Players:</h3>
       {players.map((player, index) => (
-        <div key={index}>
-          <strong>{player}</strong>
-        </div>
+        <PlayerCard
+          key={index}
+          player={player.username}
+          points={player.points}
+          colour={"blue"}
+        />
       ))}
       {/* If the state is on the settings page, show this information */}
       {gameState === "settings" ? (
