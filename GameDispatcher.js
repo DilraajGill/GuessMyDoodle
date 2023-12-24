@@ -243,6 +243,19 @@ class GameDispatcher {
       }
     }
   }
+  getPublic() {
+    const publicGames = {};
+    for (const lobbyId in this.games) {
+      const game = this.games[lobbyId];
+      if (game && game.privacy === "public") {
+        publicGames[lobbyId] = {
+          id: game.id,
+          playerCount: game.players.length,
+        };
+      }
+    }
+    return publicGames;
+  }
 }
 
 export default GameDispatcher;

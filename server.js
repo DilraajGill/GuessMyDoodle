@@ -47,6 +47,11 @@ app.post("/create-lobby", (req, res) => {
   return res.status(201).json({ lobbyId: generatedID });
 });
 
+app.get("/get-public", (req, res) => {
+  const publicLobbies = games.getPublic();
+  res.json(publicLobbies);
+});
+
 // Listen on port 3001
 const server = app.listen(3001);
 const io = new SocketIo(server, {
@@ -55,7 +60,6 @@ const io = new SocketIo(server, {
   },
 });
 
-// Create GameDispatcher object to dispatch requests to
 const games = new GameDispatcher(io);
 /**
  * Define event handlers for socket communication
