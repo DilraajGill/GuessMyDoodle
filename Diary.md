@@ -209,3 +209,10 @@ Diary
 - Added text to end of gameplay
 - Defined tests for further settings (public and private lobbies)
 - Added further settings for public and private lobbies
+
+24/12/23
+
+- Define TDD tests for creating lobby card
+- Create code to pass TDD tests
+- Modify game dispatcher to return list of public games
+- Display front-end lobby card according to dispatcher return
