@@ -134,6 +134,9 @@ io.on("connection", (socket) => {
   socket.on("clear-canvas", () => {
     games.clearDrawing(socket.lobbyId, socket);
   });
+  socket.on("undo-move", () => {
+    games.undoDrawing(socket.lobbyId, socket);
+  });
 });
 
 export default app;
