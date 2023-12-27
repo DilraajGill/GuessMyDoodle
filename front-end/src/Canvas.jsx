@@ -133,10 +133,16 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
   function clearCanvas() {
     socket.emit("clear-canvas");
   }
+  function undoMove() {
+    socket.emit("undo-move");
+  }
   return (
     <div>
       <button type="button" onClick={clearCanvas}>
         Clear
+      </button>
+      <button type="button" onClick={undoMove}>
+        Undo
       </button>
       <canvas
         ref={canvasRef}
