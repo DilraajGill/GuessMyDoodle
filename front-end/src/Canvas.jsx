@@ -120,8 +120,14 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     });
   }, [drawings]);
 
+  function clearCanvas() {
+    socket.emit("clear-canvas");
+  }
   return (
     <div>
+      <button type="button" onClick={clearCanvas}>
+        Clear
+      </button>
       <canvas
         ref={canvasRef}
         onMouseDown={beginDrawing}
