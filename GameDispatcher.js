@@ -267,6 +267,7 @@ class GameDispatcher {
     if (this.checkExists(lobbyId)) {
       if (this.checkDrawing(lobbyId, socket)) {
         this.io.to(lobbyId).emit("clear-canvas");
+        this.games[lobbyId].clearDrawing();
       }
     }
   }

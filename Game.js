@@ -117,6 +117,9 @@ class Game {
     // Store drawing data to render for those joining late
     this.drawingHistory.push(data);
   }
+  clearDrawing() {
+    this.drawingHistory = [];
+  }
   /**
    * If someone joins late, they are caught up to speed
    * @returns {object} returns drawing history
