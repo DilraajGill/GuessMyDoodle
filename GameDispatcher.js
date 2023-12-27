@@ -263,6 +263,13 @@ class GameDispatcher {
     }
     return publicGames;
   }
+  clearDrawing(lobbyId, socket) {
+    if (this.checkExists(lobbyId)) {
+      if (this.checkDrawing(lobbyId, socket)) {
+        this.io.to(lobbyId).emit("clear-canvas");
+      }
+    }
+  }
 }
 
 export default GameDispatcher;

@@ -105,6 +105,16 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     socket.on("initial-drawings", (data) => {
       setDrawings(data);
     });
+    socket.on("clear-canvas", () => {
+      if (contextRef.current && canvasRef.current) {
+        contextRef.current.clearRect(
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+      }
+    });
   }, []);
 
   useEffect(() => {

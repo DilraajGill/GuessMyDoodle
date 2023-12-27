@@ -131,6 +131,9 @@ io.on("connection", (socket) => {
   socket.on("selected-word", (word) => {
     games.setWord(socket.lobbyId, socket, word);
   });
+  socket.on("clear-canvas", () => {
+    games.clearDrawing(socket.lobbyId, socket);
+  });
 });
 
 export default app;
