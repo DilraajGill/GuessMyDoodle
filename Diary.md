@@ -216,3 +216,12 @@ Diary
 - Create code to pass TDD tests
 - Modify game dispatcher to return list of public games
 - Display front-end lobby card according to dispatcher return
+
+27/12/23
+
+- Add functionality for undoing the most recent path
+- Add functionality for clearing the canvas
+  Next Steps:
+  Research ways of creating a fill component and determine if it should be implemented
+  Research ways of creating a text component and determine if it should be implemented
+  Begin creating route for store
