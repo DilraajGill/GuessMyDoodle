@@ -271,6 +271,13 @@ class GameDispatcher {
       }
     }
   }
+  undoDrawing(lobbyId, socket) {
+    if (this.checkExists(lobbyId)) {
+      if (this.checkDrawing(lobbyId, socket)) {
+        this.games[lobbyId].undoDrawing();
+      }
+    }
+  }
 }
 
 export default GameDispatcher;

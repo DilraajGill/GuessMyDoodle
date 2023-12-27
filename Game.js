@@ -120,6 +120,21 @@ class Game {
   clearDrawing() {
     this.drawingHistory = [];
   }
+  undoDrawing() {
+    const index = this.lastMoveIndex();
+    if (index !== -1) {
+      this.drawingHistory = this.drawingHistory.slice(0, index);
+      this.io.to(this.id).emit("undo-move", this.getDrawing());
+    }
+  }
+  lastMoveIndex() {
+    for (let i = this.drawingHistory.length - 1; i >= 0; i--) {
+      if (this.drawingHistory[i].type === "move") {
+        console.log(`Found undo point ${i}`);
+        return i;
+      }
+    }
+  }
   /**
    * If someone joins late, they are caught up to speed
    * @returns {object} returns drawing history
