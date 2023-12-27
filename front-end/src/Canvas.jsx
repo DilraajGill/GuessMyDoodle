@@ -115,6 +115,17 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
         );
       }
     });
+    socket.on("undo-move", (data) => {
+      if (contextRef.current && canvasRef.current) {
+        contextRef.current.clearRect(
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+      }
+      setDrawings(data);
+    });
   }, []);
 
   useEffect(() => {
