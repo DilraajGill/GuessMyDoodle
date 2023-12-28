@@ -35,9 +35,18 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
    * @param {MouseEvent} ev - Mouse event triggering it
    */
   function beginDrawing(ev) {
+    const { offsetX, offsetY } = ev.nativeEvent;
     console.log(`Drawing Began`);
     setIsDrawing(true);
     socket.emit("beginDrawing", { lobbyId });
+    if (type === "fill") {
+      socket.emit("fill-canvas", {
+        colour,
+        lobbyId,
+        x: offsetX,
+        y: offsetY,
+      });
+    }
   }
   // Send drawing information to the back-end server to begin checks
   /**
@@ -46,8 +55,8 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
    */
   function drawCanvas(ev) {
     const { offsetX, offsetY } = ev.nativeEvent;
-    if (isDrawing) {
-      console.log(`${type}`);
+    console.log(`${type}`);
+    if (isDrawing && type !== "fill") {
       socket.emit("drawing", {
         x: offsetX,
         y: offsetY,

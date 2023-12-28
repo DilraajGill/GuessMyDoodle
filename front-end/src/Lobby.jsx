@@ -145,6 +145,9 @@ function Lobby() {
               <button type="button" onClick={() => setDrawingTool("eraser")}>
                 Eraser
               </button>
+              <button type="button" onClick={() => setDrawingTool("fill")}>
+                Fill
+              </button>
               <CurrentlyDrawing username={currentlyDrawing} />
               <LineThickness
                 thickness={lineThickness}
