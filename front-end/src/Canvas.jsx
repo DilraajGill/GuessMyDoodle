@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-
+import "floodfill";
 /**
  * Canvas component for drawing onto
  * @param {number} lineThickness - The thickness of the line
@@ -41,6 +41,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     socket.emit("beginDrawing", { lobbyId });
     if (type === "fill") {
       socket.emit("fill-canvas", {
+        type: "fill",
         colour,
         lobbyId,
         x: offsetX,
@@ -94,12 +95,12 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
   function handleFloodFill(drawing) {
     const { x, y, colour } = drawing;
     contextRef.current.fillStyle = colour;
-    contextRef.fillFlood(x, y);
+    contextRef.current.fillFlood(x, y, 32);
   }
   useEffect(() => {
     // Set canvas to match the size of the window
-    canvasRef.current.width = window.innerWidth;
-    canvasRef.current.height = window.innerHeight;
+    canvasRef.current.width = 600;
+    canvasRef.current.height = 600;
     const context = canvasRef.current.getContext("2d");
     contextRef.current = context;
     // Request intial drawings from the server if arriving late
