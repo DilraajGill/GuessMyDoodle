@@ -278,6 +278,14 @@ class GameDispatcher {
       }
     }
   }
+  fillCanvas(lobbyId, socket, drawing) {
+    if (this.checkExists(lobbyId)) {
+      if (this.checkDrawing(lobbyId, socket)) {
+        this.games[lobbyId].addDrawing(drawing);
+        this.io.to(lobbyId).emit("fill-canvas", drawing);
+      }
+    }
+  }
 }
 
 export default GameDispatcher;
