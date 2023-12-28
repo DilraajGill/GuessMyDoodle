@@ -294,6 +294,10 @@ class Game {
     const arrayWords = this.customWords.split(",").map((word) => word.trim());
     return arrayWords;
   }
+  deleteGame() {
+    clearInterval(this.timerId);
+    if (this.round) delete this.round;
+  }
 }
 
 export default Game;

@@ -166,6 +166,9 @@ class GameDispatcher {
         .to(socket.lobbyId)
         .emit("set-players", this.games[socket.lobbyId].getPlayerList());
     }
+    if (this.games[socket.lobbyId].players.length === 0) {
+      this.deleteGame(socket.lobbyId);
+    }
   }
   // Update the number of minutes a user has to draw
   /**
@@ -285,6 +288,10 @@ class GameDispatcher {
         this.io.to(lobbyId).emit("fill-canvas", drawing);
       }
     }
+  }
+  deleteGame(lobbyId) {
+    this.games[lobbyId].deleteGame();
+    this.remove(lobbyId);
   }
 }
 
