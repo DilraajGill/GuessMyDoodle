@@ -91,14 +91,10 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     contextRef.current.stroke();
   }
 
-  function floodFill(drawing) {
+  function handleFloodFill(drawing) {
     const { x, y, colour } = drawing;
-    const imageData = contextRef.current.getImageData(
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height
-    );
+    contextRef.current.fillStyle = colour;
+    contextRef.fillFlood(x, y);
   }
   useEffect(() => {
     // Set canvas to match the size of the window
@@ -146,7 +142,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
       setDrawings(data);
     });
     socket.on("fill-canvas", (data) => {
-      floodFill(data);
+      handleFloodFill(data);
     });
   }, []);
 
