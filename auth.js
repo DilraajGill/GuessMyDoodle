@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import { User } from "./Database.js";
+import { GoogleStrategy } from "passport-google-oauth20";
+import "dotenv/config";
 
 /**
  * Express router to handle authentication
