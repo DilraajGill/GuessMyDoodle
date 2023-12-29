@@ -225,3 +225,10 @@ Diary
   Research ways of creating a fill component and determine if it should be implemented
   Research ways of creating a text component and determine if it should be implemented
   Begin creating route for store
+
+28/12/23
+
+- Utilised floodfill to create fill component
+  Next Steps:
+  Research ways of creating a text component and determine if it should be implemented
+  Begin creating route for store
