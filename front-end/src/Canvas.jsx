@@ -112,6 +112,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     // Define handler for when user has began drawing
     socket.on("beginDrawing", () => {
       console.log("Began Path");
+      contextRef.current.lineCap = "round";
       contextRef.current.beginPath();
     });
     socket.on("endDrawing", () => {
