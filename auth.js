@@ -20,6 +20,30 @@ passport.use(new Strategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/google/callback",
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      try {
+        let user = await User.findOne({ googleId: profile.id });
+        if (!user) {
+          user = await User.create({
+            googleId: profile.id,
+            email: profile.emails[0].value,
+          });
+        }
+        return cb(null, user);
+      } catch (error) {
+        cb(error, null);
+      }
+    }
+  )
+);
+
 // Create route for logging in
 /**
  * Route for sending login form to be processed
@@ -81,5 +105,9 @@ router.get("/check-auth", async (req, res) => {
     res.send({ auth: false });
   }
 });
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: [profile, "email"] })
+);
 
 export default router;
