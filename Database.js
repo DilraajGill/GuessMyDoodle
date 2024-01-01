@@ -9,6 +9,7 @@ mongoose.connect("mongodb://localhost:27017/project");
  * @memberof AuthRouter
  */
 const userSchema = mongoose.Schema({
+  googleId: String,
   email: { type: String, required: true, unique: true },
   password: String,
   username: { type: String, required: true, unique: true },
