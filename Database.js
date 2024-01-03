@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
   googleId: String,
   email: { type: String, required: true, unique: true },
   password: String,
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: false, unique: true },
   points: { type: Number, default: 0 },
 });
 // Add Passport-Local plugin and create the model
