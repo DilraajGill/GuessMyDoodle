@@ -232,3 +232,13 @@ Diary
   Next Steps:
   Research ways of creating a text component and determine if it should be implemented
   Begin creating route for store
+
+01/01/24
+
+- Adjust schema for googleId
+- Create route for Google sign in
+
+03/01/24
+
+- Create front-end route for completing profile (as username required)
+- Add login with Google button to select account
