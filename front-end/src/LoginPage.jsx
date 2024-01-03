@@ -40,6 +40,10 @@ function LoginPage() {
     }
   }
 
+  function googleLogin() {
+    window.location.href = "http://localhost:3001/auth/google";
+  }
+
   return (
     <div>
       <h2>Login Page</h2>
@@ -59,6 +63,7 @@ function LoginPage() {
         ></input>
         <br />
         <button type="submit">Login</button>
+        <button onClick={googleLogin}>Login With Google</button>
       </form>
     </div>
   );
