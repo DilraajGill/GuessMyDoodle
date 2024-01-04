@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import { User } from "./Database.js";
-import { GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import "dotenv/config";
 
 /**
@@ -17,15 +17,24 @@ mongoose.connect("mongodb://localhost:27017/project");
 
 // Optimise passport for using strategy
 passport.use(new Strategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
+console.log(process.env.CLIENT_ID);
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "http://localhost:3001/auth/google/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
@@ -106,8 +115,34 @@ router.get("/check-auth", async (req, res) => {
   }
 });
 router.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: [profile, "email"] })
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    if (!req.user.username) {
+      res.redirect("http://localhost:3000/complete-profile");
+    } else {
+      res.redirect("http://localhost:3000/home");
+    }
+  }
+);
+router.post("/complete-profile", async (req, res) => {
+  console.log("Updating profile");
+  if (req.isAuthenticated() && req.user) {
+    try {
+      const user = await User.findById(req.user.id);
+      user.username = req.body.username;
+      await user.save();
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  } else {
+    res.status(401).send("User not signed in");
+  }
+});
 
 export default router;
