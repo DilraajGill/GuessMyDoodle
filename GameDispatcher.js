@@ -165,9 +165,9 @@ class GameDispatcher {
       this.io
         .to(socket.lobbyId)
         .emit("set-players", this.games[socket.lobbyId].getPlayerList());
-    }
-    if (this.games[socket.lobbyId].players.length === 0) {
-      this.deleteGame(socket.lobbyId);
+      if (this.games[socket.lobbyId].players.length === 0) {
+        this.deleteGame(socket.lobbyId);
+      }
     }
   }
   // Update the number of minutes a user has to draw
