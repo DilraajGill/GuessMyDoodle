@@ -16,6 +16,7 @@ async function checkAuthentication({ axios }) {
     auth: true,
     username: response.data.username,
     points: response.data.points,
+    tools: response.data.purchasedTools,
   };
 }
 export default checkAuthentication;
