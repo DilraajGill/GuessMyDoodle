@@ -248,3 +248,7 @@ Diary
 - Modify back-end serialisation of User schema
 - Add back-end route to let oAuth users input their username
 - Began TDD process for adding store
+- Add conditional rendering to only display "fill" button if unlocked
+  Next Steps:
+  Conditional rendering if item is already bought
+  Discover other tools to implement
