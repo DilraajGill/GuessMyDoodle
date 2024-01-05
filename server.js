@@ -4,6 +4,7 @@ import session from "express-session";
 import router from "./auth.js";
 import { Server as SocketIo } from "socket.io";
 import GameDispatcher from "./GameDispatcher.js";
+import { User } from "./Database.js";
 
 // Initialise the server and establish middleware
 /**
@@ -50,6 +51,22 @@ app.post("/create-lobby", (req, res) => {
 app.get("/get-public", (req, res) => {
   const publicLobbies = games.getPublic();
   res.json(publicLobbies);
+});
+
+app.get("/store/buy/fill-tool", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ error: "User not authenticated" });
+  }
+  const user = await User.findById(req.user.id);
+  if (user.purchasedTools.includes("fill")) {
+    return res.status(400).send("Fill tool already purchased");
+  }
+  if (user.points >= 10000) {
+    user.points -= 10000;
+    user.purchasedTools.push("fill");
+    await user.save();
+    res.send({ success: true });
+  }
 });
 
 // Listen on port 3001
