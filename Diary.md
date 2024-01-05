@@ -242,3 +242,9 @@ Diary
 
 - Create front-end route for completing profile (as username required)
 - Add login with Google button to select account
+
+04/01/24
+
+- Modify back-end serialisation of User schema
+- Add back-end route to let oAuth users input their username
+- Began TDD process for adding store
