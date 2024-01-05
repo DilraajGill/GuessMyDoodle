@@ -108,6 +108,7 @@ router.get("/check-auth", async (req, res) => {
       auth: true,
       username: req.user.username,
       points: req.user.points,
+      purchasedTools: req.user.purchasedTools,
     });
   } else {
     // Send that authorisation is false
