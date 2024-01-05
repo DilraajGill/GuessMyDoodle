@@ -65,8 +65,9 @@ app.post("/store/buy/fill-tool", async (req, res) => {
     user.points -= 10000;
     user.purchasedTools.push("fill");
     await user.save();
-    res.send({ success: true });
+    return res.send({ success: true });
   }
+  res.status(400).send("Not enough points!");
 });
 
 // Listen on port 3001
