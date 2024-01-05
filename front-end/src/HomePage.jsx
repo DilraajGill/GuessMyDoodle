@@ -26,8 +26,8 @@ function HomePage() {
         setSignedIn({
           auth: true,
           username: response.username,
-          // Temporary points assignment
           points: response.points,
+          tools: response.tools,
         });
       } else {
         // If not signed in, navigate them to the /login page

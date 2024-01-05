@@ -50,6 +50,7 @@ function Lobby() {
           auth: true,
           username: response.username,
           points: response.points,
+          tools: response.tools,
         });
         socket.emit("join-lobby", {
           lobbyId,
@@ -145,9 +146,11 @@ function Lobby() {
               <button type="button" onClick={() => setDrawingTool("eraser")}>
                 Eraser
               </button>
-              <button type="button" onClick={() => setDrawingTool("fill")}>
-                Fill
-              </button>
+              {signedIn.tools && signedIn.tools.includes("fill") && (
+                <button type="button" onClick={() => setDrawingTool("fill")}>
+                  Fill
+                </button>
+              )}
               <CurrentlyDrawing username={currentlyDrawing} />
               <LineThickness
                 thickness={lineThickness}
