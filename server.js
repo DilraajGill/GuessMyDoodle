@@ -53,7 +53,7 @@ app.get("/get-public", (req, res) => {
   res.json(publicLobbies);
 });
 
-app.get("/store/buy/fill-tool", async (req, res) => {
+app.post("/store/buy/fill-tool", async (req, res) => {
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not authenticated" });
   }

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Canvas from "./Canvas";
 import Lobby from "./Lobby";
 import CompleteProfile from "./CompleteProfile";
+import Store from "./Store";
 
 // Create context to store authentication
 /**
@@ -29,8 +30,9 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/lobby/:lobbyId" element={<Lobby />} />
-          <Route path="canvas" element={<Canvas />} />
-          <Route path="complete-profile" element={<CompleteProfile />} />
+          <Route path="/canvas" element={<Canvas />} />
+          <Route path="/complete-profile" element={<CompleteProfile />} />
+          <Route path="/store" element={<Store />} />
         </Routes>
       </BrowserRouter>
     </authContext.Provider>
