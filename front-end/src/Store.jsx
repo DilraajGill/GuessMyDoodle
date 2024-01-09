@@ -38,7 +38,7 @@ function Store() {
       <div>
         <h2>Fill Tool</h2>
         <button onClick={purchaseFillTool}>
-          {signedIn.tools.includes("fill") ? "Already Own" : "Buy Fill Tool"}
+          {signedIn.tools?.includes("fill") ? "Already Own" : "Buy Fill Tool"}
         </button>
       </div>
     </div>
