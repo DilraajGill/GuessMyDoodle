@@ -252,3 +252,9 @@ Diary
   Next Steps:
   Conditional rendering if item is already bought
   Discover other tools to implement
+
+09/01/24
+
+- Conditional rendering displays item is already bought
+  Next Steps
+  Begin styling the website
