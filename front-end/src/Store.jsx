@@ -34,10 +34,12 @@ function Store() {
   }
   return (
     <div>
-      <h1>Welcome To The Store!</h1>
+      <h1>Welcome To The Store {signedIn.username}!</h1>
       <div>
         <h2>Fill Tool</h2>
-        <button onClick={purchaseFillTool}>Buy Fill Tool</button>
+        <button onClick={purchaseFillTool}>
+          {signedIn.tools.includes("fill") ? "Already Own" : "Buy Fill Tool"}
+        </button>
       </div>
     </div>
   );
