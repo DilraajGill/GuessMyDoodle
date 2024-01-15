@@ -11,6 +11,8 @@ function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   // Submit request to the back end server
   /**
    * Submit the request to the back-end server to process form
@@ -27,7 +29,8 @@ function RegisterPage() {
     try {
       axios.post("/auth/register", items);
     } catch (error) {
-      console.log("Failed to make request: ", error);
+      setModalMessage(error);
+      setShowModal(true);
     }
   }
 
@@ -70,6 +73,17 @@ function RegisterPage() {
             Register With Google
           </Button>
         </Form>
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Failed To Create Account</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{modalMessage}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => setShowModal(false)}>Close</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );
