@@ -7,6 +7,7 @@ import Canvas from "./Canvas";
 import Lobby from "./Lobby";
 import CompleteProfile from "./CompleteProfile";
 import Store from "./Store";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Create context to store authentication
 /**
