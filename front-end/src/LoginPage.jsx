@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 
 /**
  * Login Page to allow the user to authenticate themselves
@@ -26,7 +27,6 @@ function LoginPage() {
       username,
       password,
     };
-    console.log(items);
     try {
       const response = await axios.post("/auth/login", items);
       if (response.data.auth) {
@@ -47,24 +47,34 @@ function LoginPage() {
   return (
     <div>
       <h2>Login Page</h2>
-      <form onSubmit={submitForm}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        ></input>
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <br />
-        <button type="submit">Login</button>
-        <button onClick={googleLogin}>Login With Google</button>
-      </form>
+      <Form>
+        <Form.Group controlId="">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Button variant="primary" size="lg" type="submit">
+          Submit
+        </Button>
+        <Button variant="danger" size="lg" onClick={googleLogin}>
+          Login With Google
+        </Button>
+      </Form>
     </div>
   );
 }
