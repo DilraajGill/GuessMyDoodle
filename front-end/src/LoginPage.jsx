@@ -38,9 +38,11 @@ function LoginPage() {
         navigate("/home");
       } else {
         setModalMessage("Invalid username or password");
+        setShowModal(true);
       }
     } catch (error) {
       setModalMessage(`Failed to make request: ${error}`);
+      setShowModal(true);
     }
   }
 
@@ -79,6 +81,17 @@ function LoginPage() {
           Login With Google
         </Button>
       </Form>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Failed To Authenticate User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{modalMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowModal(false)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
