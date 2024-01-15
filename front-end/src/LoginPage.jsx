@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
 
 /**
  * Login Page to allow the user to authenticate themselves
@@ -16,6 +16,8 @@ function LoginPage() {
   const [signedIn, setSignedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   // Submit the form to the back end server to sign in
   /**
    * Submit the form containing username and password of the user account
@@ -34,9 +36,11 @@ function LoginPage() {
         console.log("valid");
         // If correct information, navigate to the home page
         navigate("/home");
+      } else {
+        setModalMessage("Invalid username or password");
       }
     } catch (error) {
-      console.log("Failed to make request: ", error);
+      setModalMessage(`Failed to make request: ${error}`);
     }
   }
 
@@ -47,8 +51,8 @@ function LoginPage() {
   return (
     <div>
       <h2>Login Page</h2>
-      <Form>
-        <Form.Group controlId="">
+      <Form onSubmit={submitForm}>
+        <Form.Group controlId="loginEmail">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
@@ -58,7 +62,7 @@ function LoginPage() {
             required
           />
         </Form.Group>
-        <Form.Group controlId="">
+        <Form.Group controlId="loginPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
