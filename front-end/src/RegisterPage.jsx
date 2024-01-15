@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Form, Button, Modal } from "react-bootstrap";
 /**
  * React component to create the register page
  * @class RegisterPage
@@ -31,32 +32,44 @@ function RegisterPage() {
 
   return (
     <div>
-      <h2>Register Page</h2>
-      <form onSubmit={submitForm}>
-        {/* Input fields for email, username, password */}
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <Form onSubmit={submitForm}>
+        <Form.Group controlId="registerEmail">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Email Address"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="registerUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="registerPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            required
+          />
+        </Form.Group>
         <br />
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit">Register</button>
-      </form>
+        <Button variant="primary" size="lg" type="submit" className="me-2">
+          Submit
+        </Button>
+        <Button variant="danger" size="lg">
+          Register With Google
+        </Button>
+      </Form>
     </div>
   );
 }
