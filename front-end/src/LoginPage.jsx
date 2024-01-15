@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
+import "./LoginPage.css";
 
 /**
  * Login Page to allow the user to authenticate themselves
@@ -51,47 +52,49 @@ function LoginPage() {
   }
 
   return (
-    <div>
-      <h2>Login Page</h2>
-      <Form onSubmit={submitForm}>
-        <Form.Group controlId="loginEmail">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="loginPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Button variant="primary" size="lg" type="submit">
-          Submit
-        </Button>
-        <Button variant="danger" size="lg" onClick={googleLogin}>
-          Login With Google
-        </Button>
-      </Form>
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Failed To Authenticate User</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>{modalMessage}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowModal(false)}>Close</Button>
-        </Modal.Footer>
-      </Modal>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="login-form-container">
+        <Form onSubmit={submitForm}>
+          <Form.Group controlId="loginEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="loginPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <br />
+          <Button variant="primary" size="lg" type="submit" className="me-2">
+            Submit
+          </Button>
+          <Button variant="danger" size="lg" onClick={googleLogin}>
+            Login With Google
+          </Button>
+        </Form>
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Failed To Authenticate User</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{modalMessage}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => setShowModal(false)}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </div>
   );
 }
