@@ -8,6 +8,7 @@ import Lobby from "./Lobby";
 import CompleteProfile from "./CompleteProfile";
 import Store from "./Store";
 import "bootstrap/dist/css/bootstrap.min.css";
+import LoginAndRegister from "./LoginAndRegister";
 
 // Create context to store authentication
 /**
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/combined" element={<LoginAndRegister />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/lobby/:lobbyId" element={<Lobby />} />
           <Route path="/canvas" element={<Canvas />} />
