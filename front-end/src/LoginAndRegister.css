@@ -1,0 +1,29 @@
+.nav-link {
+    text-align: center;
+}
+  
+.card-header{
+    background-color: rgb(243, 243, 243);
+}
+
+.nav-pills .nav-link.active {
+    color: #fff;
+    background-color: #007bff;
+}
+  
+
+.nav-pills .nav-link {
+    border-radius: 10px;
+    border: 1px solid #007bff;
+    min-width: 150px;
+}
+
+.nav-item{
+    margin: 0.5rem;
+}
+  
+  /* Style for the card to match the design */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+}
