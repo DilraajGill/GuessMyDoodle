@@ -28,9 +28,15 @@ function App() {
       {/* Define routes for different pages */}
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/combined" element={<LoginAndRegister />} />
+          <Route
+            path="/login"
+            element={<LoginAndRegister defaultState="login" />}
+          />
+          <Route
+            path="/register"
+            element={<LoginAndRegister />}
+            defaultState="register"
+          />
           <Route path="/home" element={<HomePage />} />
           <Route path="/lobby/:lobbyId" element={<Lobby />} />
           <Route path="/canvas" element={<Canvas />} />
