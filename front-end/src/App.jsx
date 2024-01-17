@@ -34,8 +34,7 @@ function App() {
           />
           <Route
             path="/register"
-            element={<LoginAndRegister />}
-            defaultState="register"
+            element={<LoginAndRegister defaultState={"register"} />}
           />
           <Route path="/home" element={<HomePage />} />
           <Route path="/lobby/:lobbyId" element={<Lobby />} />
