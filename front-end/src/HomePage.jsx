@@ -66,8 +66,11 @@ function HomePage() {
       <h1>Home Page</h1>
       <h2>Welcome {signedIn.username}</h2>
       <h2>Your Points: {signedIn.points}</h2>
-      <Button variant="primary" onClick={createLobby}>
+      <Button variant="primary" onClick={createLobby} className="me-3">
         Create Lobby!
+      </Button>
+      <Button variant="success" onClick={() => navigation("/store")}>
+        To The Store!
       </Button>
       <div>
         {lobbies.map((lobby) => (
