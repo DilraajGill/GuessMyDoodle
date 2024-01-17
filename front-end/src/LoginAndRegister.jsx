@@ -3,8 +3,8 @@ import { Tabs, Tab, Container, Row, Col, Card } from "react-bootstrap";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import "./LoginAndRegister.css";
-function LoginAndRegister() {
-  const [state, setState] = React.useState("login");
+function LoginAndRegister({ defaultState }) {
+  const [state, setState] = React.useState(defaultState);
 
   return (
     <Container fluid className="d-flex vh-100">
