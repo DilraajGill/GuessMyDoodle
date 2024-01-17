@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Modal } from "react-bootstrap";
-import "./LoginPage.css";
 /**
  * React component to create the register page
  * @class RegisterPage
@@ -35,56 +34,54 @@ function RegisterPage() {
   }
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="login-form-container">
-        <Form onSubmit={submitForm}>
-          <Form.Group controlId="registerEmail">
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Email Address"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="registerUsername">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="registerPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <br />
-          <Button variant="primary" size="lg" type="submit" className="me-2">
-            Submit
-          </Button>
-          <Button variant="danger" size="lg">
-            Register With Google
-          </Button>
-        </Form>
-        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Failed To Create Account</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>{modalMessage}</p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={() => setShowModal(false)}>Close</Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+    <div>
+      <Form onSubmit={submitForm}>
+        <Form.Group controlId="registerEmail">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Email Address"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="registerUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="registerPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <br />
+        <Button variant="primary" size="lg" type="submit" className="me-2">
+          Submit
+        </Button>
+        <Button variant="danger" size="lg">
+          Register With Google
+        </Button>
+      </Form>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Failed To Create Account</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{modalMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowModal(false)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
