@@ -258,3 +258,10 @@ Diary
 - Conditional rendering displays item is already bought
   Next Steps
   Begin styling the website
+
+10/01/24 - 17/11/24
+
+- Imported Bootstrap into the project to allow styling customisations
+- Adjusted login and registration components to use Bootstrap components and custom CSS styling
+- Created a new page component for Login and Register
+- Utilise conditional rendering to display form displayed according to the pill selected
