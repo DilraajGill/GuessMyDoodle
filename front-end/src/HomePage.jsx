@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Row, Col } from "react-bootstrap";
 /**
  * @class HomePage
  * Displays the home page for the User
@@ -72,15 +72,18 @@ function HomePage() {
       <Button variant="success" onClick={() => navigation("/store")}>
         To The Store!
       </Button>
-      <div>
+      <br />
+      <Row>
         {lobbies.map((lobby) => (
-          <LobbyCard
-            key={lobby.id}
-            lobby={lobby}
-            onClick={() => handleLobbyClick(lobby.id)}
-          />
+          <Col>
+            <LobbyCard
+              key={lobby.id}
+              lobby={lobby}
+              onClick={() => handleLobbyClick(lobby.id)}
+            />
+          </Col>
         ))}
-      </div>
+      </Row>
     </Container>
   );
 }
