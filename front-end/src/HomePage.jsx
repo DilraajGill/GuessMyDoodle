@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
+import { Container, Button } from "react-bootstrap";
 /**
  * @class HomePage
  * Displays the home page for the User
@@ -61,11 +62,13 @@ function HomePage() {
   }
 
   return (
-    <div>
+    <Container>
       <h1>Home Page</h1>
       <h2>Welcome {signedIn.username}</h2>
       <h2>Your Points: {signedIn.points}</h2>
-      <button onClick={createLobby}>Create Lobby!</button>
+      <Button variant="primary" onClick={createLobby}>
+        Create Lobby!
+      </Button>
       <div>
         {lobbies.map((lobby) => (
           <LobbyCard
@@ -75,7 +78,7 @@ function HomePage() {
           />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }
 
