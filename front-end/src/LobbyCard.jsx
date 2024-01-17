@@ -1,10 +1,17 @@
 import React from "react";
+import { Card, Button } from "react-bootstrap";
+
 function LobbyCard({ lobby, onClick }) {
   return (
-    <div onClick={onClick}>
-      <h3>Lobby ID: {lobby.id}</h3>
-      <h4>Player Count: {lobby.playerCount}</h4>
-    </div>
+    <Card onClick={onClick}>
+      <Card.Body>
+        <Card.Title>{lobby.id}</Card.Title>
+        <Card.Text>Players: {lobby.playerCount}</Card.Text>
+        <Button variant="secondary" onClick={onClick}>
+          Join Lobby!
+        </Button>
+      </Card.Body>
+    </Card>
   );
 }
 
