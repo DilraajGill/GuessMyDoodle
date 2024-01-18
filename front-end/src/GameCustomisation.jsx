@@ -76,42 +76,28 @@ function GameCustomisation({
                 onChange={roundUpdate}
               ></Form.Control>
             </Form.Group>
+            <Form.Group>
+              <Form.Label>Number of Minutes</Form.Label>
+              <Form.Control
+                type="range"
+                min="1"
+                max="3"
+                value={minutes}
+                onChange={minutesUpdate}
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Custom Words</Form.Label>
+              <Form.Control
+                as="textarea"
+                value={customWords}
+                onChange={wordsUpdate}
+                placeholder="Separate words by adding a comma (,)"
+              ></Form.Control>
+            </Form.Group>
           </Form>
         </Card.Body>
       </Card>
-      <label>
-        Number of Rounds
-        <input
-          type="range"
-          min="1"
-          max="6"
-          value={rounds}
-          onChange={roundUpdate}
-        />
-      </label>
-      <br />
-      <label>
-        Number of Minutes
-        <input
-          type="range"
-          min="1"
-          max="3"
-          value={minutes}
-          onChange={minutesUpdate}
-        />
-      </label>
-      <br />
-      <label>
-        Custom words
-        <textarea
-          value={customWords}
-          onChange={wordsUpdate}
-          rows={5}
-          cols={50}
-          placeholder="Separate words by adding a comma (,)"
-        />
-      </label>
-      <br />
       <button onClick={startGame}>Start Game</button>
     </div>
   );
