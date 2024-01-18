@@ -66,6 +66,16 @@ function GameCustomisation({
                 Public
               </ToggleButton>
             </ToggleButtonGroup>
+            <Form.Group>
+              <Form.Label>Number of Rounds</Form.Label>
+              <Form.Control
+                type="range"
+                min="1"
+                max="6"
+                value={rounds}
+                onChange={roundUpdate}
+              ></Form.Control>
+            </Form.Group>
           </Form>
         </Card.Body>
       </Card>
