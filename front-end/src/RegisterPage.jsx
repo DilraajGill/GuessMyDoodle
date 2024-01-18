@@ -33,6 +33,10 @@ function RegisterPage() {
     }
   }
 
+  function googleLogin() {
+    window.location.href = "http://localhost:3001/auth/google";
+  }
+
   return (
     <div>
       <Form onSubmit={submitForm}>
@@ -67,7 +71,7 @@ function RegisterPage() {
         <Button variant="primary" size="lg" type="submit" className="me-2">
           Submit
         </Button>
-        <Button variant="danger" size="lg">
+        <Button variant="danger" size="lg" onClick={googleLogin}>
           Register With Google
         </Button>
       </Form>
