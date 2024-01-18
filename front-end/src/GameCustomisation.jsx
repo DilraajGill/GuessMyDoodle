@@ -1,4 +1,6 @@
 import React from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { Form, Card, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 /**
  * Allow for customisation of gameplay settings
  * @class GameCustomisation
@@ -31,7 +33,7 @@ function GameCustomisation({
   }
 
   function privacyUpdate(ev) {
-    socket.emit("update-privacy", ev.target.value);
+    socket.emit("update-privacy", ev);
   }
 
   function wordsUpdate(ev) {
@@ -47,25 +49,26 @@ function GameCustomisation({
 
   return (
     <div>
-      <label>
-        Private Lobby
-        <input
-          type="radio"
-          value="private"
-          checked={lobbyType === "private"}
-          onChange={privacyUpdate}
-        />
-      </label>
-      <label>
-        Public Lobby
-        <input
-          type="radio"
-          value="public"
-          checked={lobbyType === "public"}
-          onChange={privacyUpdate}
-        />
-      </label>
-      <br />
+      <Card>
+        <Card.Body>
+          <Form>
+            <ToggleButtonGroup type="radio" name="lobbyType" value={lobbyType}>
+              <ToggleButton
+                value="private"
+                onClick={() => privacyUpdate("private")}
+              >
+                Private
+              </ToggleButton>
+              <ToggleButton
+                value="public"
+                onClick={() => privacyUpdate("public")}
+              >
+                Public
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Form>
+        </Card.Body>
+      </Card>
       <label>
         Number of Rounds
         <input
