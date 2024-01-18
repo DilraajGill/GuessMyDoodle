@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Modal } from "react-bootstrap";
+import "bootstrap-icons/font/bootstrap-icons.css";
 /**
  * React component to create the register page
  * @class RegisterPage
@@ -72,7 +73,7 @@ function RegisterPage() {
           Submit
         </Button>
         <Button variant="danger" size="lg" onClick={googleLogin}>
-          Register With Google
+          Register With <i class="bi bi-google"></i>
         </Button>
       </Form>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>

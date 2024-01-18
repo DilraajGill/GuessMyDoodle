@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
-
+import "bootstrap-icons/font/bootstrap-icons.css";
 /**
  * Login Page to allow the user to authenticate themselves
  * @class LoginPage
@@ -78,7 +78,7 @@ function LoginPage() {
           Submit
         </Button>
         <Button variant="danger" size="lg" onClick={googleLogin}>
-          Login With Google
+          Login With <i class="bi bi-google"></i>
         </Button>
       </Form>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
