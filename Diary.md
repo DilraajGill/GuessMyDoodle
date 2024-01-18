@@ -265,3 +265,6 @@ Diary
 - Adjusted login and registration components to use Bootstrap components and custom CSS styling
 - Created a new page component for Login and Register
 - Utilise conditional rendering to display form displayed according to the pill selected
+- Imported Bootstrap-icons to display icons accordingly
+- Re-designed lobby cards on Home Page using Bootstrap
+- Re-designed buttons on Home Page
