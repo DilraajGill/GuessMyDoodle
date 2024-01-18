@@ -1,6 +1,12 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { Form, Card, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import {
+  Form,
+  Card,
+  ToggleButtonGroup,
+  ToggleButton,
+  Button,
+} from "react-bootstrap";
 /**
  * Allow for customisation of gameplay settings
  * @class GameCustomisation
@@ -52,6 +58,8 @@ function GameCustomisation({
       <Card>
         <Card.Body>
           <Form>
+            <Form.Label>Lobby Type</Form.Label>
+            <br />
             <ToggleButtonGroup type="radio" name="lobbyType" value={lobbyType}>
               <ToggleButton
                 value="private"
@@ -95,10 +103,11 @@ function GameCustomisation({
                 placeholder="Separate words by adding a comma (,)"
               ></Form.Control>
             </Form.Group>
+            <br />
+            <Button onClick={startGame}>Start Game</Button>
           </Form>
         </Card.Body>
       </Card>
-      <button onClick={startGame}>Start Game</button>
     </div>
   );
 }
