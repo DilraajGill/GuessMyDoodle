@@ -268,3 +268,7 @@ Diary
 - Imported Bootstrap-icons to display icons accordingly
 - Re-designed lobby cards on Home Page using Bootstrap
 - Re-designed buttons on Home Page
+
+18/11/24
+
+- Utilise Google SVG from bootstrap-icon to improve appearance
