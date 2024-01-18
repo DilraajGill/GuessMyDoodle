@@ -6,6 +6,7 @@ import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
 import { Container, Button, Row, Col } from "react-bootstrap";
+import "bootstrap-icons/font/bootstrap-icons.css";
 /**
  * @class HomePage
  * Displays the home page for the User
@@ -75,8 +76,8 @@ function HomePage() {
       >
         To The Store!
       </Button>
-      <Button variant="danger" onClick={() => loadLobbies()} className="me-3">
-        Refresh
+      <Button variant="primary" onClick={() => loadLobbies()} className="me-3">
+        <i class="bi bi-arrow-clockwise"></i>
       </Button>
       <br />
       <Row>
