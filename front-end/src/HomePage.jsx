@@ -20,6 +20,10 @@ function HomePage() {
   /**
    * Ensure the user is authenticated to proceed further
    */
+  async function loadLobbies() {
+    const response = await getPublic({ axios });
+    setLobbies(response.data);
+  }
   useEffect(() => {
     async function ensureLogin() {
       const response = await checkAuthentication({ axios });
@@ -34,11 +38,6 @@ function HomePage() {
         // If not signed in, navigate them to the /login page
         navigation("/login");
       }
-    }
-    async function loadLobbies() {
-      const response = await getPublic({ axios });
-      console.log(response.data);
-      setLobbies(response.data);
     }
     ensureLogin();
     loadLobbies();
@@ -69,8 +68,15 @@ function HomePage() {
       <Button variant="primary" onClick={createLobby} className="me-3">
         Create Lobby!
       </Button>
-      <Button variant="success" onClick={() => navigation("/store")}>
+      <Button
+        variant="success"
+        onClick={() => navigation("/store")}
+        className="me-3"
+      >
         To The Store!
+      </Button>
+      <Button variant="danger" onClick={() => loadLobbies()} className="me-3">
+        Refresh
       </Button>
       <br />
       <Row>
