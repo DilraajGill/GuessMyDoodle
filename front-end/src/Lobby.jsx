@@ -12,6 +12,7 @@ import GameCustomisation from "./GameCustomisation";
 import CurrentlyDrawing from "./CurrentlyDrawing";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
+import { Row, Col } from "react-bootstrap";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -112,71 +113,75 @@ function Lobby() {
     <div>
       <h1>Lobby ID: {lobbyId}</h1>
       <h2>Username: {signedIn.username}</h2>
-      <h3>Players:</h3>
-      {players.map((player, index) => (
-        <PlayerCard
-          key={index}
-          player={player.username}
-          points={player.points}
-          colour={"blue"}
-        />
-      ))}
-      {/* If the state is on the settings page, show this information */}
-      {gameState === "settings" ? (
-        <div>
-          <GameCustomisation
-            socket={socket}
-            rounds={rounds}
-            minutes={minutes}
-            lobbyType={lobbyType}
-            customWords={customWords}
-          />
-        </div>
-      ) : gameState === "drawing" ? (
-        <div>
-          {toSelectWord ? (
-            <div>
-              <ChooseWords list={wordOptions} click={handleWordClick} />
-            </div>
-          ) : (
-            <div>
-              <button type="button" onClick={() => setDrawingTool("draw")}>
-                Draw
-              </button>
-              <button type="button" onClick={() => setDrawingTool("eraser")}>
-                Eraser
-              </button>
-              {signedIn.tools && signedIn.tools.includes("fill") && (
-                <button type="button" onClick={() => setDrawingTool("fill")}>
-                  Fill
+      <Row>
+        <Col md={4}>
+          <h3>Players:</h3>
+          {players.map((player, index) => (
+            <PlayerCard
+              key={index}
+              player={player.username}
+              points={player.points}
+              colour={"blue"}
+            />
+          ))}
+        </Col>
+        {/* If the state is on the settings page, show this information */}
+        {gameState === "settings" ? (
+          <Col md={8}>
+            <GameCustomisation
+              socket={socket}
+              rounds={rounds}
+              minutes={minutes}
+              lobbyType={lobbyType}
+              customWords={customWords}
+            />
+          </Col>
+        ) : gameState === "drawing" ? (
+          <div>
+            {toSelectWord ? (
+              <div>
+                <ChooseWords list={wordOptions} click={handleWordClick} />
+              </div>
+            ) : (
+              <div>
+                <button type="button" onClick={() => setDrawingTool("draw")}>
+                  Draw
                 </button>
-              )}
-              <CurrentlyDrawing username={currentlyDrawing} />
-              <LineThickness
-                thickness={lineThickness}
-                setLineThickness={setLineThickness}
-              />
-              <ColourChooser toCanvas={setSelectedColour} />
-              <Canvas
-                type={drawingTool}
-                lineThickness={lineThickness}
-                colour={selectedColour}
-                socket={socket}
-                lobbyId={lobbyId}
-              />
-              <ChatBox
-                socket={socket}
-                username={signedIn.username}
-                lobbyId={lobbyId}
-              />
-            </div>
-          )}
-        </div>
-      ) : (
-        <div>
-          <h1>The Game Has Finished!</h1>
-        </div>
-      )}
+                <button type="button" onClick={() => setDrawingTool("eraser")}>
+                  Eraser
+                </button>
+                {signedIn.tools && signedIn.tools.includes("fill") && (
+                  <button type="button" onClick={() => setDrawingTool("fill")}>
+                    Fill
+                  </button>
+                )}
+                <CurrentlyDrawing username={currentlyDrawing} />
+                <LineThickness
+                  thickness={lineThickness}
+                  setLineThickness={setLineThickness}
+                />
+                <ColourChooser toCanvas={setSelectedColour} />
+                <Canvas
+                  type={drawingTool}
+                  lineThickness={lineThickness}
+                  colour={selectedColour}
+                  socket={socket}
+                  lobbyId={lobbyId}
+                />
+                <ChatBox
+                  socket={socket}
+                  username={signedIn.username}
+                  lobbyId={lobbyId}
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div>
+            <h1>The Game Has Finished!</h1>
+          </div>
+        )}
+      </Row>
     </div>
   );
 }
