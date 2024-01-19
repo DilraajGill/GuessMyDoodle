@@ -12,7 +12,7 @@ import GameCustomisation from "./GameCustomisation";
 import CurrentlyDrawing from "./CurrentlyDrawing";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -144,16 +144,16 @@ function Lobby() {
               </div>
             ) : (
               <div>
-                <button type="button" onClick={() => setDrawingTool("draw")}>
-                  Draw
-                </button>
-                <button type="button" onClick={() => setDrawingTool("eraser")}>
-                  Eraser
-                </button>
+                <Button onClick={() => setDrawingTool("draw")}>
+                  <i class="bi bi-brush"></i>
+                </Button>
+                <Button onClick={() => setDrawingTool("eraser")}>
+                  <i class="bi bi-eraser-fill"></i>
+                </Button>
                 {signedIn.tools && signedIn.tools.includes("fill") && (
-                  <button type="button" onClick={() => setDrawingTool("fill")}>
-                    Fill
-                  </button>
+                  <Button onClick={() => setDrawingTool("fill")}>
+                    <i class="bi bi-paint-bucket"></i>
+                  </Button>
                 )}
                 <CurrentlyDrawing username={currentlyDrawing} />
                 <LineThickness
