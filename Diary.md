@@ -275,3 +275,10 @@ Diary
 - Added functionality for registering a Google account into the website
 - Converted HTML skeleton of the lobby customisation into a Bootstrap form using components
 - Configured the design of the lobby customisation page to display the player list to the left of the customisations
+
+19/11/24 - 24/11/24
+
+- Re-configured lobby componenets to use Bootstrap Button functionality
+- Re-configured PlayerCard to use the Bootstrap Card component
+- Designed new components using Popover to display components allowing a cleaner user experience when changing colour or adjusting thickness of brush
+- Replaced button text to use Bootstrap icons
