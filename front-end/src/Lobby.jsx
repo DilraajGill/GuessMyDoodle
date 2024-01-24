@@ -160,7 +160,7 @@ function Lobby() {
                   thickness={lineThickness}
                   setLineThickness={setLineThickness}
                 />
-                <ColourChooserButton />
+                <ColourChooserButton setSelectedColour={setSelectedColour} />
                 <Canvas
                   type={drawingTool}
                   lineThickness={lineThickness}

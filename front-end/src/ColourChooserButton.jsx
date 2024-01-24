@@ -1,11 +1,11 @@
 import React from "react";
 import { OverlayTrigger, Popover, Button } from "react-bootstrap";
 import ColourChooser from "./ColourChooser";
-function ColourChooserButton() {
+function ColourChooserButton({ setSelectedColour }) {
   const colourPopover = (
     <Popover>
       <Popover.Body>
-        <ColourChooser />
+        <ColourChooser toCanvas={setSelectedColour} />
       </Popover.Body>
     </Popover>
   );
