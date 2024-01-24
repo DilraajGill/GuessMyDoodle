@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import LineThickness from "./LineThickness";
+import LineThicknessButton from "./LineThicknessButton";
 import ColourChooserButton from "./ColourChooserButton";
 import Canvas from "./Canvas";
 import ChatBox from "./ChatBox";
@@ -156,7 +156,7 @@ function Lobby() {
                   </Button>
                 )}
                 <CurrentlyDrawing username={currentlyDrawing} />
-                <LineThickness
+                <LineThicknessButton
                   thickness={lineThickness}
                   setLineThickness={setLineThickness}
                 />
