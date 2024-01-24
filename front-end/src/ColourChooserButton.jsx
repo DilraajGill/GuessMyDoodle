@@ -17,7 +17,9 @@ function ColourChooserButton({ setSelectedColour }) {
         rootClose
         overlay={colourPopover}
       >
-        <Button>Colour</Button>
+        <Button>
+          <i class="bi bi-eyedropper"></i>
+        </Button>
       </OverlayTrigger>
     </div>
   );

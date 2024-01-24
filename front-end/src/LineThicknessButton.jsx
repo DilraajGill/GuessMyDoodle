@@ -21,7 +21,9 @@ function LineThicknessButton({ thickness, setLineThickness }) {
         rootClose
         overlay={linePopover}
       >
-        <Button>Thickness</Button>
+        <Button>
+          <i class="bi bi-circle-fill"></i>
+        </Button>
       </OverlayTrigger>
     </div>
   );
