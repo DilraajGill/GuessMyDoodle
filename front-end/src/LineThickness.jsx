@@ -1,4 +1,5 @@
 import React from "react";
+import { Form } from "react-bootstrap";
 
 /**
  * Adjust the line thickness for the user when drawing
@@ -7,16 +8,18 @@ import React from "react";
 function LineThickness({ thickness, setLineThickness }) {
   // Component to adjust the line thickness of brush
   return (
-    <div>
-      <label>Line Thickness:</label>
-      <input
-        type="range"
-        min="1"
-        max="10"
-        value={thickness}
-        onChange={(e) => setLineThickness(parseInt(e.target.value))}
-      />
-    </div>
+    <Form>
+      <Form.Group>
+        <Form.Label>Line Thickness</Form.Label>
+        <Form.Control
+          type="range"
+          value={thickness}
+          onChange={(e) => setLineThickness(e.target.value)}
+          min={1}
+          max={10}
+        />
+      </Form.Group>
+    </Form>
   );
 }
 
