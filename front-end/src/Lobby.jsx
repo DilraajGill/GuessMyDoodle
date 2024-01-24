@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LineThickness from "./LineThickness";
-import ColourChooser from "./ColourChooser";
+import ColourChooserButton from "./ColourChooserButton";
 import Canvas from "./Canvas";
 import ChatBox from "./ChatBox";
 import socket from "./SocketManager";
@@ -160,7 +160,7 @@ function Lobby() {
                   thickness={lineThickness}
                   setLineThickness={setLineThickness}
                 />
-                <ColourChooser toCanvas={setSelectedColour} />
+                <ColourChooserButton />
                 <Canvas
                   type={drawingTool}
                   lineThickness={lineThickness}
