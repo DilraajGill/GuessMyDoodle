@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import "floodfill";
 /**
  * Canvas component for drawing onto
@@ -169,12 +170,12 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
   }
   return (
     <div>
-      <button type="button" onClick={clearCanvas}>
-        Clear
-      </button>
-      <button type="button" onClick={undoMove}>
-        Undo
-      </button>
+      <Button type="button" onClick={clearCanvas}>
+        <i class="bi bi-trash-fill"></i>
+      </Button>
+      <Button type="button" onClick={undoMove}>
+        <i class="bi bi-arrow-counterclockwise"></i>
+      </Button>
       <canvas
         ref={canvasRef}
         onMouseDown={beginDrawing}

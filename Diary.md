@@ -272,3 +272,6 @@ Diary
 18/11/24
 
 - Utilise Google SVG from bootstrap-icon to improve appearance
+- Added functionality for registering a Google account into the website
+- Converted HTML skeleton of the lobby customisation into a Bootstrap form using components
+- Configured the design of the lobby customisation page to display the player list to the left of the customisations
