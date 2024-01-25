@@ -282,3 +282,12 @@ Diary
 - Re-configured PlayerCard to use the Bootstrap Card component
 - Designed new components using Popover to display components allowing a cleaner user experience when changing colour or adjusting thickness of brush
 - Replaced button text to use Bootstrap icons
+
+25/11/24
+
+- Adjusted the player list component of the website to make it scrollable. This will ensure that the website will stay in the correct aspect ratio
+  and shape; especially useful with populated lobbies
+- Moved the buttons into one "toolbar" that is presented below the canvas. The benefit of doing this is that then the screen is more organised and structured,
+  enabling a better user experience.
+- Employed custom CSS to highlight the canvas, therefore making it clear to the user that they are drawing
+- Restructured the website, to present the information in a logical order (players on the left, canvas and toolbar in the middle, chatbox on the right)
