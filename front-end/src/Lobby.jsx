@@ -12,7 +12,7 @@ import GameCustomisation from "./GameCustomisation";
 import CurrentlyDrawing from "./CurrentlyDrawing";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Container } from "react-bootstrap";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -110,11 +110,11 @@ function Lobby() {
   }
 
   return (
-    <div>
+    <Container fluid>
       <h1>Lobby ID: {lobbyId}</h1>
       <h2>Username: {signedIn.username}</h2>
       <Row>
-        <Col md={4}>
+        <Col md={3}>
           <h3>Players:</h3>
           {players.map((player, index) => (
             <PlayerCard
@@ -137,52 +137,64 @@ function Lobby() {
             />
           </Col>
         ) : gameState === "drawing" ? (
-          <div>
-            {toSelectWord ? (
-              <div>
-                <ChooseWords list={wordOptions} click={handleWordClick} />
-              </div>
-            ) : (
-              <div>
-                <Button onClick={() => setDrawingTool("draw")}>
-                  <i class="bi bi-brush"></i>
-                </Button>
-                <Button onClick={() => setDrawingTool("eraser")}>
-                  <i class="bi bi-eraser-fill"></i>
-                </Button>
-                {signedIn.tools && signedIn.tools.includes("fill") && (
-                  <Button onClick={() => setDrawingTool("fill")}>
-                    <i class="bi bi-paint-bucket"></i>
-                  </Button>
-                )}
-                <CurrentlyDrawing username={currentlyDrawing} />
-                <LineThicknessButton
-                  thickness={lineThickness}
-                  setLineThickness={setLineThickness}
-                />
-                <ColourChooserButton setSelectedColour={setSelectedColour} />
-                <Canvas
-                  type={drawingTool}
-                  lineThickness={lineThickness}
-                  colour={selectedColour}
-                  socket={socket}
-                  lobbyId={lobbyId}
-                />
-                <ChatBox
-                  socket={socket}
-                  username={signedIn.username}
-                  lobbyId={lobbyId}
-                />
-              </div>
-            )}
-          </div>
+          <>
+            <Col md={6}>
+              {toSelectWord ? (
+                <div>
+                  <ChooseWords list={wordOptions} click={handleWordClick} />
+                </div>
+              ) : (
+                <div>
+                  <Row>
+                    <Col md={12}>
+                      <Button onClick={() => setDrawingTool("draw")}>
+                        <i class="bi bi-brush"></i>
+                      </Button>
+                      <Button onClick={() => setDrawingTool("eraser")}>
+                        <i class="bi bi-eraser-fill"></i>
+                      </Button>
+                      {signedIn.tools && signedIn.tools.includes("fill") && (
+                        <Button onClick={() => setDrawingTool("fill")}>
+                          <i class="bi bi-paint-bucket"></i>
+                        </Button>
+                      )}
+                      <CurrentlyDrawing username={currentlyDrawing} />
+                      <LineThicknessButton
+                        thickness={lineThickness}
+                        setLineThickness={setLineThickness}
+                      />
+                      <ColourChooserButton
+                        setSelectedColour={setSelectedColour}
+                      />
+                    </Col>
+                    <Col md={12}>
+                      <Canvas
+                        type={drawingTool}
+                        lineThickness={lineThickness}
+                        colour={selectedColour}
+                        socket={socket}
+                        lobbyId={lobbyId}
+                      />
+                    </Col>
+                  </Row>
+                </div>
+              )}
+            </Col>
+            <Col md={3}>
+              <ChatBox
+                socket={socket}
+                username={signedIn.username}
+                lobbyId={lobbyId}
+              />
+            </Col>
+          </>
         ) : (
-          <div>
+          <Col md={9}>
             <h1>The Game Has Finished!</h1>
-          </div>
+          </Col>
         )}
       </Row>
-    </div>
+    </Container>
   );
 }
 
