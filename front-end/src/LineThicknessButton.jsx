@@ -14,7 +14,7 @@ function LineThicknessButton({ thickness, setLineThickness }) {
     </Popover>
   );
   return (
-    <div>
+    <>
       <OverlayTrigger
         trigger="click"
         placement="bottom"
@@ -25,7 +25,7 @@ function LineThicknessButton({ thickness, setLineThickness }) {
           <i class="bi bi-circle-fill"></i>
         </Button>
       </OverlayTrigger>
-    </div>
+    </>
   );
 }
 

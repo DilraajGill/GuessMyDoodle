@@ -10,7 +10,7 @@ function ColourChooserButton({ setSelectedColour }) {
     </Popover>
   );
   return (
-    <div>
+    <>
       <OverlayTrigger
         trigger="click"
         placement="bottom"
@@ -21,7 +21,7 @@ function ColourChooserButton({ setSelectedColour }) {
           <i class="bi bi-eyedropper"></i>
         </Button>
       </OverlayTrigger>
-    </div>
+    </>
   );
 }
 

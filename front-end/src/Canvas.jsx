@@ -162,20 +162,8 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     });
   }, [drawings]);
 
-  function clearCanvas() {
-    socket.emit("clear-canvas");
-  }
-  function undoMove() {
-    socket.emit("undo-move");
-  }
   return (
     <div>
-      <Button type="button" onClick={clearCanvas}>
-        <i class="bi bi-trash-fill"></i>
-      </Button>
-      <Button type="button" onClick={undoMove}>
-        <i class="bi bi-arrow-counterclockwise"></i>
-      </Button>
       <canvas
         ref={canvasRef}
         onMouseDown={beginDrawing}

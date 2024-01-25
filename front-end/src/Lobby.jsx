@@ -110,6 +110,13 @@ function Lobby() {
     socket.emit("selected-word", word);
   }
 
+  function clearCanvas() {
+    socket.emit("clear-canvas");
+  }
+  function undoMove() {
+    socket.emit("undo-move");
+  }
+
   return (
     <Container fluid>
       <h1>Lobby ID: {lobbyId}</h1>
@@ -159,7 +166,12 @@ function Lobby() {
                           <i class="bi bi-paint-bucket"></i>
                         </Button>
                       )}
-                      <CurrentlyDrawing username={currentlyDrawing} />
+                      <Button type="button" onClick={clearCanvas}>
+                        <i class="bi bi-trash-fill"></i>
+                      </Button>
+                      <Button type="button" onClick={undoMove}>
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                      </Button>
                       <LineThicknessButton
                         thickness={lineThickness}
                         setLineThickness={setLineThickness}
@@ -168,6 +180,7 @@ function Lobby() {
                         setSelectedColour={setSelectedColour}
                       />
                     </Col>
+                    <CurrentlyDrawing username={currentlyDrawing} />
                     <Col md={12}>
                       <Canvas
                         type={drawingTool}
