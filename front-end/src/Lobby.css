@@ -3,5 +3,9 @@ canvas{
     cursor: crosshair;
     width: 100%;
     height: 75vh;
-    min-width: 300px;
+}
+
+.player-list{
+    height: 100vh;
+    overflow-y: auto;
 }

@@ -123,15 +123,17 @@ function Lobby() {
       <h2>Username: {signedIn.username}</h2>
       <Row>
         <Col md={3}>
-          <h3>Players:</h3>
-          {players.map((player, index) => (
-            <PlayerCard
-              key={index}
-              player={player.username}
-              points={player.points}
-              colour={"blue"}
-            />
-          ))}
+          <div className="player-list">
+            <h3>Players:</h3>
+            {players.map((player, index) => (
+              <PlayerCard
+                key={index}
+                player={player.username}
+                points={player.points}
+                colour={"blue"}
+              />
+            ))}
+          </div>
         </Col>
         {/* If the state is on the settings page, show this information */}
         {gameState === "settings" ? (
