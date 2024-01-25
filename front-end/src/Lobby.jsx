@@ -154,6 +154,16 @@ function Lobby() {
               ) : (
                 <div>
                   <Row>
+                    <CurrentlyDrawing username={currentlyDrawing} />
+                    <Col md={12}>
+                      <Canvas
+                        type={drawingTool}
+                        lineThickness={lineThickness}
+                        colour={selectedColour}
+                        socket={socket}
+                        lobbyId={lobbyId}
+                      />
+                    </Col>
                     <Col md={12}>
                       <Button onClick={() => setDrawingTool("draw")}>
                         <i class="bi bi-brush"></i>
@@ -178,16 +188,6 @@ function Lobby() {
                       />
                       <ColourChooserButton
                         setSelectedColour={setSelectedColour}
-                      />
-                    </Col>
-                    <CurrentlyDrawing username={currentlyDrawing} />
-                    <Col md={12}>
-                      <Canvas
-                        type={drawingTool}
-                        lineThickness={lineThickness}
-                        colour={selectedColour}
-                        socket={socket}
-                        lobbyId={lobbyId}
                       />
                     </Col>
                   </Row>
