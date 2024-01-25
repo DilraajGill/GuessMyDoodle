@@ -13,6 +13,7 @@ import CurrentlyDrawing from "./CurrentlyDrawing";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
 import { Row, Col, Button, Container } from "react-bootstrap";
+import "./Lobby.css";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
