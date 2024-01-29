@@ -149,6 +149,7 @@ class Game {
    */
   initialiseState(socket) {
     // Initialise the state of the lobby for those joining
+    socket.emit("set-host", this.host.username);
     if (this.state === "drawing") {
       socket.emit("set-state", "drawing");
       socket.emit("initial-drawings", this.getDrawing());
