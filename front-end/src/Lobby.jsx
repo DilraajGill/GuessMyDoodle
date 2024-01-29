@@ -116,15 +116,6 @@ function Lobby() {
     }, 1000);
   }
 
-  // useEffect(() => {
-  //   let timerInterval = setInterval(() => {
-  //     setRoundTimer((prev) => {
-  //       const newTimer = Math.max(0, prev - 1);
-  //       return newTimer;
-  //     });
-  //   });
-  // }, []);
-  // If the game is invalid, it should display to user
   if (!validGame) {
     return <h1>Invalid Game</h1>;
   }
