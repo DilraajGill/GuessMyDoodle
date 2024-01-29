@@ -37,6 +37,7 @@ function Lobby() {
   const [customWords, setCustomWords] = React.useState("");
   const [drawingTool, setDrawingTool] = React.useState("draw");
   const [roundTimer, setRoundTimer] = React.useState(null);
+  const roundTimerRef = React.useRef(null);
   const navigation = useNavigate();
 
   /**
@@ -92,7 +93,7 @@ function Lobby() {
     });
     socket.on("currently-drawing", (data) => {
       setCurrentlyDrawing(data);
-      setRoundTimer(minutes * 60);
+      setNewTimer(minutes * 60);
     });
 
     socket.on("choose-words", (words) => {
@@ -102,19 +103,27 @@ function Lobby() {
     });
   }, []);
 
-  useEffect(() => {
-    let timerInterval;
-    function timerUpdate() {
+  function setNewTimer(duration) {
+    setRoundTimer(duration);
+    roundTimerRef.current = setInterval(() => {
       setRoundTimer((prev) => {
-        const newTimer = Math.max(0, prev - 1);
-        if (newTimer <= 0) {
-          clearInterval(timerInterval);
+        if (prev <= 1) {
+          clearInterval(roundTimerRef.current);
+          return 0;
         }
-        return newTimer;
+        return prev - 1;
       });
-    }
-    timerInterval = setInterval(timerUpdate, 1000);
-  }, [roundTimer]);
+    }, 1000);
+  }
+
+  // useEffect(() => {
+  //   let timerInterval = setInterval(() => {
+  //     setRoundTimer((prev) => {
+  //       const newTimer = Math.max(0, prev - 1);
+  //       return newTimer;
+  //     });
+  //   });
+  // }, []);
   // If the game is invalid, it should display to user
   if (!validGame) {
     return <h1>Invalid Game</h1>;
