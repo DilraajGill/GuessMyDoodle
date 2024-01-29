@@ -36,6 +36,7 @@ function Lobby() {
   const [lobbyType, setLobbyType] = React.useState("private");
   const [customWords, setCustomWords] = React.useState("");
   const [drawingTool, setDrawingTool] = React.useState("draw");
+  const [roundTimer, setRoundTimer] = React.useState(null);
   const navigation = useNavigate();
 
   /**
@@ -90,8 +91,8 @@ function Lobby() {
       setGameState(state);
     });
     socket.on("currently-drawing", (data) => {
-      console.log(data);
       setCurrentlyDrawing(data);
+      setRoundTimer(minutes * 60);
     });
 
     socket.on("choose-words", (words) => {
@@ -100,6 +101,20 @@ function Lobby() {
       console.log(words);
     });
   }, []);
+
+  useEffect(() => {
+    let timerInterval;
+    function timerUpdate() {
+      setRoundTimer((prev) => {
+        const newTimer = Math.max(0, prev - 1);
+        if (newTimer <= 0) {
+          clearInterval(timerInterval);
+        }
+        return newTimer;
+      });
+    }
+    timerInterval = setInterval(timerUpdate, 1000);
+  }, [roundTimer]);
   // If the game is invalid, it should display to user
   if (!validGame) {
     return <h1>Invalid Game</h1>;
@@ -121,6 +136,7 @@ function Lobby() {
     <Container fluid>
       <h1>Lobby ID: {lobbyId}</h1>
       <h2>Username: {signedIn.username}</h2>
+      <h4>Timer: {roundTimer}</h4>
       <Row>
         <Col md={3}>
           <div className="player-list">
