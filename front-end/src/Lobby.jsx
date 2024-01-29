@@ -38,6 +38,7 @@ function Lobby() {
   const [drawingTool, setDrawingTool] = React.useState("draw");
   const [roundTimer, setRoundTimer] = React.useState(null);
   const [roundCount, setRoundCount] = React.useState(0);
+  const [host, setHost] = React.useState("");
   const roundTimerRef = React.useRef(null);
   const navigation = useNavigate();
 
@@ -109,6 +110,11 @@ function Lobby() {
       setWordOptions(words);
       setToSelectWord(true);
     });
+
+    socket.on("set-host", (username) => {
+      console.log(username);
+      setHost(username);
+    });
   }, []);
 
   function setNewTimer(duration) {
@@ -154,7 +160,6 @@ function Lobby() {
         )}
         <Col md={3}>
           <div className="player-list">
-            <h3>Players:</h3>
             {players.map((player, index) => (
               <PlayerCard
                 key={index}
@@ -162,6 +167,7 @@ function Lobby() {
                 points={player.points}
                 colour={"blue"}
                 drawing={player.username === currentlyDrawing}
+                host={player.username === host}
               />
             ))}
           </div>
