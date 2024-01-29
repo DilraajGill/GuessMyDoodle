@@ -37,6 +37,7 @@ function Lobby() {
   const [customWords, setCustomWords] = React.useState("");
   const [drawingTool, setDrawingTool] = React.useState("draw");
   const [roundTimer, setRoundTimer] = React.useState(null);
+  const [roundCount, setRoundCount] = React.useState(0);
   const roundTimerRef = React.useRef(null);
   const navigation = useNavigate();
 
@@ -96,6 +97,10 @@ function Lobby() {
       setNewTimer(minutes * 60);
     });
 
+    socket.on("new-round", () => {
+      setRoundCount((prev) => prev + 1);
+    });
+
     socket.on("choose-words", (words) => {
       setWordOptions(words);
       setToSelectWord(true);
@@ -136,7 +141,6 @@ function Lobby() {
     <Container fluid>
       <h1>Lobby ID: {lobbyId}</h1>
       <h2>Username: {signedIn.username}</h2>
-      <h4>Timer: {roundTimer}</h4>
       <Row>
         <Col md={3}>
           <div className="player-list">
@@ -164,6 +168,9 @@ function Lobby() {
           </Col>
         ) : gameState === "drawing" ? (
           <>
+            <h4>
+              Round: {roundCount} Timer: {roundTimer}
+            </h4>
             <Col md={6}>
               {toSelectWord ? (
                 <div>
