@@ -101,6 +101,10 @@ function Lobby() {
       setRoundCount(round);
     });
 
+    socket.on("late-timer", (time) => {
+      setNewTimer(time);
+    });
+
     socket.on("choose-words", (words) => {
       setWordOptions(words);
       setToSelectWord(true);

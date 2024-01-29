@@ -156,7 +156,8 @@ class Game {
         "currently-drawing",
         this.round.getCurrentDrawer().socket.username
       );
-      socket.emit("new-round", roundCount + 1);
+      socket.emit("new-round", this.roundCount + 1);
+      socket.emit("late-timer", this.timer);
     } else if (this.state === "settings") {
       socket.emit("set-state", "settings");
       socket.emit("set-minutes", this.selectedTimer);
@@ -257,7 +258,6 @@ class Game {
             } else {
               // If nobody else is left to draw, delete the round and make a new Round object
               delete this.round;
-              console.log("Next Round");
               this.round = new Round(this.players, this.lobbyId, this.words);
               this.io
                 .to(this.id)
@@ -267,7 +267,7 @@ class Game {
                 );
               this.timer = this.selectedTimer * 60;
               this.roundCount += 1;
-              this.io.to(this.id).emit("new-round", roundCount + 1);
+              this.io.to(this.id).emit("new-round", this.roundCount + 1);
               this.beginTimer();
             }
           }
