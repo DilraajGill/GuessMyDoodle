@@ -152,6 +152,11 @@ class Game {
     if (this.state === "drawing") {
       socket.emit("set-state", "drawing");
       socket.emit("initial-drawings", this.getDrawing());
+      socket.emit(
+        "currently-drawing",
+        this.round.getCurrentDrawer().socket.username
+      );
+      socket.emit("new-round", roundCount + 1);
     } else if (this.state === "settings") {
       socket.emit("set-state", "settings");
       socket.emit("set-minutes", this.selectedTimer);
@@ -260,9 +265,9 @@ class Game {
                   "currently-drawing",
                   this.round.getCurrentDrawer().socket.username
                 );
-              this.io.to(this.id).emit("new-round");
               this.timer = this.selectedTimer * 60;
               this.roundCount += 1;
+              this.io.to(this.id).emit("new-round", roundCount + 1);
               this.beginTimer();
             }
           }

@@ -97,14 +97,13 @@ function Lobby() {
       setNewTimer(minutes * 60);
     });
 
-    socket.on("new-round", () => {
-      setRoundCount((prev) => prev + 1);
+    socket.on("new-round", (round) => {
+      setRoundCount(round);
     });
 
     socket.on("choose-words", (words) => {
       setWordOptions(words);
       setToSelectWord(true);
-      console.log(words);
     });
   }, []);
 
