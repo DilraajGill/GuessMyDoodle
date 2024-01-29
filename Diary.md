@@ -259,7 +259,7 @@ Diary
   Next Steps
   Begin styling the website
 
-10/01/24 - 17/11/24
+10/01/24 - 17/01/24
 
 - Imported Bootstrap into the project to allow styling customisations
 - Adjusted login and registration components to use Bootstrap components and custom CSS styling
@@ -269,21 +269,21 @@ Diary
 - Re-designed lobby cards on Home Page using Bootstrap
 - Re-designed buttons on Home Page
 
-18/11/24
+18/01/24
 
 - Utilise Google SVG from bootstrap-icon to improve appearance
 - Added functionality for registering a Google account into the website
 - Converted HTML skeleton of the lobby customisation into a Bootstrap form using components
 - Configured the design of the lobby customisation page to display the player list to the left of the customisations
 
-19/11/24 - 24/11/24
+19/01/24 - 24/01/24
 
 - Re-configured lobby componenets to use Bootstrap Button functionality
 - Re-configured PlayerCard to use the Bootstrap Card component
 - Designed new components using Popover to display components allowing a cleaner user experience when changing colour or adjusting thickness of brush
 - Replaced button text to use Bootstrap icons
 
-25/11/24
+25/01/24
 
 - Adjusted the player list component of the website to make it scrollable. This will ensure that the website will stay in the correct aspect ratio
   and shape; especially useful with populated lobbies
@@ -291,3 +291,10 @@ Diary
   enabling a better user experience.
 - Employed custom CSS to highlight the canvas, therefore making it clear to the user that they are drawing
 - Restructured the website, to present the information in a logical order (players on the left, canvas and toolbar in the middle, chatbox on the right)
+
+29/01/24
+
+- Added new feature to display how long the user has left on their turn when drawing, to make it clear when it will swap to the next person
+- Added new feature to display the current round being played. This will help new users understand how much has been played so far and how many rounds are remaining
+- Display two new icons to replace text, highlighting on the player card the user that is the host and the user that is currently drawing respectively
+- Modified back-end code to support new socket transmission to implement these features
