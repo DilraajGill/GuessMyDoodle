@@ -142,6 +142,13 @@ function Lobby() {
       <h1>Lobby ID: {lobbyId}</h1>
       <h2>Username: {signedIn.username}</h2>
       <Row>
+        {gameState === "drawing" && (
+          <Col md={12}>
+            <h4>
+              Round: {roundCount} <i class="bi bi-stopwatch"></i>: {roundTimer}
+            </h4>
+          </Col>
+        )}
         <Col md={3}>
           <div className="player-list">
             <h3>Players:</h3>
@@ -151,6 +158,7 @@ function Lobby() {
                 player={player.username}
                 points={player.points}
                 colour={"blue"}
+                drawing={player.username === currentlyDrawing}
               />
             ))}
           </div>
@@ -168,9 +176,6 @@ function Lobby() {
           </Col>
         ) : gameState === "drawing" ? (
           <>
-            <h4>
-              Round: {roundCount} Timer: {roundTimer}
-            </h4>
             <Col md={6}>
               {toSelectWord ? (
                 <div>
@@ -179,7 +184,6 @@ function Lobby() {
               ) : (
                 <div>
                   <Row>
-                    <CurrentlyDrawing username={currentlyDrawing} />
                     <Col md={12}>
                       <Canvas
                         type={drawingTool}
