@@ -12,7 +12,8 @@ import GameCustomisation from "./GameCustomisation";
 import CurrentlyDrawing from "./CurrentlyDrawing";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
-import { Row, Col, Button, Container } from "react-bootstrap";
+import CopyToClipboard from "./CopyToClipboard";
+import { Row, Col, Button, Container, Card } from "react-bootstrap";
 import "./Lobby.css";
 
 /**
@@ -182,6 +183,7 @@ function Lobby() {
               lobbyType={lobbyType}
               customWords={customWords}
             />
+            <CopyToClipboard lobbyId={lobbyId}></CopyToClipboard>
           </Col>
         ) : gameState === "drawing" ? (
           <>
