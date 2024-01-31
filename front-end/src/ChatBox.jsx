@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 // Function to receive message and update state
 /**
  * Function to handle receiving a message and updating state
@@ -39,26 +40,35 @@ function ChatBox({ socket, username, lobbyId }) {
   }
 
   return (
-    <div>
-      <div>
-        {/* Go through every message and display accordingly */}
-        {messages.map((message, index) => (
-          <div key={index}>
-            <strong>{message.username}: </strong>
-            {message.text}
+    <Container>
+      <Row>
+        <Col>
+          <div className="chatbox-container">
+            {messages.map((message, index) => (
+              <div key={index} className="chatbox-message">
+                <strong>{message.username}:</strong>
+                {message.text}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <input
-        type="text"
-        value={newMessage}
-        onChange={(e) => {
-          setNewMessage(e.target.value);
-        }}
-        role="textbox"
-      ></input>
-      <button onClick={handleSend}>Send</button>
-    </div>
+          <InputGroup>
+            <Form.Control
+              placeholder="Input message / guess here!"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSend();
+                }
+              }}
+            ></Form.Control>
+            <Button variant="primary" onClick={handleSend}>
+              Send
+            </Button>
+          </InputGroup>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
