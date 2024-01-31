@@ -9,7 +9,7 @@ import "./ChatBox.css";
  */
 export function receiveMessage(data, setMessages) {
   console.log("Received message");
-  setMessages((prevMessages) => [...prevMessages, data]);
+  setMessages((prevMessages) => [data, ...prevMessages]);
 }
 
 /**
