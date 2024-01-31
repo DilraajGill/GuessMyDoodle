@@ -16,7 +16,11 @@ function CopyToClipboard({ lobbyId }) {
   }
   return (
     <>
-      <Card className="mt-2 p-2 text-center card-clipboard" onClick={copy}>
+      <Card
+        className="mt-2 p-2 text-center card-clipboard"
+        onClick={copy}
+        role="clipboard-button"
+      >
         <Card.Title>
           Click to copy URL to send to your friends! Lobby ID: {lobbyId}
         </Card.Title>
