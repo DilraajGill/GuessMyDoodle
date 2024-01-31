@@ -35,8 +35,14 @@ function ChatBox({ socket, username, lobbyId }) {
    * @memberof ChatBox
    */
   function handleSend() {
-    socket.emit("send-message", { username, text: newMessage, lobbyId });
-    setNewMessage("");
+    if (newMessage.trim() !== "") {
+      socket.emit("send-message", {
+        username,
+        text: newMessage.trim(),
+        lobbyId,
+      });
+      setNewMessage("");
+    }
   }
 
   return (
