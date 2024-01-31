@@ -1,8 +1,9 @@
 body{    
-    background-image:url(https://gartic.io./static/images/new/textura.png);
-    background-size: 750px;
+     background-image: url(../public/AdobeStock_593135125.png); 
+    /* background-image: url(../public/Larger\ Image.png); */
+    background-size: 500px;
     background-repeat: repeat;
-    background-color: #4580ed!important;
+    background-color: #0b4ac1!important;
 }
 
 .card-clipboard{

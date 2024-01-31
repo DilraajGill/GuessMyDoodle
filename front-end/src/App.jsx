@@ -29,6 +29,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
+            path="/"
+            element={<LoginAndRegister defaultState="register" />}
+          />
+          <Route
             path="/login"
             element={<LoginAndRegister defaultState="login" />}
           />
