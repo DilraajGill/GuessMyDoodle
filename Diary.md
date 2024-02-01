@@ -298,3 +298,14 @@ Diary
 - Added new feature to display the current round being played. This will help new users understand how much has been played so far and how many rounds are remaining
 - Display two new icons to replace text, highlighting on the player card the user that is the host and the user that is currently drawing respectively
 - Modified back-end code to support new socket transmission to implement these features
+
+30/01/24 - 31/01/24
+
+- Created a new component from unit tests for easier use when a user has created a new lobby and they would like to distribute the URL, simply clicking on it will put the link in the user's clipboard
+- Added a bootstrap toast notification so that it makes clear to the user it has been copied
+- Fixed issue with the canvas where after applying a background, it would be transparent, by adding CSS styling to create a white background on the class
+- Implement new background obtained from Adobe Stock license
+- New ChatBox implementation to highlight messages more clearly and structure them more appropriately relative to the other components in the lobby
+  Next Steps:
+  Finalise design of the lobby by adding a word "hint" and fix the issue that exists with timer (can be done in candidate branch)
+  Reconfigure the home page take up more the space available as it is quite poor in style currently
