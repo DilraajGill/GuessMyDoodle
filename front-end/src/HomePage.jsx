@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
-import { Container, Button, Row, Col } from "react-bootstrap";
+import { Container, Button, Row, Col, Card } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 /**
  * @class HomePage
@@ -62,24 +62,30 @@ function HomePage() {
   }
 
   return (
-    <Container>
+    <Container className="text-center">
       <h2>Welcome {signedIn.username}</h2>
       <h2>Your Points: {signedIn.points}</h2>
-      <Button variant="primary" onClick={createLobby} className="me-3">
-        Create Lobby!
-      </Button>
-      <Button
-        variant="success"
-        onClick={() => navigation("/store")}
-        className="me-3"
-      >
-        To The Store!
-      </Button>
-      <Button variant="primary" onClick={() => loadLobbies()} className="me-3">
-        <i class="bi bi-arrow-clockwise"></i>
-      </Button>
+      <div className="toolbar">
+        <Button variant="primary" onClick={createLobby} className="me-3">
+          Create Lobby!
+        </Button>
+        <Button
+          variant="success"
+          onClick={() => navigation("/store")}
+          className="me-3"
+        >
+          To The Store!
+        </Button>
+        <Button
+          variant="primary"
+          onClick={() => loadLobbies()}
+          className="me-3"
+        >
+          <i class="bi bi-arrow-clockwise"></i>
+        </Button>
+      </div>
       <br />
-      <Row>
+      <Row xs={1} md={3} lg={5}>
         {lobbies.map((lobby) => (
           <Col>
             <LobbyCard
