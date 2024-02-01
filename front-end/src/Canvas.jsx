@@ -37,7 +37,6 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
    */
   function beginDrawing(ev) {
     const { offsetX, offsetY } = ev.nativeEvent;
-    console.log(`Drawing Began`);
     setIsDrawing(true);
     socket.emit("beginDrawing", { lobbyId });
     if (type === "fill") {
@@ -57,7 +56,6 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
    */
   function drawCanvas(ev) {
     const { offsetX, offsetY } = ev.nativeEvent;
-    console.log(`${type}`);
     if (isDrawing && type !== "fill") {
       socket.emit("drawing", {
         x: offsetX,
@@ -68,7 +66,6 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
         lobbyId,
       });
     } else {
-      console.log("Not Drawing");
     }
   }
   // Adjust the state to show user has stopped drawing
@@ -76,7 +73,6 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
    * Handles the end of the drawing session (once mouse has gone up)
    */
   function endDrawing() {
-    console.log("Drawing Ended");
     setIsDrawing(false);
     socket.emit("endDrawing", { lobbyId });
   }
@@ -104,15 +100,12 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     canvasRef.current.height = 600;
     const context = canvasRef.current.getContext("2d");
     contextRef.current = context;
-    // Request intial drawings from the server if arriving late
-    socket.emit("initialise-drawings");
     // Define handler for drawing information received
     socket.on("drawing", (data) => {
       drawOntoCanvas(data);
     });
     // Define handler for when user has began drawing
     socket.on("beginDrawing", () => {
-      console.log("Began Path");
       contextRef.current.lineCap = "round";
       contextRef.current.beginPath();
     });
