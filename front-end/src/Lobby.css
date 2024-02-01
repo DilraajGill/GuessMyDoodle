@@ -8,3 +8,12 @@ canvas{
     height: 100vh;
     overflow-y: auto;
 }
+
+@keyframes flashingCountdown {
+    0%, 100% {color: red;}
+    50% {color: black}
+}
+
+.flash{
+    animation: flashingCountdown 1s infinite;
+}

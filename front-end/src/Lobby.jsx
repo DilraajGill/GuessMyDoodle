@@ -156,8 +156,10 @@ function Lobby() {
             <Card>
               <Card.Body>
                 <h4>
-                  Round: {roundCount} <i class="bi bi-stopwatch"></i>:{" "}
-                  {roundTimer}
+                  Round: {roundCount} <i class="bi bi-stopwatch"></i>:
+                  <span className={roundTimer < 10 ? "flash" : ""}>
+                    {roundTimer}
+                  </span>
                 </h4>
               </Card.Body>
             </Card>
