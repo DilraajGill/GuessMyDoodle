@@ -156,15 +156,15 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
   }, [drawings]);
 
   return (
-    <div>
+    <div className="canvas-container d-flex justify-content-center align-items-center">
       <canvas
         ref={canvasRef}
         onMouseDown={beginDrawing}
         onMouseUp={endDrawing}
         onMouseMove={drawCanvas}
         role="canvas"
-        width={800}
-        height={600}
+        width="800"
+        height="600"
       />
     </div>
   );

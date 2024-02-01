@@ -282,6 +282,7 @@ class Game {
       }, 1000);
     } else {
       this.updatePoints();
+      this.state = "end";
       this.io.to(this.id).emit("set-state", "end");
     }
   }
