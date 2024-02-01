@@ -205,7 +205,7 @@ class Game {
     this.io
       .to(this.id)
       .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
-    this.io.to(this.id).emit("new-round");
+    this.io.to(this.id).emit("new-round", this.roundCount + 1);
     this.beginTimer();
   }
   /**

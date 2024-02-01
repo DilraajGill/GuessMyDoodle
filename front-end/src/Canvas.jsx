@@ -96,7 +96,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
   }
   useEffect(() => {
     // Set canvas to match the size of the window
-    canvasRef.current.width = 600;
+    canvasRef.current.width = 800;
     canvasRef.current.height = 600;
     const context = canvasRef.current.getContext("2d");
     contextRef.current = context;
@@ -163,6 +163,8 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
         onMouseUp={endDrawing}
         onMouseMove={drawCanvas}
         role="canvas"
+        width={800}
+        height={600}
       />
     </div>
   );
