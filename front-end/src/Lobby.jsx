@@ -9,7 +9,6 @@ import axios from "axios";
 import checkAuthentication from "./checkAuthentication";
 import { authContext } from "./App";
 import GameCustomisation from "./GameCustomisation";
-import CurrentlyDrawing from "./CurrentlyDrawing";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
 import CopyToClipboard from "./CopyToClipboard";
@@ -153,10 +152,15 @@ function Lobby() {
       <h2>Username: {signedIn.username}</h2>
       <Row>
         {gameState === "drawing" && (
-          <Col md={12}>
-            <h4>
-              Round: {roundCount} <i class="bi bi-stopwatch"></i>: {roundTimer}
-            </h4>
+          <Col md={12} className="mb-2">
+            <Card>
+              <Card.Body>
+                <h4>
+                  Round: {roundCount} <i class="bi bi-stopwatch"></i>:{" "}
+                  {roundTimer}
+                </h4>
+              </Card.Body>
+            </Card>
           </Col>
         )}
         <Col md={3}>
