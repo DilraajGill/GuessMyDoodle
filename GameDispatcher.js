@@ -257,7 +257,7 @@ class GameDispatcher {
     const publicGames = [];
     for (const lobbyId in this.games) {
       const game = this.games[lobbyId];
-      if (game && game.privacy === "public") {
+      if (game && game.privacy === "public" && game.state !== "end") {
         publicGames.push({
           id: game.id,
           playerCount: game.players.length,
