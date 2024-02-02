@@ -14,6 +14,7 @@ import PlayerCard from "./PlayerCard";
 import CopyToClipboard from "./CopyToClipboard";
 import { Row, Col, Button, Container, Card } from "react-bootstrap";
 import "./Lobby.css";
+import Hints from "./Hints";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -39,6 +40,8 @@ function Lobby() {
   const [roundTimer, setRoundTimer] = React.useState(null);
   const [roundCount, setRoundCount] = React.useState(0);
   const [host, setHost] = React.useState("");
+  const [drawingWord, setDrawingWord] = React.useState("");
+  const [hideWord, setHideWord] = React.useState(true);
   const roundTimerRef = React.useRef(null);
   const navigation = useNavigate();
 
@@ -96,6 +99,13 @@ function Lobby() {
     socket.on("currently-drawing", (data) => {
       setCurrentlyDrawing(data);
       setNewTimer(minutes * 60);
+      setDrawingWord(`${data} is picking a word!`);
+      setHideWord(false);
+    });
+
+    socket.on("selected-word", (data) => {
+      setHideWord(true);
+      setDrawingWord(data);
     });
 
     socket.on("new-round", (round) => {
@@ -161,6 +171,7 @@ function Lobby() {
                     {roundTimer}
                   </span>
                 </h4>
+                <Hints word={drawingWord} hidden={hideWord} />
               </Card.Body>
             </Card>
           </Col>

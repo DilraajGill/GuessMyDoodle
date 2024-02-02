@@ -219,6 +219,7 @@ class Game {
   }
   setWord(word) {
     this.round.setWord(word);
+    this.io.to(this.id).emit("selected-word", word);
   }
 
   guessWord(word, socket) {

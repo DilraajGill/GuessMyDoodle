@@ -17,3 +17,8 @@ canvas{
 .flash{
     animation: flashingCountdown 1s infinite;
 }
+
+.hint{
+    display: inline-flex;
+    margin-right: 3px;
+}
