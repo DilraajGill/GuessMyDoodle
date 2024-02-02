@@ -18,7 +18,14 @@ canvas{
     animation: flashingCountdown 1s infinite;
 }
 
+.game-stats{
+    display: flex;
+}
+
+.hints-container{
+    display: flex;
+}
+
 .hint{
-    display: inline-flex;
     margin-right: 3px;
 }

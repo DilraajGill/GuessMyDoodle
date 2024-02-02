@@ -2,7 +2,7 @@ import React from "react";
 
 function Hints({ word, hidden }) {
   return (
-    <div className="hints-container">
+    <div className="hints-container text-center">
       {hidden ? (
         word.split("").map((letter, index) => (
           <div className="hint" key={index}>
