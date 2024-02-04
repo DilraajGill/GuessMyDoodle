@@ -7,6 +7,7 @@ import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
 import { Container, Button, Row, Col, Card } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "./HomePage.css";
 /**
  * @class HomePage
  * Displays the home page for the User
@@ -62,19 +63,22 @@ function HomePage() {
   }
 
   return (
-    <Container className="text-center">
+    <Container className="text-center home-page">
+      <div className="top-bar d-flex justify-content-between align-items-center">
+        <Button variant="primary" onClick={() => navigation("/store")}>
+          Go To Store!
+        </Button>
+        <div className="points-container text-right mr-3">
+          <div className="points-label">Points</div>
+          <div className="points-value">
+            <strong>{signedIn.points.toLocaleString()}</strong>
+          </div>
+        </div>
+      </div>
       <h2>Welcome {signedIn.username}</h2>
-      <h2>Your Points: {signedIn.points}</h2>
       <div className="toolbar">
         <Button variant="primary" onClick={createLobby} className="me-3">
           Create Lobby!
-        </Button>
-        <Button
-          variant="success"
-          onClick={() => navigation("/store")}
-          className="me-3"
-        >
-          To The Store!
         </Button>
         <Button
           variant="primary"
