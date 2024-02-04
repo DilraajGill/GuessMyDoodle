@@ -65,9 +65,23 @@ function HomePage() {
   return (
     <Container className="text-center home-page">
       <div className="top-bar d-flex justify-content-between align-items-center">
-        <Button variant="primary" onClick={() => navigation("/store")}>
-          Go To Store!
-        </Button>
+        <div className="toolbar">
+          <Button
+            className="me-3"
+            variant="primary"
+            onClick={() => navigation("/store")}
+          >
+            Go To Store!
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => loadLobbies()}
+            className="me-3"
+          >
+            <i class="bi bi-arrow-clockwise"></i>
+          </Button>
+        </div>
+
         <div className="points-container text-right mr-3">
           <div className="points-label">Points</div>
           <div className="points-value">
@@ -79,13 +93,6 @@ function HomePage() {
       <div className="toolbar">
         <Button variant="primary" onClick={createLobby} className="me-3">
           Create Lobby!
-        </Button>
-        <Button
-          variant="primary"
-          onClick={() => loadLobbies()}
-          className="me-3"
-        >
-          <i class="bi bi-arrow-clockwise"></i>
         </Button>
       </div>
       <br />
