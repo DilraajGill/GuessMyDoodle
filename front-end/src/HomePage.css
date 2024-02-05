@@ -2,4 +2,23 @@
     background-color: aliceblue;
     border-radius: 10px;
     padding: 20px;
+    box-shadow: -2px 2px 4px 0 rgba(0,0,0,.3);
+    width: auto;
+    margin: auto;
+    min-width: 80%;
+    min-height: 700px;
+}
+
+.room-container{
+    background-color: #9fbdc9;
+    border-radius: 10px;
+    overflow-y: auto;
+    min-height: 50vh;
+    max-height: 60vh;
+    padding: 10px 0;
+}
+
+.no-lobbies{
+    text-align: center;
+    padding: 20px;
 }
