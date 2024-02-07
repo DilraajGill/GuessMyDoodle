@@ -3,6 +3,8 @@ import axios from "axios";
 import checkAuthentication from "./checkAuthentication";
 import { authContext } from "./App";
 import { useNavigate } from "react-router-dom";
+import { Container, Button, Row, Col } from "react-bootstrap";
+import "./HomePage.css";
 
 function Store() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
@@ -33,14 +35,48 @@ function Store() {
     }
   }
   return (
-    <div>
-      <h1>Welcome To The Store {signedIn.username}!</h1>
-      <div>
-        <h2>Fill Tool</h2>
-        <button onClick={purchaseFillTool}>
-          {signedIn.tools?.includes("fill") ? "Already Own" : "Buy Fill Tool"}
-        </button>
-      </div>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <Container className="text-center home-page">
+        <div className="top-bar align-items-center">
+          <Row>
+            <Col md={4}>
+              <div className="toolbar">
+                <Button
+                  className="me-3"
+                  variant="primary"
+                  onClick={() => navigation("/home")}
+                >
+                  Go To Home!
+                </Button>
+              </div>
+            </Col>
+            <Col md={4}>
+              <h2>Store</h2>
+            </Col>
+            <Col md={4}>
+              <div className="points-container text-right mr-3">
+                <div className="points-label">Points</div>
+                <div className="points-value">
+                  <strong>{signedIn.points}</strong>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <div className="room-container my-3 p-3">
+          <Row xs={1} md={3} lg={4}>
+            <Col>
+              <h2>Fill Tool</h2>
+              <button onClick={purchaseFillTool}>
+                {signedIn.tools?.includes("fill")
+                  ? "Already Own"
+                  : "Buy Fill Tool"}
+              </button>
+            </Col>
+          </Row>
+        </div>
+      </Container>
     </div>
   );
 }
