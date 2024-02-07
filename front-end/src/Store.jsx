@@ -7,6 +7,7 @@ import { Container, Button, Row, Col } from "react-bootstrap";
 import "./HomePage.css";
 import StoreCard from "./StoreCard";
 import { PaintBucket } from "react-bootstrap-icons";
+import "./Store.css";
 
 function Store() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
