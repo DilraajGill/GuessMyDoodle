@@ -228,7 +228,9 @@ class Game {
         (player) => player.socket.id === socket.id
       );
       if (player) {
-        player.points += this.timer * (5000 / (this.selectedTimer * 60));
+        player.points += Math.floor(
+          this.timer * (5000 / (this.selectedTimer * 60))
+        );
         console.log(`${player.username} now has ${player.points} points!`);
         return true;
       }
