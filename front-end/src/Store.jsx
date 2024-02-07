@@ -5,6 +5,8 @@ import { authContext } from "./App";
 import { useNavigate } from "react-router-dom";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import "./HomePage.css";
+import StoreCard from "./StoreCard";
+import { PaintBucket } from "react-bootstrap-icons";
 
 function Store() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
@@ -67,12 +69,17 @@ function Store() {
         <div className="room-container my-3 p-3">
           <Row xs={1} md={3} lg={4}>
             <Col>
-              <h2>Fill Tool</h2>
-              <button onClick={purchaseFillTool}>
-                {signedIn.tools?.includes("fill")
-                  ? "Already Own"
-                  : "Buy Fill Tool"}
-              </button>
+              <StoreCard
+                Icon={PaintBucket}
+                name="Fill Tool"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
             </Col>
           </Row>
         </div>
