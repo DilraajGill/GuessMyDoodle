@@ -7,12 +7,31 @@ body{
 }
 
 .card-clipboard{
-    transition: background-color 0.25s;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.card-clipboard:active{
+    transform: scale(0.97)
 }
 
 .card-clipboard:hover{
     border: black;
     background-color:#50a4fe 
+}
+
+.card-clipboard.copied{
+    background-color: #d4edda;
+}
+
+.clipboard-feedback{
+    color: #2a6b39;
+    font-weight: bold;
+    animation: fade 2s;
+}
+
+@keyframes fade{
+    0%, 100% {opacity: 0;}
+    50% {opacity: 1;}
 }
 
 .nav-link {
