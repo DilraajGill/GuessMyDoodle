@@ -3,7 +3,7 @@ import { Card, Button } from "react-bootstrap";
 
 function LobbyCard({ lobby, onClick }) {
   return (
-    <Card onClick={onClick}>
+    <Card className="lobby-card" onClick={onClick}>
       <Card.Body>
         <Card.Title>{lobby.id}</Card.Title>
         <Card.Text>Players: {lobby.playerCount}</Card.Text>

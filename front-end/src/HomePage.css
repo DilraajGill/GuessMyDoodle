@@ -9,6 +9,18 @@
     min-height: 700px;
 }
 
+.lobby-card{
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+}
+
+.lobby-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2)
+}
+
 .room-container{
     background-color: #9fbdc9;
     border-radius: 10px;
