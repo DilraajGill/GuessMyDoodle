@@ -13,8 +13,12 @@ function PlayerCard({ player, points, picture, drawing, host }) {
             <Card.Body>
               <Card.Title>
                 {player}
-                {host && <i className="bi bi-star-fill"></i>}
-                {drawing && <i class="bi bi-pencil-fill"></i>}
+                <div className="ms-1" style={{ display: "inline-block" }}>
+                  {host && <i className="bi bi-star-fill"></i>}
+                </div>
+                <div className="ms-1" style={{ display: "inline-block" }}>
+                  {drawing && <i class="bi bi-pencil-fill"></i>}
+                </div>
               </Card.Title>
               <Card.Text style={{ display: "block" }}>
                 Points: {points}
