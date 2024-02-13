@@ -76,7 +76,7 @@ class GameDispatcher {
    * @param {object} socket - Socket to be used for communication
    * @param {string} username - Username of the user joining lobby
    */
-  joinGame(lobbyId, socket, username) {
+  async joinGame(lobbyId, socket, username) {
     if (this.checkExists(lobbyId)) {
       socket.username = username;
       socket.lobbyId = lobbyId;
@@ -86,7 +86,7 @@ class GameDispatcher {
       console.log(`Added ${username} to the lobby`);
       this.io
         .to(lobbyId)
-        .emit("set-players", this.games[lobbyId].getPlayerAndPoints());
+        .emit("set-players", await this.games[lobbyId].getPlayerAndPoints());
       this.games[lobbyId].initialiseState(socket);
     } else {
       socket.emit("invalid-game");

@@ -88,9 +88,9 @@ const games = new GameDispatcher(io);
 io.on("connection", (socket) => {
   console.log("A user has connected");
   // Handler for joining a lobby
-  socket.on("join-lobby", (data) => {
+  socket.on("join-lobby", async (data) => {
     const { lobbyId, username } = data;
-    games.joinGame(lobbyId, socket, username);
+    await games.joinGame(lobbyId, socket, username);
   });
   // Handler for drawing events
   socket.on("drawing", (data) => {
