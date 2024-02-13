@@ -40,4 +40,10 @@
     align-items: center;
     justify-content: flex-end;
     margin-bottom: 10px;
+    padding-right: 10px;
+}
+
+.profile-picture{
+    width: 50px;
+    border-radius: 10px;
 }
