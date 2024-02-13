@@ -35,6 +35,7 @@ function HomePage() {
           username: response.username,
           points: response.points,
           tools: response.tools,
+          profilePicture: response.profilePicture,
         });
       } else {
         // If not signed in, navigate them to the /login page
