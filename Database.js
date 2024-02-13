@@ -40,3 +40,12 @@ export async function fetchUserPoints(username) {
     console.error("Error fetching user");
   }
 }
+
+export async function fetchUserProfilePicture(username) {
+  try {
+    const user = await User.findOne({ username: username });
+    return user.profilePicture;
+  } catch (error) {
+    console.error("Error fetching username");
+  }
+}
