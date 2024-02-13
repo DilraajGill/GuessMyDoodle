@@ -309,3 +309,16 @@ Diary
   Next Steps:
   Finalise design of the lobby by adding a word "hint" and fix the issue that exists with timer (can be done in candidate branch)
   Reconfigure the home page take up more the space available as it is quite poor in style currently
+
+01/02/24 - 08/02/24
+
+- Implemented a bug fix for an issue whereby the time would not decrement by one due to function running repeatedly
+- Implemented another bug fix where the game state did not update - new players would be able to draw yet the game had ended
+- Games are only displayed on the home page if their game state is not finished
+- Flashing red countdown for when the timer reaches 10 seconds
+- Added a hint to be displayed as "\_" to demonstrate the length of the word
+- Home Page now displayed more uniformally to take up more amounts of space and improve the overall aesthetic design
+- Create TDD tests for the new store card component and implemented necessary functionality and styling
+- Point updates are now floored to avoid long decimals in their sum
+  Next Steps:
+  Add a default profile picture and with the option of buying new profile pictures from the store
