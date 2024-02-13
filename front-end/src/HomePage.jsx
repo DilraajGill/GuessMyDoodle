@@ -68,7 +68,7 @@ function HomePage() {
       <Container className="text-center">
         <Col md={12} className="profile">
           <img className="profile-picture" src={signedIn.profilePicture} />
-          <span className="ms-2">{signedIn.username}</span>
+          <span className="ms-2 profile-username">{signedIn.username}</span>
         </Col>
         <div className="home-page">
           <div className="top-bar align-items-center">
