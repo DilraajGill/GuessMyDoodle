@@ -1,5 +1,5 @@
 import Round from "./Round.js";
-import { updateUserPoints } from "./Database.js";
+import { fetchUserProfilePicture, updateUserPoints } from "./Database.js";
 /**
  * Represent a game session
  */
@@ -94,11 +94,18 @@ class Game {
     // Output list of players via their username
     return this.players.map((player) => player.username);
   }
-  getPlayerAndPoints() {
-    return this.players.map((player) => ({
-      username: player.username,
-      points: player.points,
-    }));
+  async getPlayerAndPoints() {
+    const players = [];
+    for (const player of this.players) {
+      const profilePicture = await fetchUserProfilePicture(player.username);
+      players.push({
+        username: player.username,
+        points: player.points,
+        profilePicture: profilePicture,
+      });
+    }
+    console.log(players);
+    return players;
   }
   /**
    * Check if the socket is the host of lobby / game
