@@ -34,3 +34,10 @@
     text-align: center;
     padding: 20px;
 }
+
+.profile{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}

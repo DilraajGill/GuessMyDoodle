@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
   username: { type: String, unique: true, sparse: true },
   points: { type: Number, default: 0 },
   purchasedTools: [{ type: String }],
-  profilePicture: { type: String, default: "../public/first.jpg" },
+  profilePicture: { type: String, default: "first.jpg" },
 });
 // Add Passport-Local plugin and create the model
 userSchema.plugin(passportLocalMongoose);

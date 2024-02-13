@@ -64,63 +64,69 @@ function HomePage() {
   }
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <Container className="text-center home-page">
-        <div className="top-bar align-items-center">
-          <Row>
-            <Col md={4}>
-              <div className="toolbar">
-                <Button
-                  className="me-3"
-                  variant="primary"
-                  onClick={() => navigation("/store")}
-                >
-                  Go To Store!
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={() => loadLobbies()}
-                  className="me-3"
-                >
-                  <i class="bi bi-arrow-clockwise"></i>
-                </Button>
-              </div>
-            </Col>
-            <Col md={4}>
-              <h2>Home</h2>
-            </Col>
-            <Col md={4}>
-              <div className="points-container text-right mr-3">
-                <div className="points-label">Points</div>
-                <div className="points-value">
-                  <strong>{signedIn.points}</strong>
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+      <Container className="text-center">
+        <Col md={12} className="profile">
+          <img src={signedIn.profilePicture} width={50} />
+          <span className="ms-2">{signedIn.username}</span>
+        </Col>
+        <div className="home-page">
+          <div className="top-bar align-items-center">
+            <Row>
+              <Col md={4}>
+                <div className="toolbar">
+                  <Button
+                    className="me-3"
+                    variant="primary"
+                    onClick={() => navigation("/store")}
+                  >
+                    Go To Store!
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => loadLobbies()}
+                    className="me-3"
+                  >
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </Button>
                 </div>
-              </div>
-            </Col>
-          </Row>
-        </div>
-
-        <div className="room-container my-3 p-3">
-          {lobbies.length > 0 ? (
-            <Row xs={1} md={3} lg={4}>
-              {lobbies.map((lobby) => (
-                <Col>
-                  <LobbyCard
-                    key={lobby.id}
-                    lobby={lobby}
-                    onClick={() => handleLobbyClick(lobby.id)}
-                  />
-                </Col>
-              ))}
+              </Col>
+              <Col md={4}>
+                <h2>Home</h2>
+              </Col>
+              <Col md={4}>
+                <div className="points-container text-right mr-3">
+                  <div className="points-label">Points</div>
+                  <div className="points-value">
+                    <strong>{signedIn.points}</strong>
+                  </div>
+                </div>
+              </Col>
             </Row>
-          ) : (
-            <div className="no-lobbies">No lobbies available!</div>
-          )}
-        </div>
-        <div className="toolbar">
-          <Button variant="primary" onClick={createLobby} className="me-3">
-            Create Lobby!
-          </Button>
+          </div>
+
+          <div className="room-container my-3 p-3">
+            {lobbies.length > 0 ? (
+              <Row xs={1} md={3} lg={4}>
+                {lobbies.map((lobby) => (
+                  <Col>
+                    <LobbyCard
+                      key={lobby.id}
+                      lobby={lobby}
+                      onClick={() => handleLobbyClick(lobby.id)}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <div className="no-lobbies">No lobbies available!</div>
+            )}
+          </div>
+          <div className="toolbar">
+            <Button variant="primary" onClick={createLobby} className="me-3">
+              Create Lobby!
+            </Button>
+          </div>
         </div>
       </Container>
     </div>
