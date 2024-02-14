@@ -29,3 +29,8 @@ canvas{
 .hint{
     margin-right: 3px;
 }
+
+.lobby-id{
+    color: grey;
+    font-weight: 250
+}
