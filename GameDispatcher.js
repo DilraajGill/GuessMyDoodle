@@ -260,7 +260,9 @@ class GameDispatcher {
       if (game && game.privacy === "public" && game.state !== "end") {
         publicGames.push({
           id: game.id,
+          host: game.host.username,
           playerCount: game.players.length,
+          icon: game.icon,
         });
       }
     }

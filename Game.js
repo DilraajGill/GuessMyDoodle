@@ -62,18 +62,20 @@ class Game {
     this.words = ["dilraaj", "gill", "hello"];
     this.customWords = "";
     this.privacy = "private";
+    this.icon = "";
   }
   /**
    * Add player to session
    * @param {object} socket
    * @param {string} username
    */
-  addPlayer(socket, username) {
+  async addPlayer(socket, username) {
     // Add user to list of players and if first player, it will become the host too
     this.players.push({ socket, username, points: 0 });
     if (!this.host) {
       this.host = socket;
       this.drawing = socket;
+      this.icon = await fetchUserProfilePicture(username);
     }
   }
   /**

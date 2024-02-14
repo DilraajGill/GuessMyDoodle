@@ -48,8 +48,8 @@ app.post("/create-lobby", (req, res) => {
   return res.status(201).json({ lobbyId: generatedID });
 });
 
-app.get("/get-public", (req, res) => {
-  const publicLobbies = games.getPublic();
+app.get("/get-public", async (req, res) => {
+  const publicLobbies = await games.getPublic();
   res.json(publicLobbies);
 });
 
