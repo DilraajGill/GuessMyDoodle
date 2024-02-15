@@ -32,7 +32,6 @@ function Store() {
   async function purchaseFillTool() {
     try {
       const response = await axios.post("/store/buy/fill-tool");
-      console.log(response.data.success);
     } catch (error) {
       console.log("Error purchasing fill tool");
     }
@@ -73,6 +72,175 @@ function Store() {
               <StoreCard
                 Icon={PaintBucket}
                 name="Fill Tool"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../2.jpg"}
+                name="Toy Gun Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../3.jpg"}
+                name="Ticking Spike Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../4.jpg"}
+                name="Explosion Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../5.jpg"}
+                name="Mee6 Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../6.jpg"}
+                name="Thunderbolt Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../7.jpg"}
+                name="Thumbs Down Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../8.jpg"}
+                name="Flying Plane Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../9.jpg"}
+                name="Star Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../10.jpg"}
+                name="Heart Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../11.jpg"}
+                name="Toy Gun Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../12.jpg"}
+                name="Toy Gun Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../13.jpg"}
+                name="Skull&Bones Icon"
+                buttonText={
+                  signedIn.tools?.includes("fill")
+                    ? "Already Own"
+                    : "Buy Fill Tool"
+                }
+                onPurchaseClick={purchaseFillTool}
+                isOwned={signedIn.tools?.includes("fill")}
+              />
+            </Col>
+            <Col>
+              <StoreCard
+                imageURL={"../14.jpg"}
+                name="BANG! Icon"
                 buttonText={
                   signedIn.tools?.includes("fill")
                     ? "Already Own"

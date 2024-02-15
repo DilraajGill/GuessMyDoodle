@@ -18,7 +18,7 @@ function StoreCard({
           <Card.Img
             variant="top"
             src={imageURL}
-            style={{ height: "100px", width: "100px" }}
+            style={{ height: "100px", width: "100px", borderRadius: "10px" }}
           />
         )}
 
