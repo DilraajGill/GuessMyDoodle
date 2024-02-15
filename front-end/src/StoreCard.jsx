@@ -1,12 +1,28 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 
-function StoreCard({ Icon, name, buttonText, onPurchaseClick, isOwned }) {
+function StoreCard({
+  Icon,
+  imageURL,
+  name,
+  buttonText,
+  onPurchaseClick,
+  isOwned,
+}) {
   return (
     <Card className="store-card">
       <Card.Body>
-        <Icon size={70} />
-        <Card.Title>{name}</Card.Title>
+        {Icon ? (
+          <Icon size={100} />
+        ) : (
+          <Card.Img
+            variant="top"
+            src={imageURL}
+            style={{ height: "100px", width: "100px" }}
+          />
+        )}
+
+        <Card.Title className="mt-2">{name}</Card.Title>
         <Button
           variant={isOwned ? "secondary" : "primary"}
           onClick={onPurchaseClick}
