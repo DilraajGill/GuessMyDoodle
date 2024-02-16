@@ -267,6 +267,7 @@ class Game {
                   this.round.getCurrentDrawer().socket.username
                 );
               this.timer = this.selectedTimer * 60;
+              this.io.to(this.id).emit("clear-canvas");
               this.beginTimer();
             } else {
               // If nobody else is left to draw, delete the round and make a new Round object
@@ -279,6 +280,7 @@ class Game {
                   this.round.getCurrentDrawer().socket.username
                 );
               this.timer = this.selectedTimer * 60;
+              this.io.to(this.id).emit("clear-canvas");
               this.roundCount += 1;
               this.io.to(this.id).emit("new-round", this.roundCount + 1);
               this.beginTimer();
