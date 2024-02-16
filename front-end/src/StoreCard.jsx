@@ -9,8 +9,10 @@ function StoreCard({
   onPurchaseClick,
   isOwned,
 }) {
+  const [mouseOver, isMouseOver] = React.useState(false);
+
   return (
-    <Card className="store-card">
+    <Card className="store-card mb-3">
       <Card.Body>
         {Icon ? (
           <Icon size={100} />
@@ -27,8 +29,10 @@ function StoreCard({
           variant={isOwned ? "secondary" : "primary"}
           onClick={onPurchaseClick}
           disabled={isOwned}
+          onMouseEnter={() => isMouseOver(true)}
+          onMouseOut={() => isMouseOver(false)}
         >
-          {buttonText}
+          {mouseOver ? "Buy!" : buttonText}
         </Button>
       </Card.Body>
     </Card>
