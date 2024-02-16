@@ -12,4 +12,10 @@
 
 .store-card .btn{
     margin-top: 15px;
+    transition: all 0.4s;
+    width: 75%
+}
+
+.store-card .btn:hover{
+    background-color: rgb(58, 70, 167);
 }
