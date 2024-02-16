@@ -67,7 +67,7 @@ function Store() {
         </div>
 
         <div className="room-container my-3 p-3">
-          <Row xs={1} md={3} lg={4}>
+          <Row xs={1} sm={2} md={2} lg={3} xl={4}>
             <Col>
               <StoreCard
                 Icon={PaintBucket}
@@ -75,7 +75,7 @@ function Store() {
                 buttonText={
                   signedIn.tools?.includes("fill")
                     ? "Already Own"
-                    : "Buy Fill Tool"
+                    : "10,000 Points"
                 }
                 onPurchaseClick={purchaseFillTool}
                 isOwned={signedIn.tools?.includes("fill")}
