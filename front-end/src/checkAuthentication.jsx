@@ -18,6 +18,7 @@ async function checkAuthentication({ axios }) {
     points: response.data.points,
     tools: response.data.purchasedTools,
     profilePicture: response.data.profilePicture,
+    purchasedProfilePicture: response.data.purchasedProfilePicture,
   };
 }
 export default checkAuthentication;
