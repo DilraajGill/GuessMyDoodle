@@ -70,6 +70,25 @@ app.post("/store/buy/fill-tool", async (req, res) => {
   res.status(400).send("Not enough points!");
 });
 
+app.post("/store/buy/:iconId", async (req, res) => {
+  const iconId = req.params.iconId;
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ error: "User not authenticated" });
+  }
+  const user = await User.findById(req.user.id);
+  if (user.purchasedProfilePicture.includes(`${iconId}.jpg`)) {
+    return res.status(400).send("Picture already purchased!");
+  }
+  if (user.points >= 10000) {
+    user.points -= 10000;
+    user.purchasedProfilePicture.push(`${iconId}.jpg`);
+    user.profilePicture = `${iconId}.jpg`;
+    await user.save();
+    return res.send({ success: true });
+  }
+  res.status(400).send("Not enough points!");
+});
+
 // Listen on port 3001
 const server = app.listen(3001);
 const io = new SocketIo(server, {
