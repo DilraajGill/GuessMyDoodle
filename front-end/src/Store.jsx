@@ -21,6 +21,8 @@ function Store() {
           username: response.username,
           points: response.points,
           tools: response.tools,
+          profilePicture: response.profilePicture,
+          purchasedProfilePicture: response.purchasedProfilePicture,
         });
       } else {
         // If not signed in, navigate them to the /login page
@@ -36,6 +38,15 @@ function Store() {
       console.log("Error purchasing fill tool");
     }
   }
+
+  async function purchasedProfilePicture(id) {
+    try {
+      const response = await axios.post(`/store/buy/${id}`);
+    } catch (error) {
+      console.log("Error purchasing profile picture");
+    }
+  }
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <Container className="text-center">
@@ -91,12 +102,12 @@ function Store() {
                   imageURL={"../2.jpg"}
                   name="Toy Gun Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("2.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(2)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("2.jpg")}
                 />
               </Col>
               <Col>
@@ -104,12 +115,12 @@ function Store() {
                   imageURL={"../3.jpg"}
                   name="Ticking Spike Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("3.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(3)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("3.jpg")}
                 />
               </Col>
               <Col>
@@ -117,12 +128,12 @@ function Store() {
                   imageURL={"../4.jpg"}
                   name="Explosion Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("4.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(4)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("4.jpg")}
                 />
               </Col>
               <Col>
@@ -130,12 +141,12 @@ function Store() {
                   imageURL={"../5.jpg"}
                   name="Mee6 Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("5.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(5)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("5.jpg")}
                 />
               </Col>
               <Col>
@@ -143,12 +154,12 @@ function Store() {
                   imageURL={"../6.jpg"}
                   name="Thunderbolt Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("6.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(6)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("6.jpg")}
                 />
               </Col>
               <Col>
@@ -156,12 +167,12 @@ function Store() {
                   imageURL={"../7.jpg"}
                   name="Thumbs Down Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("7.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(7)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("7.jpg")}
                 />
               </Col>
               <Col>
@@ -169,12 +180,12 @@ function Store() {
                   imageURL={"../8.jpg"}
                   name="Flying Plane Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("8.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(8)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("8.jpg")}
                 />
               </Col>
               <Col>
@@ -182,12 +193,12 @@ function Store() {
                   imageURL={"../9.jpg"}
                   name="Star Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("9.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(9)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("9.jpg")}
                 />
               </Col>
               <Col>
@@ -195,12 +206,12 @@ function Store() {
                   imageURL={"../10.jpg"}
                   name="Heart Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("10.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(10)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("10.jpg")}
                 />
               </Col>
               <Col>
@@ -208,12 +219,12 @@ function Store() {
                   imageURL={"../11.jpg"}
                   name="Toy Gun Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("11.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(11)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("11.jpg")}
                 />
               </Col>
               <Col>
@@ -221,12 +232,12 @@ function Store() {
                   imageURL={"../12.jpg"}
                   name="Toy Gun Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("12.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(12)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("12.jpg")}
                 />
               </Col>
               <Col>
@@ -234,12 +245,12 @@ function Store() {
                   imageURL={"../13.jpg"}
                   name="Skull&Bones Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("13.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(13)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("13.jpg")}
                 />
               </Col>
               <Col>
@@ -247,12 +258,12 @@ function Store() {
                   imageURL={"../14.jpg"}
                   name="BANG! Icon"
                   buttonText={
-                    signedIn.tools?.includes("fill")
+                    signedIn.purchasedProfilePicture?.includes("14.jpg")
                       ? "Already Own"
-                      : "Buy Fill Tool"
+                      : "5,000 Points"
                   }
-                  onPurchaseClick={purchaseFillTool}
-                  isOwned={signedIn.tools?.includes("fill")}
+                  onPurchaseClick={() => purchasedProfilePicture(14)}
+                  isOwned={signedIn.purchasedProfilePicture?.includes("14.jpg")}
                 />
               </Col>
             </Row>
