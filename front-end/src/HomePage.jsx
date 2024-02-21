@@ -36,6 +36,7 @@ function HomePage() {
           points: response.points,
           tools: response.tools,
           profilePicture: response.profilePicture,
+          purchasedProfilePicture: response.purchasedProfilePicture,
         });
       } else {
         // If not signed in, navigate them to the /login page
