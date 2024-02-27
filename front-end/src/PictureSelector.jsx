@@ -35,8 +35,11 @@ function PictureSelector({ currentPicture, availablePictures }) {
                   src={`../${pic}`}
                   key={pic}
                   data-testId="available"
-                  className="available-picture"
+                  className={`available-picture ${
+                    selectedPicture === `${pic}` ? "selected-picture" : ""
+                  }`}
                   alt="Available Icon"
+                  onClick={() => setSelectedPicture(pic)}
                 ></img>
               ))}
             </Col>
