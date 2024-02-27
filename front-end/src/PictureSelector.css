@@ -1,5 +1,6 @@
 .current-picture{
     width: 300px;
+    border-radius: 10px;
 }
 
 .available-picture{

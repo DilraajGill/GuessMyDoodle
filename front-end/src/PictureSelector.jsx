@@ -14,14 +14,20 @@ function PictureSelector({ currentPicture, availablePictures }) {
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <Container className="text-center">
         <div className="home-page">
-          <Row>
-            <Col md={6}>
-              <img
-                src={currentPicture}
-                data-testId="current"
-                className="current-picture"
-                alt="Current Icon"
-              />
+          <Row style={{ height: "600px" }}>
+            <Col md={6} className="d-flex">
+              <div
+                className="d-flex flex-column align-items-center justify-content-center"
+                style={{ width: "100%" }}
+              >
+                <h2>CURRENT</h2>
+                <img
+                  src={currentPicture}
+                  data-testId="current"
+                  className="current-picture"
+                  alt="Current Icon"
+                />
+              </div>
             </Col>
             <Col md={6}>
               {availablePictures.map((pic) => (
