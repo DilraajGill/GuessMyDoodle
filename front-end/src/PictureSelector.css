@@ -4,5 +4,14 @@
 }
 
 .available-picture{
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
     width: 100px;
+    margin: 3px;
+}
+
+.selected-picture{
+    border: 2px solid #007bff;
+    padding: 4px;
+    box-shadow: 0 0 5px #007bff;
+    transform: scale(1.05);
 }
