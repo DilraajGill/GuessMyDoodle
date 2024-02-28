@@ -6,6 +6,7 @@ import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
 import { Container, Button, Row, Col, Card } from "react-bootstrap";
+import PictureSelector from "./PictureSelector";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./HomePage.css";
 /**
@@ -64,6 +65,8 @@ function HomePage() {
     navigation(`/lobby/${lobbyId}`);
   }
 
+  const [changePicture, setChangePicture] = React.useState(false);
+
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <Container className="text-center">
@@ -89,6 +92,13 @@ function HomePage() {
                     className="me-3"
                   >
                     <i class="bi bi-arrow-clockwise"></i>
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => setChangePicture(true)}
+                    className="me-3"
+                  >
+                    Change Icon
                   </Button>
                 </div>
               </Col>
@@ -129,6 +139,12 @@ function HomePage() {
             </Button>
           </div>
         </div>
+        <PictureSelector
+          showModal={changePicture}
+          setShowModal={setChangePicture}
+          currentPicture={signedIn.profilePicture}
+          availablePictures={signedIn.purchasedProfilePicture}
+        />
       </Container>
     </div>
   );
