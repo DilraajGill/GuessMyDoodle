@@ -1,6 +1,4 @@
 import React from "react";
-import RegisterPage from "./RegisterPage";
-import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Canvas from "./Canvas";
@@ -9,8 +7,6 @@ import CompleteProfile from "./CompleteProfile";
 import Store from "./Store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginAndRegister from "./LoginAndRegister";
-import PictureSelector from "./PictureSelector";
-import ModifyPicturePage from "./ModifyPicturePage";
 
 // Create context to store authentication
 /**
@@ -47,7 +43,6 @@ function App() {
           <Route path="/canvas" element={<Canvas />} />
           <Route path="/complete-profile" element={<CompleteProfile />} />
           <Route path="/store" element={<Store />} />
-          <Route path="/change-picture" element={<ModifyPicturePage />} />
         </Routes>
       </BrowserRouter>
     </authContext.Provider>
