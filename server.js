@@ -89,6 +89,23 @@ app.post("/store/buy/:iconId", async (req, res) => {
   res.status(400).send("Not enough points!");
 });
 
+app.post("/update-picture", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ error: "User not authenticated" });
+  }
+  const user = await User.findById(req.user.id);
+  const { picture } = req.body;
+  if (user.purchasedProfilePicture.includes(picture)) {
+    user.profilePicture = picture;
+
+    await user.save();
+
+    res.json({ message: "Successfully updated!" });
+  } else {
+    res.status(400).json({ error: "Picture not purchased" });
+  }
+});
+
 // Listen on port 3001
 const server = app.listen(3001);
 const io = new SocketIo(server, {
