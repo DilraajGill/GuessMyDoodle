@@ -43,7 +43,7 @@ function PictureSelector({
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => setShowModal(false)}>Close</Button>
+        <Button onClick={() => updatePicture()}>Submit</Button>
       </Modal.Footer>
     </Modal>
 
