@@ -1,8 +1,7 @@
-.current-picture{
-    width: 300px;
-    border-radius: 10px;
+.picture-body{
+    overflow-y: auto;
+    max-height: 400px;
 }
-
 .available-picture{
     transition: transform 0.5s ease, box-shadow 0.5s ease;
     width: 100px;

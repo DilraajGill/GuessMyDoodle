@@ -29,7 +29,7 @@ function PictureSelector({
       <Modal.Header closeButton>
         <Modal.Title>Update Picture</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="picture-body">
         <Container>
           <Row>
             {availablePictures &&
