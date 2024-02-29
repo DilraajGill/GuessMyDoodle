@@ -19,6 +19,7 @@ function PictureSelector({
         picture: selectedPicture,
       });
       setShowModal(false);
+      window.location.reload();
     } catch (error) {
       console.log("Unable to update picture");
     }
