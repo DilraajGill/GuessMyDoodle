@@ -42,6 +42,7 @@ function Store() {
   async function purchasedProfilePicture(id) {
     try {
       const response = await axios.post(`/store/buy/${id}`);
+      window.location.reload();
     } catch (error) {
       console.log("Error purchasing profile picture");
     }
