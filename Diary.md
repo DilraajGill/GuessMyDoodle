@@ -322,3 +322,20 @@ Diary
 - Point updates are now floored to avoid long decimals in their sum
   Next Steps:
   Add a default profile picture and with the option of buying new profile pictures from the store
+
+13/02/24 - 16/02/24
+
+- Modified the database schema and model to include a profile picture value, which will store the file name of the associated user's picture, so that it can be displayed with ease
+- Define a default profile picture to be used when creating an account (not possible to modify)
+- Display the profile picture on the home page and lobby card to show other player's your avatar and also the host's avatar when looking for a lobby to join
+- Add new profile picture components to the store allowing them to purchase new ones with the points they have earned and saved up
+- Implemented functionality to clear the canvas at the end of the user's turn
+  Next Steps:
+  Implement functionality to allow user's to select their profile picture from the settings
+
+20/02/24 - 28/02/24
+
+- Modify the user schema to store the list of all purchased profile pictures, allowing them to modify their avatar as they please to the various owned pictures they have purchased
+- Modify components to support the changes implemented to the User model
+- Created TDD tests for PictureSelector component and implemented code to pass these tests (only show the purchased profile pictures and the currently selected picture)
+- Change the design of the PictureSelector, so rather being it's own route, it will appear as a modal on the home page
