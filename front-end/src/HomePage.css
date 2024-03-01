@@ -2,7 +2,7 @@
     background-color: aliceblue;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: -2px 2px 4px 0 rgba(0,0,0,.3);
+    box-shadow: 2px 2px 4px 0 rgba(0,0,0,.3);
     width: auto;
     margin: auto;
     min-width: 80%;
@@ -50,4 +50,9 @@
 
 .profile-username{
     color: aliceblue
+}
+
+button:hover{
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2)
 }
