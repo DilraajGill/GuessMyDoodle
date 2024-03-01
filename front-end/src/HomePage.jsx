@@ -71,7 +71,11 @@ function HomePage() {
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <Container className="text-center">
         <Col md={12} className="profile">
-          <img className="profile-picture" src={signedIn.profilePicture} />
+          <img
+            className="profile-picture"
+            src={signedIn.profilePicture}
+            alt={`${signedIn.username}'s Profile'`}
+          />
           <span className="ms-2 profile-username">{signedIn.username}</span>
         </Col>
         <div className="home-page">
