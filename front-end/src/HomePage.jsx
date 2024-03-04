@@ -67,6 +67,19 @@ function HomePage() {
 
   const [changePicture, setChangePicture] = React.useState(false);
 
+  async function signOut() {
+    try {
+      const status = await axios.get("/auth/sign-out");
+      if (!status.data.auth) {
+        setSignedIn({
+          auth: false,
+        });
+        navigation("/login");
+      }
+    } catch (error) {
+      console.log("Unable to sign out");
+    }
+  }
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <Container className="text-center">
@@ -84,7 +97,7 @@ function HomePage() {
               <Dropdown.Item onClick={() => setChangePicture(true)}>
                 Change Icon
               </Dropdown.Item>
-              <Dropdown.Item>Sign Out</Dropdown.Item>
+              <Dropdown.Item onClick={() => signOut()}>Sign Out</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
