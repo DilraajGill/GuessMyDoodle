@@ -81,7 +81,9 @@ function HomePage() {
               <span className="ms-2 profile-username">{signedIn.username}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>Change Icon</Dropdown.Item>
+              <Dropdown.Item onClick={() => setChangePicture(true)}>
+                Change Icon
+              </Dropdown.Item>
               <Dropdown.Item>Sign Out</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -104,13 +106,6 @@ function HomePage() {
                     className="me-3"
                   >
                     <i class="bi bi-arrow-clockwise"></i>
-                  </Button>
-                  <Button
-                    variant="primary"
-                    onClick={() => setChangePicture(true)}
-                    className="me-3"
-                  >
-                    Change Icon
                   </Button>
                 </div>
               </Col>
