@@ -148,4 +148,14 @@ router.post("/complete-profile", async (req, res) => {
   }
 });
 
+// https://www.passportjs.org/concepts/authentication/logout/
+// Snippet utilised from documentation
+router.get("/sign-out", (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.send({ auth: false });
+  });
+});
 export default router;
