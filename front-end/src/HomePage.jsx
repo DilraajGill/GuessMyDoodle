@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
-import { Container, Button, Row, Col, Card } from "react-bootstrap";
+import { Container, Button, Row, Col, Dropdown } from "react-bootstrap";
 import PictureSelector from "./PictureSelector";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./HomePage.css";
@@ -71,12 +71,20 @@ function HomePage() {
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <Container className="text-center">
         <Col md={12} className="profile">
-          <img
-            className="profile-picture"
-            src={signedIn.profilePicture}
-            alt={`${signedIn.username}'s Profile'`}
-          />
-          <span className="ms-2 profile-username">{signedIn.username}</span>
+          <Dropdown>
+            <Dropdown.Toggle variant="link">
+              <img
+                className="profile-picture"
+                src={signedIn.profilePicture}
+                alt={`${signedIn.username}'s Profile'`}
+              />
+              <span className="ms-2 profile-username">{signedIn.username}</span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item>Change Icon</Dropdown.Item>
+              <Dropdown.Item>Sign Out</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Col>
         <div className="home-page">
           <div className="top-bar align-items-center">
