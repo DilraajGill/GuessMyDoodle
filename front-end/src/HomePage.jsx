@@ -134,7 +134,14 @@ function HomePage() {
                 ))}
               </Row>
             ) : (
-              <div className="no-lobbies">No lobbies available!</div>
+              <div className="no-lobbies">
+                <img
+                  src="./cross.png"
+                  style={{ width: "400px", height: "400px" }}
+                />
+                <br />
+                <h3>No Lobbies Available</h3>
+              </div>
             )}
           </div>
           <div className="toolbar">
