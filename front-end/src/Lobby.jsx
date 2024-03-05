@@ -166,13 +166,21 @@ function Lobby() {
           <Col md={12} className="mb-2">
             <Card>
               <Card.Body>
-                <h4 className="game-stats">
-                  Round: {roundCount} <i class="bi bi-stopwatch"></i>:
-                  <span className={roundTimer < 10 ? "flash" : ""}>
-                    {roundTimer}
-                  </span>
-                </h4>
-                <Hints word={drawingWord} hidden={hideWord} />
+                <Row>
+                  <Col md={4}>
+                    <h4 className="game-stats">
+                      Round: {roundCount} <i class="bi bi-stopwatch"></i>:
+                      <span className={roundTimer < 10 ? "flash" : ""}>
+                        {roundTimer}
+                      </span>
+                    </h4>
+                  </Col>
+                  <Col md={4}>
+                    <div className="d-flex justify-content-center">
+                      <Hints word={drawingWord} hidden={hideWord} />
+                    </div>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>
