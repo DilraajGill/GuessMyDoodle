@@ -339,3 +339,9 @@ Diary
 - Modify components to support the changes implemented to the User model
 - Created TDD tests for PictureSelector component and implemented code to pass these tests (only show the purchased profile pictures and the currently selected picture)
 - Change the design of the PictureSelector, so rather being it's own route, it will appear as a modal on the home page
+
+29/02/24 - 06/03/24
+
+- Implement styling fixes to clearly display to the user the Username, as before it was blocked by similar colours
+- Changed profile picture button is now a dropdown that is toggled from selecting the user's profile picture / username
+- Dropdown functionality also includes a sign out button to reset the current session and navigate to the /login page
