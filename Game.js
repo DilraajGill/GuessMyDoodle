@@ -240,7 +240,6 @@ class Game {
         player.points += Math.floor(
           this.timer * (5000 / (this.selectedTimer * 60))
         );
-        console.log(`${player.username} now has ${player.points} points!`);
         return true;
       }
     }
@@ -255,6 +254,10 @@ class Game {
       this.timerId = setInterval(() => {
         if (this.timer <= 0) {
           clearInterval(this.timerId);
+          this.io.to(lobbyId).emit("receive-message", {
+            text: `The word was ${this.round.selectedWord}`,
+            username: "Server",
+          });
           if (this.round) {
             if (this.round.hasNextDrawer()) {
               // If the timer is over and someone else is left to draw, then go to them
