@@ -110,18 +110,18 @@ function HomePage() {
               <Col md={4}>
                 <div className="toolbar">
                   <Button
-                    className="me-3"
-                    variant="primary"
-                    onClick={() => navigation("/store")}
-                  >
-                    Go To Store!
-                  </Button>
-                  <Button
                     variant="primary"
                     onClick={() => loadLobbies()}
                     className="me-3"
                   >
                     <i class="bi bi-arrow-clockwise"></i>
+                  </Button>
+                  <Button
+                    className="me-3"
+                    variant="primary"
+                    onClick={() => navigation("/store")}
+                  >
+                    Go To Store!
                   </Button>
                 </div>
               </Col>
