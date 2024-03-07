@@ -99,7 +99,7 @@ class GameDispatcher {
    * @param {string} text - Message to be sent
    * @param {string} username - Username sending the message
    */
-  messageGame(lobbyId, text, socket) {
+  async messageGame(lobbyId, text, socket) {
     if (this.checkExists(lobbyId)) {
       if (this.games[lobbyId].guessWord(text, socket)) {
         this.io.to(lobbyId).emit("receive-message", {
@@ -108,7 +108,7 @@ class GameDispatcher {
         });
         this.io
           .to(lobbyId)
-          .emit("set-players", this.games[lobbyId].getPlayerAndPoints());
+          .emit("set-players", await this.games[lobbyId].getPlayerAndPoints());
       } else {
         this.io
           .to(lobbyId)

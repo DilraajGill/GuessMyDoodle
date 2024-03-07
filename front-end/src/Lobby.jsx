@@ -158,9 +158,7 @@ function Lobby() {
   }
 
   return (
-    <Container fluid>
-      <h1>Lobby ID: {lobbyId}</h1>
-      <h2>Username: {signedIn.username}</h2>
+    <Container fluid className="mt-3">
       <Row>
         {gameState === "drawing" && (
           <Col md={12} className="mb-2">
