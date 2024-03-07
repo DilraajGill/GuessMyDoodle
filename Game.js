@@ -262,31 +262,10 @@ class Game {
             if (this.round.hasNextDrawer()) {
               // If the timer is over and someone else is left to draw, then go to them
               console.log("Going to next player");
-              this.round.nextDrawer();
-              this.io
-                .to(this.id)
-                .emit(
-                  "currently-drawing",
-                  this.round.getCurrentDrawer().socket.username
-                );
-              this.timer = this.selectedTimer * 60;
-              this.io.to(this.id).emit("clear-canvas");
-              this.beginTimer();
+              this.resetNextDrawer();
             } else {
               // If nobody else is left to draw, delete the round and make a new Round object
-              delete this.round;
-              this.round = new Round(this.players, this.lobbyId, this.words);
-              this.io
-                .to(this.id)
-                .emit(
-                  "currently-drawing",
-                  this.round.getCurrentDrawer().socket.username
-                );
-              this.timer = this.selectedTimer * 60;
-              this.io.to(this.id).emit("clear-canvas");
-              this.roundCount += 1;
-              this.io.to(this.id).emit("new-round", this.roundCount + 1);
-              this.beginTimer();
+              this.nextRound();
             }
           }
         } else {
@@ -298,10 +277,35 @@ class Game {
         }
       }, 1000);
     } else {
-      this.updatePoints();
-      this.state = "end";
-      this.io.to(this.id).emit("set-state", "end");
+      this.endGame();
     }
+  }
+  nextRound() {
+    delete this.round;
+    this.round = new Round(this.players, this.lobbyId, this.words);
+    this.io
+      .to(this.id)
+      .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
+    this.timer = this.selectedTimer * 60;
+    this.io.to(this.id).emit("clear-canvas");
+    this.roundCount += 1;
+    this.io.to(this.id).emit("new-round", this.roundCount + 1);
+    this.beginTimer();
+  }
+
+  resetNextDrawer() {
+    this.round.nextDrawer();
+    this.io
+      .to(this.id)
+      .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
+    this.timer = this.selectedTimer * 60;
+    this.io.to(this.id).emit("clear-canvas");
+    this.beginTimer();
+  }
+  endGame() {
+    this.updatePoints();
+    this.state = "end";
+    this.io.to(this.id).emit("set-state", "end");
   }
   async updatePoints() {
     for (const player of this.players) {
