@@ -100,7 +100,7 @@ function Lobby() {
     });
     socket.on("currently-drawing", (data) => {
       setCurrentlyDrawing(data);
-      setNewTimer(minutes * 60);
+      setNewTimer(minutes * 60 + 5);
       setDrawingWord(`${data} is picking a word!`);
       setHideWord(false);
     });
