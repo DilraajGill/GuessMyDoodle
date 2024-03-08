@@ -155,6 +155,7 @@ function HomePage() {
             ) : (
               <div className="no-lobbies">
                 <img
+                  alt="cross"
                   src="./cross.png"
                   style={{ width: "400px", height: "400px" }}
                 />

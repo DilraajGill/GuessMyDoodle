@@ -68,7 +68,7 @@ function ChatBox({ socket, username, lobbyId }) {
             </InputGroup>
             {messages.map((message, index) => (
               <div key={index} className="chatbox-message">
-                <strong>{message.username}:</strong>
+                <strong>{message.username}: </strong>
                 {message.text}
               </div>
             ))}
