@@ -63,6 +63,7 @@ class Game {
     this.customWords = "";
     this.privacy = "private";
     this.icon = "";
+    this.revealWord = false;
   }
   /**
    * Add player to session
@@ -209,7 +210,7 @@ class Game {
     this.words = this.words.concat(this.customWords);
     this.state = "drawing";
     this.io.to(this.id).emit("set-state", this.state);
-    this.timer = this.selectedTimer * 60;
+    this.timer = this.selectedTimer * 60 + 5;
     this.round = new Round(this.players, this.lobbyId, this.words);
     this.io
       .to(this.id)
@@ -232,7 +233,7 @@ class Game {
   }
 
   guessWord(word, socket) {
-    if (this.round.guess(word, socket)) {
+    if (this.round.guess(word, socket) && !this.revealWord) {
       const player = this.players.find(
         (player) => player.socket.id === socket.id
       );
@@ -252,9 +253,14 @@ class Game {
     // Start a timer for the user to draw within
     if (this.roundCount < this.maxRounds) {
       this.timerId = setInterval(() => {
+        if (this.timer === 5 && this.round && !this.revealWord) {
+          this.io.to(this.id).emit("reveal-word", this.round.selectedWord);
+          this.revealWord = true;
+        }
         if (this.timer <= 0) {
           clearInterval(this.timerId);
-          this.io.to(lobbyId).emit("receive-message", {
+          this.revealWord = false;
+          this.io.to(this.id).emit("receive-message", {
             text: `The word was ${this.round.selectedWord}`,
             username: "Server",
           });
@@ -271,7 +277,7 @@ class Game {
         } else {
           if (this.round.allGuessedCorrect()) {
             // If everyone has guessed correctly, move to the next person
-            this.timer = 0;
+            this.timer = 5;
           }
           this.timer--;
         }
@@ -286,7 +292,7 @@ class Game {
     this.io
       .to(this.id)
       .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
-    this.timer = this.selectedTimer * 60;
+    this.timer = this.selectedTimer * 60 + 5;
     this.io.to(this.id).emit("clear-canvas");
     this.roundCount += 1;
     this.io.to(this.id).emit("new-round", this.roundCount + 1);
@@ -298,7 +304,7 @@ class Game {
     this.io
       .to(this.id)
       .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
-    this.timer = this.selectedTimer * 60;
+    this.timer = this.selectedTimer * 60 + 5;
     this.io.to(this.id).emit("clear-canvas");
     this.beginTimer();
   }
