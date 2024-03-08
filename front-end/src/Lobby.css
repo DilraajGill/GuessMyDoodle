@@ -41,3 +41,23 @@ canvas{
     height: auto;
     position: relative;
 }
+
+
+.drawing-word-container{
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+.reveal-word{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 800px;
+    height: 600px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

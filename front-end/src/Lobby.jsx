@@ -43,6 +43,7 @@ function Lobby() {
   const [drawingWord, setDrawingWord] = React.useState("");
   const [hideWord, setHideWord] = React.useState(true);
   const roundTimerRef = React.useRef(null);
+  const [revealWord, setRevealWord] = React.useState({ show: false, word: "" });
   const navigation = useNavigate();
 
   /**
@@ -126,10 +127,15 @@ function Lobby() {
       console.log(username);
       setHost(username);
     });
+
+    socket.on("reveal-word", (word) => {
+      setRevealWord({ show: true, word: word });
+      setTimeout(() => setRevealWord({ show: false, word: "" }), 5000);
+    });
   }, []);
 
   function setNewTimer(duration) {
-    setRoundTimer(duration);
+    setRoundTimer(duration - 5);
     roundTimerRef.current = setInterval(() => {
       setRoundTimer((prev) => {
         if (prev <= 1) {
@@ -219,7 +225,11 @@ function Lobby() {
               ) : (
                 <div>
                   <Row>
-                    <Col md={12}>
+                    <Col
+                      md={12}
+                      className="drawing-word-container"
+                      style={{ width: "800px", height: "600px" }}
+                    >
                       <Canvas
                         type={drawingTool}
                         lineThickness={lineThickness}
@@ -227,6 +237,11 @@ function Lobby() {
                         socket={socket}
                         lobbyId={lobbyId}
                       />
+                      {revealWord.show && (
+                        <div className="reveal-word">
+                          <h2>The word was {revealWord.word}</h2>
+                        </div>
+                      )}
                     </Col>
                     <Col md={12}>
                       <Button onClick={() => setDrawingTool("draw")}>
