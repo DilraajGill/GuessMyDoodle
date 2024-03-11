@@ -238,9 +238,11 @@ class Game {
         (player) => player.socket.id === socket.id
       );
       if (player) {
-        player.points += Math.floor(
+        const turn = Math.floor(
           this.timer * (5000 / (this.selectedTimer * 60))
         );
+        player.points += turn;
+        this.round.updateTurnPoints(player, turn);
         return true;
       }
     }
@@ -254,6 +256,7 @@ class Game {
     if (this.roundCount < this.maxRounds) {
       this.timerId = setInterval(() => {
         if (this.timer === 5 && this.round && !this.revealWord) {
+          this.io.to(this.id).emit("end-points", this.round.returnTurnPoints());
           this.io.to(this.id).emit("reveal-word", this.round.selectedWord);
           this.revealWord = true;
         }
@@ -275,9 +278,9 @@ class Game {
             }
           }
         } else {
-          if (this.round.allGuessedCorrect()) {
+          if (this.round.allGuessedCorrect() && !this.revealWord) {
             // If everyone has guessed correctly, move to the next person
-            this.timer = 5;
+            this.timer = 6;
           }
           this.timer--;
         }
