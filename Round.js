@@ -22,6 +22,7 @@ class Round {
       ...player,
       hasDrawn: false,
       hasGuessedCorrectly: false,
+      turnPoints: 0,
     }));
     /**
      * List of all possible words
@@ -145,6 +146,32 @@ class Round {
       }
     }
     return result;
+  }
+
+  returnTurnPoints() {
+    const points = this.players
+      .map((player) => ({
+        username: player.socket.username,
+        value: player.turnPoints,
+      }))
+      .sort((a, b) => b.turnPoints - a.turnPoints);
+
+    this.players.forEach((player) => {
+      player.turnPoints = 0;
+    });
+
+    return points;
+  }
+
+  updateTurnPoints(user, points) {
+    const foundPlayer = this.players.find(
+      (player) => player.socket.id === user.socket.id
+    );
+    if (foundPlayer) {
+      foundPlayer.turnPoints = points;
+    } else {
+      console.log(`Cannot find player ${user}`);
+    }
   }
 }
 
