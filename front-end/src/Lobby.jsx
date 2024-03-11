@@ -218,60 +218,62 @@ function Lobby() {
         ) : gameState === "drawing" ? (
           <>
             <Col md={6}>
-              {toSelectWord ? (
-                <div>
-                  <ChooseWords list={wordOptions} click={handleWordClick} />
-                </div>
-              ) : (
-                <div>
-                  <Row>
-                    <Col
-                      md={12}
-                      className="drawing-word-container"
-                      style={{ width: "800px", height: "600px" }}
-                    >
-                      <Canvas
-                        type={drawingTool}
-                        lineThickness={lineThickness}
-                        colour={selectedColour}
-                        socket={socket}
-                        lobbyId={lobbyId}
-                      />
-                      {revealWord.show && (
-                        <div className="reveal-word">
-                          <h2>The word was {revealWord.word}</h2>
-                        </div>
-                      )}
-                    </Col>
-                    <Col md={12}>
-                      <Button onClick={() => setDrawingTool("draw")}>
-                        <i class="bi bi-brush"></i>
+              <div>
+                <Row>
+                  <Col
+                    md={12}
+                    className="drawing-word-container"
+                    style={{ width: "800px", height: "600px" }}
+                  >
+                    <Canvas
+                      type={drawingTool}
+                      lineThickness={lineThickness}
+                      colour={selectedColour}
+                      socket={socket}
+                      lobbyId={lobbyId}
+                    />
+                    {toSelectWord && (
+                      <div className="reveal-word">
+                        <ChooseWords
+                          list={wordOptions}
+                          click={handleWordClick}
+                        />
+                      </div>
+                    )}
+                    {revealWord.show && (
+                      <div className="reveal-word">
+                        <h2>The word was {revealWord.word}</h2>
+                      </div>
+                    )}
+                  </Col>
+                  <Col md={12}>
+                    <Button onClick={() => setDrawingTool("draw")}>
+                      <i class="bi bi-brush"></i>
+                    </Button>
+                    <Button onClick={() => setDrawingTool("eraser")}>
+                      <i class="bi bi-eraser-fill"></i>
+                    </Button>
+                    {signedIn.tools && signedIn.tools.includes("fill") && (
+                      <Button onClick={() => setDrawingTool("fill")}>
+                        <i class="bi bi-paint-bucket"></i>
                       </Button>
-                      <Button onClick={() => setDrawingTool("eraser")}>
-                        <i class="bi bi-eraser-fill"></i>
-                      </Button>
-                      {signedIn.tools && signedIn.tools.includes("fill") && (
-                        <Button onClick={() => setDrawingTool("fill")}>
-                          <i class="bi bi-paint-bucket"></i>
-                        </Button>
-                      )}
-                      <Button type="button" onClick={clearCanvas}>
-                        <i class="bi bi-trash-fill"></i>
-                      </Button>
-                      <Button type="button" onClick={undoMove}>
-                        <i class="bi bi-arrow-counterclockwise"></i>
-                      </Button>
-                      <LineThicknessButton
-                        thickness={lineThickness}
-                        setLineThickness={setLineThickness}
-                      />
-                      <ColourChooserButton
-                        setSelectedColour={setSelectedColour}
-                      />
-                    </Col>
-                  </Row>
-                </div>
-              )}
+                    )}
+                    <Button type="button" onClick={clearCanvas}>
+                      <i class="bi bi-trash-fill"></i>
+                    </Button>
+                    <Button type="button" onClick={undoMove}>
+                      <i class="bi bi-arrow-counterclockwise"></i>
+                    </Button>
+                    <LineThicknessButton
+                      thickness={lineThickness}
+                      setLineThickness={setLineThickness}
+                    />
+                    <ColourChooserButton
+                      setSelectedColour={setSelectedColour}
+                    />
+                  </Col>
+                </Row>
+              </div>
             </Col>
             <Col md={3}>
               <ChatBox
