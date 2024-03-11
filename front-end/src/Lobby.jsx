@@ -44,6 +44,7 @@ function Lobby() {
   const [hideWord, setHideWord] = React.useState(true);
   const roundTimerRef = React.useRef(null);
   const [revealWord, setRevealWord] = React.useState({ show: false, word: "" });
+  const [turnPoints, setTurnPoints] = React.useState([]);
   const navigation = useNavigate();
 
   /**
@@ -131,6 +132,10 @@ function Lobby() {
     socket.on("reveal-word", (word) => {
       setRevealWord({ show: true, word: word });
       setTimeout(() => setRevealWord({ show: false, word: "" }), 5000);
+    });
+
+    socket.on("end-points", (points) => {
+      setTurnPoints(points);
     });
   }, []);
 
@@ -243,6 +248,13 @@ function Lobby() {
                     {revealWord.show && (
                       <div className="reveal-word">
                         <h2>The word was {revealWord.word}</h2>
+                        <br />
+                        {turnPoints.map((player, index) => (
+                          <h4 key={index}>
+                            {player.username}: {player.value}
+                            <br />
+                          </h4>
+                        ))}
                       </div>
                     )}
                   </Col>
