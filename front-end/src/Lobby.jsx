@@ -248,13 +248,13 @@ function Lobby() {
                     {revealWord.show && (
                       <div className="reveal-word">
                         <h2>The word was {revealWord.word}</h2>
-                        <br />
-                        {turnPoints.map((player, index) => (
-                          <h4 key={index}>
-                            {player.username}: {player.value}
-                            <br />
-                          </h4>
-                        ))}
+                        <div className="reveal-points">
+                          {turnPoints.map((player, index) => (
+                            <h4 key={index}>
+                              {player.username}: {player.value}
+                            </h4>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </Col>
