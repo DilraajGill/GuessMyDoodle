@@ -63,6 +63,19 @@ canvas{
     align-items: center;
 }
 
-.reveal-points{
-    margin-top: 3px;
+.player-point{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-name{
+    font-weight: bold;
+}
+
+.player-points{
+    font-weight: bold;
+    color: rgb(19, 215, 19);
+    margin-left: 10px;
 }
