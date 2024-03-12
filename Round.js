@@ -150,6 +150,7 @@ class Round {
 
   returnTurnPoints() {
     const points = this.players
+      .filter((player) => player.turnPoints > 0)
       .map((player) => ({
         username: player.socket.username,
         value: player.turnPoints,

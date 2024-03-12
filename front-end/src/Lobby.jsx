@@ -250,7 +250,11 @@ function Lobby() {
                         <h2>The word was {revealWord.word}</h2>
                         <Row className="justify-content-md-center reveal-points">
                           {turnPoints.map((player, index) => (
-                            <Col md={12} key={index} className="player-point">
+                            <Col
+                              md={12}
+                              key={index}
+                              className="player-point-container"
+                            >
                               <span className="player-name">
                                 {player.username}:
                               </span>
