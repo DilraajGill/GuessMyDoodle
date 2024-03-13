@@ -2,6 +2,8 @@ canvas{
     border: 1px solid #cacaca;
     background-color: white;
     cursor: crosshair;
+    width: 100%;
+    height: auto;
 }
 
 .player-list{
@@ -35,8 +37,6 @@ canvas{
     font-weight: 250
 }
 .canvas-container{
-    max-width: 800px;
-    max-height: 600px;
     width: 100%;
     height: auto;
     position: relative;
@@ -45,16 +45,15 @@ canvas{
 
 .drawing-word-container{
     position: relative;
-    width: 800px;
-    height: 600px;
+    padding: 0 !important; 
 }
 
 .reveal-word{
     position: absolute;
+    aspect-ratio: auto 800/600;
+    width: 100%;
     top: 0;
     left: 0;
-    width: 800px;
-    height: 600px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     display: flex;

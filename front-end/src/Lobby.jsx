@@ -245,11 +245,7 @@ function Lobby() {
             <Col md={6}>
               <div>
                 <Row>
-                  <Col
-                    md={12}
-                    className="drawing-word-container"
-                    style={{ width: "800px", height: "600px" }}
-                  >
+                  <Col md={12} className="drawing-word-container">
                     <Canvas
                       type={drawingTool}
                       lineThickness={lineThickness}
