@@ -289,6 +289,17 @@ function Lobby() {
                             </div>
                           ))}
                         </div>
+                        <div className="finish-message">
+                          <h3>{`You finished ${userPosition}${
+                            userPosition === 1
+                              ? "st"
+                              : userPosition === 2
+                              ? "nd"
+                              : userPosition === 3
+                              ? "rd"
+                              : "th"
+                          }`}</h3>
+                        </div>
                       </div>
                     )}
                     {revealWord.show && (

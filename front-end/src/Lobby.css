@@ -127,3 +127,8 @@ canvas{
 .username{
     font-size: 1.3em;
 }
+
+.finish-message{
+    position: relative;
+    top: 100px;
+}
