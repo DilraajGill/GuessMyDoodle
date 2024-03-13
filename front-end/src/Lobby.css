@@ -79,3 +79,51 @@ canvas{
     color: rgb(19, 215, 19);
     margin-left: 10px;
 }
+
+.podium{
+    display: flex;
+    align-items: flex-end;
+    gap: 70px;
+    justify-content: center;
+}
+
+.podium-position{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    width: 120px;
+}
+
+.podium-user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 8px;
+    gap: 2px;
+}
+
+.picture{
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #383434;
+    flex-shrink: 0;
+}
+
+.position-number{
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    bottom: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+.username{
+    font-size: 1.3em;
+}

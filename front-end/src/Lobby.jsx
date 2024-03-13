@@ -267,11 +267,28 @@ function Lobby() {
                     )}
                     {gameState === "end" && (
                       <div className="reveal-word">
-                        {podiumPositions.map((player, index) => (
-                          <h3>
-                            {player.username}: {player.points}
-                          </h3>
-                        ))}
+                        <div className="podium">
+                          {podiumPositions.map((player, index) => (
+                            <div
+                              className={`podium-position place-${index + 1}`}
+                            >
+                              <div className="podium-user">
+                                <div className="profile-information">
+                                  <img
+                                    src={`../${player.profilePicture}`}
+                                    className="picture"
+                                  />
+                                  <div className="username">
+                                    {player.username}
+                                  </div>
+                                </div>
+                                <span className="position-number">
+                                  #{index + 1}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     )}
                     {revealWord.show && (
