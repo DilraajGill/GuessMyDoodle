@@ -240,7 +240,7 @@ function Lobby() {
             />
             <CopyToClipboard lobbyId={lobbyId}></CopyToClipboard>
           </Col>
-        ) : gameState === "drawing" ? (
+        ) : (
           <>
             <Col md={6}>
               <div>
@@ -257,12 +257,21 @@ function Lobby() {
                       socket={socket}
                       lobbyId={lobbyId}
                     />
-                    {toSelectWord && (
+                    {toSelectWord && gameState === "drawing" && (
                       <div className="reveal-word">
                         <ChooseWords
                           list={wordOptions}
                           click={handleWordClick}
                         />
+                      </div>
+                    )}
+                    {gameState === "end" && (
+                      <div className="reveal-word">
+                        {podiumPositions.map((player, index) => (
+                          <h3>
+                            {player.username}: {player.points}
+                          </h3>
+                        ))}
                       </div>
                     )}
                     {revealWord.show && (
@@ -325,8 +334,6 @@ function Lobby() {
               />
             </Col>
           </>
-        ) : (
-          <Col md={9}></Col>
         )}
       </Row>
     </Container>
