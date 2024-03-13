@@ -45,6 +45,8 @@ function Lobby() {
   const roundTimerRef = React.useRef(null);
   const [revealWord, setRevealWord] = React.useState({ show: false, word: "" });
   const [turnPoints, setTurnPoints] = React.useState([]);
+  const [podiumPositions, setPodiumPositions] = React.useState([]);
+  const [userPosition, setUserPosition] = React.useState();
   const navigation = useNavigate();
 
   /**
@@ -96,7 +98,10 @@ function Lobby() {
       setCustomWords(words);
     });
     // Handler to set the state of session
-    socket.on("set-state", (state) => {
+    socket.on("set-state", async (state) => {
+      if (state === "end") {
+        calculatePodiumPositions();
+      }
       setGameState(state);
     });
     socket.on("currently-drawing", (data) => {
@@ -139,6 +144,12 @@ function Lobby() {
     });
   }, []);
 
+  useEffect(() => {
+    if (gameState === "end") {
+      calculatePodiumPositions();
+    }
+  }, [gameState]);
+
   function setNewTimer(duration) {
     setRoundTimer(duration - 5);
     roundTimerRef.current = setInterval(() => {
@@ -166,6 +177,15 @@ function Lobby() {
   }
   function undoMove() {
     socket.emit("undo-move");
+  }
+
+  function calculatePodiumPositions() {
+    const sorted = [...players].sort((a, b) => b.points - a.points);
+    setPodiumPositions(sorted.slice(0, Math.min(3, players.length)));
+    const userIndex = sorted.findIndex(
+      (player) => player.username === signedIn.username
+    );
+    setUserPosition(userIndex + 1);
   }
 
   return (
@@ -306,9 +326,7 @@ function Lobby() {
             </Col>
           </>
         ) : (
-          <Col md={9}>
-            <h1>The Game Has Finished!</h1>
-          </Col>
+          <Col md={9}></Col>
         )}
       </Row>
     </Container>
