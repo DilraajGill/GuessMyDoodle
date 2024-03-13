@@ -1,5 +1,5 @@
 .chatbox-container{
-    max-height: 500px;
+    height: 600px;
     overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
