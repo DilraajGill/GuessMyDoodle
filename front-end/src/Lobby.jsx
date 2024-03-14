@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LineThicknessButton from "./LineThicknessButton";
-import ColourChooserButton from "./ColourChooserButton";
 import Canvas from "./Canvas";
 import ChatBox from "./ChatBox";
 import socket from "./SocketManager";
@@ -13,6 +12,7 @@ import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
 import CopyToClipboard from "./CopyToClipboard";
 import { Row, Col, Button, Container, Card } from "react-bootstrap";
+import ColourChooser from "./ColourChooser";
 import "./Lobby.css";
 import Hints from "./Hints";
 
@@ -349,9 +349,7 @@ function Lobby() {
                       thickness={lineThickness}
                       setLineThickness={setLineThickness}
                     />
-                    <ColourChooserButton
-                      setSelectedColour={setSelectedColour}
-                    />
+                    <ColourChooser toCanvas={setSelectedColour} />
                   </Col>
                 </Row>
               </div>
