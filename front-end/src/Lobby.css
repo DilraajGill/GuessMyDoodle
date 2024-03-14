@@ -197,7 +197,6 @@ canvas{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
 }
 
 .circle{
@@ -207,12 +206,21 @@ canvas{
     transition: transform 0.2s;
 }
 
+.circle-container{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
 .circle:hover{
     transform: scale(1.2);
 }
 
-.circle.selected-thickness{
-    background-color: #654ea3;
+.circle-container.selected-thickness{
+    background-color: #6d57aa;
 }
 
 .canvas-toolbar button{
@@ -222,6 +230,7 @@ canvas{
     align-items: center;
     justify-content: center;
     margin-left: 3px;
+    transition: transform 0.3s ease;
 }
 
 .toolbar-group{
@@ -230,6 +239,11 @@ canvas{
 }
 
 .active-tool{
-    background-color: #292d54;
+    background-color: #292d54 !important;
     border: none;
+    transform: scale(0.95);
+}
+
+.popover-body{
+    padding: 0px;
 }

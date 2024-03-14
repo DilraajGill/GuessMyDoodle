@@ -13,12 +13,16 @@ function LineThickness({ thickness, setLineThickness }) {
       {options.map((option) => (
         <div
           key={option}
-          className={`circle ${
+          className={`circle-container ${
             thickness === option ? "selected-thickness" : ""
           }`}
-          style={{ width: option * 2, height: option * 2 }}
           onClick={() => setLineThickness(option)}
-        ></div>
+        >
+          <div
+            className="circle"
+            style={{ width: option * 2, height: option * 2 }}
+          />
+        </div>
       ))}
     </div>
   );
