@@ -1,5 +1,4 @@
 import React from "react";
-import { SketchPicker } from "react-color";
 
 /**
  * Allow the user drawing to change the colour they wish to draw with
@@ -8,7 +7,21 @@ import { SketchPicker } from "react-color";
  */
 function ColourChooser({ toCanvas }) {
   // Create state to store the chosen colour
-  const [colour, setColour] = React.useState("#000");
+  const [selectedColour, setSelectedColour] = React.useState("#000000");
+  const availableColours = [
+    "#FFFFFF",
+    "#C1C1C1",
+    "#EF130B",
+    "#FF7100",
+    "#FFE400",
+    "#00CC00",
+    "#00B2FF",
+    "#231FD3",
+    "#A300BA",
+    "#D37CAA",
+    "#A0522D",
+    "#000000",
+  ];
   // Create method to update state and communicate this change to lobby
   /**
    * Update the colour for necessary States
@@ -16,12 +29,23 @@ function ColourChooser({ toCanvas }) {
    * @memberof ColourChooser
    */
   function changeColour(choice) {
-    setColour(choice.hex);
-    toCanvas(choice.hex);
+    setSelectedColour(choice);
+    toCanvas(choice);
   }
   return (
-    <div>
-      <SketchPicker color={colour} onChange={changeColour} />
+    <div className="colour-picker">
+      {availableColours.map((colour) => (
+        <div
+          key={colour}
+          className={`colour-item ${
+            colour === selectedColour ? "selected" : ""
+          }`}
+          style={{ backgroundColor: colour }}
+          onClick={() => changeColour(colour)}
+        >
+          <div className="colour-inner" style={{ backgroundColor: colour }} />
+        </div>
+      ))}
     </div>
   );
 }
