@@ -194,6 +194,9 @@ io.on("connection", (socket) => {
   socket.on("fill-canvas", (drawing) => {
     games.fillCanvas(socket.lobbyId, socket, drawing);
   });
+  socket.on("play-again", () => {
+    games.playAgain(socket.lobbyId, socket);
+  });
 });
 
 export default app;
