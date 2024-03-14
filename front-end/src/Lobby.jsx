@@ -327,7 +327,7 @@ function Lobby() {
                       </div>
                     )}
                   </Col>
-                  <Col md={12}>
+                  <Col md={12} className="canvas-toolbar">
                     <ColourChooser toCanvas={setSelectedColour} />
                     <Button onClick={() => setDrawingTool("draw")}>
                       <i class="bi bi-brush"></i>
