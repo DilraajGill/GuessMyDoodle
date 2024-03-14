@@ -169,8 +169,12 @@ canvas{
     box-shadow: 0 0 0 2px #cbc8c8;
 }
 
-.colour-item.selected .colour-inner{
+.light.colour-item.selected .colour-inner{
     box-shadow: inset 0 0 0 2px #383434;
+}
+
+.dark.colour-item.selected .colour-inner{
+    box-shadow: inset 0 0 0 2px #b3b0b0;
 }
 
 .colour-inner{
