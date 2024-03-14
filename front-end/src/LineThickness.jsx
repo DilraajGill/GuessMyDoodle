@@ -6,20 +6,21 @@ import { Form } from "react-bootstrap";
  * @param {*} thickness - React state storing the thickness of the drawing
  */
 function LineThickness({ thickness, setLineThickness }) {
+  const options = [2, 4, 6, 8, 10];
   // Component to adjust the line thickness of brush
   return (
-    <Form>
-      <Form.Group>
-        <Form.Label>Line Thickness</Form.Label>
-        <Form.Control
-          type="range"
-          value={thickness}
-          onChange={(e) => setLineThickness(e.target.value)}
-          min={1}
-          max={10}
-        />
-      </Form.Group>
-    </Form>
+    <div className="line-thickness-options">
+      {options.map((option) => (
+        <div
+          key={option}
+          className={`circle ${
+            thickness === option ? "selected-thickness" : ""
+          }`}
+          style={{ width: option * 2, height: option * 2 }}
+          onClick={() => setLineThickness(option)}
+        ></div>
+      ))}
+    </div>
   );
 }
 

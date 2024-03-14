@@ -13,16 +13,21 @@ function LineThicknessButton({ thickness, setLineThickness }) {
       </Popover.Body>
     </Popover>
   );
+
+  const size = thickness ? `${thickness * 2}px` : "4px";
   return (
     <>
       <OverlayTrigger
         trigger="click"
-        placement="bottom"
+        placement="top"
         rootClose
         overlay={linePopover}
       >
-        <Button>
-          <i class="bi bi-circle-fill"></i>
+        <Button className="line-thickness-button">
+          <span
+            class="bi bi-circle-fill"
+            style={{ fontSize: size, verticalAlign: "middle" }}
+          ></span>
         </Button>
       </OverlayTrigger>
     </>
