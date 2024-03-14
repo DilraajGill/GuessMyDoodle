@@ -328,28 +328,45 @@ function Lobby() {
                     )}
                   </Col>
                   <Col md={12} className="canvas-toolbar">
-                    <ColourChooser toCanvas={setSelectedColour} />
-                    <Button onClick={() => setDrawingTool("draw")}>
-                      <i class="bi bi-brush"></i>
-                    </Button>
-                    <Button onClick={() => setDrawingTool("eraser")}>
-                      <i class="bi bi-eraser-fill"></i>
-                    </Button>
-                    {signedIn.tools && signedIn.tools.includes("fill") && (
-                      <Button onClick={() => setDrawingTool("fill")}>
-                        <i class="bi bi-paint-bucket"></i>
+                    <div className="toolbar-group left-side">
+                      <ColourChooser toCanvas={setSelectedColour} />
+                      <LineThicknessButton
+                        thickness={lineThickness}
+                        setLineThickness={setLineThickness}
+                      />
+                    </div>
+                    <div className="toolbar-group right-side">
+                      <Button
+                        onClick={() => setDrawingTool("draw")}
+                        className={drawingTool === "draw" ? "active-tool" : ""}
+                      >
+                        <i class="bi bi-brush"></i>
                       </Button>
-                    )}
-                    <Button type="button" onClick={clearCanvas}>
-                      <i class="bi bi-trash-fill"></i>
-                    </Button>
-                    <Button type="button" onClick={undoMove}>
-                      <i class="bi bi-arrow-counterclockwise"></i>
-                    </Button>
-                    <LineThicknessButton
-                      thickness={lineThickness}
-                      setLineThickness={setLineThickness}
-                    />
+                      <Button
+                        onClick={() => setDrawingTool("eraser")}
+                        className={
+                          drawingTool === "eraser" ? "active-tool" : ""
+                        }
+                      >
+                        <i class="bi bi-eraser-fill"></i>
+                      </Button>
+                      {signedIn.tools && signedIn.tools.includes("fill") && (
+                        <Button
+                          onClick={() => setDrawingTool("fill")}
+                          className={
+                            drawingTool === "fill" ? "active-tool" : ""
+                          }
+                        >
+                          <i class="bi bi-paint-bucket"></i>
+                        </Button>
+                      )}
+                      <Button type="button" onClick={undoMove}>
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                      </Button>
+                      <Button type="button" onClick={clearCanvas}>
+                        <i class="bi bi-trash-fill"></i>
+                      </Button>
+                    </div>
                   </Col>
                 </Row>
               </div>

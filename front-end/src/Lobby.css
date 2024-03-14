@@ -188,7 +188,7 @@ canvas{
 .canvas-toolbar{
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     gap: 10px;
     flex-wrap: wrap;
 }
@@ -221,4 +221,15 @@ canvas{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 3px;
+}
+
+.toolbar-group{
+    display: flex;
+    align-items: center;
+}
+
+.active-tool{
+    background-color: #292d54;
+    border: none;
 }
