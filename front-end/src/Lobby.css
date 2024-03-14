@@ -131,3 +131,51 @@ canvas{
     position: relative;
     top: 100px;
 }
+
+.colour-picker{
+    display: flex;
+    flex-direction: column;
+}
+
+.light-colours, .dark-colours{
+    display: flex;
+    flex-direction: row;
+}
+
+.colour-item{
+    width: 25px;
+    height: 25px;
+    padding: 3px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.light.colour-item:first-child, .dark.colour-item:first-child{
+    border-radius: 4px 0 0 4px;
+}
+
+.light.colour-item:last-child, .dark.colour-item:last-child{
+    border-radius: 0 4px 4px 0;
+}
+
+.colour-item:hover{
+    transform: scale(1.1);
+}
+
+.light.colour-item:hover .colour-inner{
+    box-shadow: 0 0 0 2px #000000;
+}
+
+.dark.colour-item:hover .colour-inner{
+    box-shadow: 0 0 0 2px #cbc8c8;
+}
+
+.colour-item.selected .colour-inner{
+    box-shadow: inset 0 0 0 2px #383434;
+}
+
+.colour-inner{
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    transition: box-shadow 0.2s ease-in-out
+}

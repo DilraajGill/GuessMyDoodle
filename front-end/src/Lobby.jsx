@@ -328,6 +328,7 @@ function Lobby() {
                     )}
                   </Col>
                   <Col md={12}>
+                    <ColourChooser toCanvas={setSelectedColour} />
                     <Button onClick={() => setDrawingTool("draw")}>
                       <i class="bi bi-brush"></i>
                     </Button>
@@ -349,7 +350,6 @@ function Lobby() {
                       thickness={lineThickness}
                       setLineThickness={setLineThickness}
                     />
-                    <ColourChooser toCanvas={setSelectedColour} />
                   </Col>
                 </Row>
               </div>
