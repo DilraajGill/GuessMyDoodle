@@ -295,6 +295,13 @@ class GameDispatcher {
     this.games[lobbyId].deleteGame();
     this.remove(lobbyId);
   }
+  async playAgain(lobbyId, socket) {
+    if (this.checkExists(lobbyId)) {
+      if (this.checkHost(lobbyId, socket)) {
+        await this.games[lobbyId].playAgain();
+      }
+    }
+  }
 }
 
 export default GameDispatcher;
