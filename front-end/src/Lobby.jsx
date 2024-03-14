@@ -151,6 +151,7 @@ function Lobby() {
   }, [gameState]);
 
   function setNewTimer(duration) {
+    clearInterval(roundTimerRef.current);
     setRoundTimer(duration - 5);
     roundTimerRef.current = setInterval(() => {
       setRoundTimer((prev) => {
