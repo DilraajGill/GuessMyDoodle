@@ -296,6 +296,7 @@ function Lobby() {
                               : "th"
                           }`}</h3>
                         </div>
+                        <Button>Play Again!</Button>
                       </div>
                     )}
                     {revealWord.show && (
