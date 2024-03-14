@@ -107,7 +107,6 @@ class Game {
         profilePicture: profilePicture,
       });
     }
-    console.log(players);
     return players;
   }
   /**
@@ -140,7 +139,6 @@ class Game {
   lastMoveIndex() {
     for (let i = this.drawingHistory.length - 1; i >= 0; i--) {
       if (this.drawingHistory[i].type === "move") {
-        console.log(`Found undo point ${i}`);
         return i;
       }
     }
@@ -206,8 +204,8 @@ class Game {
    */
   start() {
     // Start the lobby and adjust state
-    this.customWords = this.splitCustomWords(this.customWords);
-    this.words = this.words.concat(this.customWords);
+    this.listCustom = this.splitCustomWords(this.customWords);
+    this.words = this.words.concat(this.listCustom);
     this.state = "drawing";
     this.io.to(this.id).emit("set-state", this.state);
     this.timer = this.selectedTimer * 60 + 5;
@@ -270,11 +268,15 @@ class Game {
           if (this.round) {
             if (this.round.hasNextDrawer()) {
               // If the timer is over and someone else is left to draw, then go to them
-              console.log("Going to next player");
               this.resetNextDrawer();
             } else {
               // If nobody else is left to draw, delete the round and make a new Round object
-              this.nextRound();
+              if (this.roundCount + 1 !== this.maxRounds) {
+                this.nextRound();
+              } else {
+                this.roundCount += 1;
+                this.endGame();
+              }
             }
           }
         } else {
@@ -320,7 +322,6 @@ class Game {
     for (const player of this.players) {
       try {
         await updateUserPoints(player.username, player.points);
-        console.log(`Updated points for ${player.username}`);
         player.points = 0;
       } catch (error) {
         console.error(
@@ -336,6 +337,18 @@ class Game {
   deleteGame() {
     clearInterval(this.timerId);
     if (this.round) delete this.round;
+  }
+  async playAgain() {
+    this.state = "settings";
+    this.roundCount = 0;
+    this.resetPlayerPoints();
+    this.io.to(this.id).emit("set-state", "settings");
+    this.io.to(this.id).emit("set-players", await this.getPlayerAndPoints());
+  }
+  resetPlayerPoints() {
+    this.players.forEach((player) => {
+      player.points = 0;
+    });
   }
 }
 
