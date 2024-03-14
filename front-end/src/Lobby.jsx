@@ -188,6 +188,10 @@ function Lobby() {
     setUserPosition(userIndex + 1);
   }
 
+  function playAgain() {
+    socket.emit("play-again");
+  }
+
   return (
     <Container fluid className="mt-3">
       <Row>
@@ -296,7 +300,7 @@ function Lobby() {
                               : "th"
                           }`}</h3>
                         </div>
-                        <Button>Play Again!</Button>
+                        <Button onClick={playAgain}>Play Again!</Button>
                       </div>
                     )}
                     {revealWord.show && (
