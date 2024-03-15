@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 /**
  * Login Page to allow the user to authenticate themselves
@@ -16,8 +16,7 @@ function LoginPage() {
   const [signedIn, setSignedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [error, setError] = useState("");
   // Submit the form to the back end server to sign in
   /**
    * Submit the form containing username and password of the user account
@@ -37,12 +36,9 @@ function LoginPage() {
         // If correct information, navigate to the home page
         navigate("/home");
       } else {
-        setModalMessage("Invalid username or password");
-        setShowModal(true);
       }
     } catch (error) {
-      setModalMessage(`Failed to make request: ${error}`);
-      setShowModal(true);
+      setError("Invalid username or password");
     }
   }
 
@@ -61,6 +57,7 @@ function LoginPage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            isInvalid={!!error}
           />
         </Form.Group>
         <Form.Group controlId="loginPassword">
@@ -69,9 +66,14 @@ function LoginPage() {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError("");
+            }}
             required
+            isInvalid={!!error}
           />
+          <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
         </Form.Group>
         <br />
         <Button variant="primary" size="lg" type="submit" className="me-2">
@@ -81,17 +83,6 @@ function LoginPage() {
           Login With <i class="bi bi-google"></i>
         </Button>
       </Form>
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Failed To Authenticate User</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>{modalMessage}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowModal(false)}>Close</Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }
