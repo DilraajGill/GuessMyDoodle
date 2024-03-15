@@ -102,7 +102,6 @@ canvas{
     justify-content: center;
     flex-direction: row;
     margin-bottom: 8px;
-    gap: 2px;
 }
 
 .picture{

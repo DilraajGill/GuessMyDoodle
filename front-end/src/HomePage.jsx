@@ -31,7 +31,7 @@ function HomePage() {
     async function ensureLogin() {
       const response = await checkAuthentication({ axios });
       if (response.auth) {
-        if (response.username === "") {
+        if (!response.username) {
           navigation("/complete-profile");
         }
         setSignedIn({
