@@ -140,6 +140,7 @@ router.post("/complete-profile", async (req, res) => {
       const user = await User.findById(req.user.id);
       user.username = req.body.username;
       await user.save();
+      res.json({ success: true });
     } catch (error) {
       res.status(500).send(error.message);
     }

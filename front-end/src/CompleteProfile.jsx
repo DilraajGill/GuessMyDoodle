@@ -6,18 +6,20 @@ import "./LoginAndRegister.css";
 
 function CompleteProfile() {
   const [username, setUsername] = React.useState("");
-  const navigate = useNavigate();
+  const navigation = useNavigate();
+  const [usernameError, setUsernameError] = React.useState("");
 
   async function submitUsername(ev) {
     ev.preventDefault();
     try {
-      console.log("Sending");
-      await axios.post("auth/complete-profile", {
+      const response = await axios.post("auth/complete-profile", {
         username,
       });
-      navigate("/home");
+      if (response.data.success) {
+        navigation("/home");
+      }
     } catch (error) {
-      console.log("Error setting username");
+      setUsernameError("This username already exists");
     }
   }
   return (
@@ -34,9 +36,16 @@ function CompleteProfile() {
                     type="text"
                     placeholder="Username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                      setUsernameError("");
+                    }}
                     required
+                    isInvalid={!!usernameError}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {usernameError}
+                  </Form.Control.Feedback>
                   <br />
                   <Button
                     variant="primary"
