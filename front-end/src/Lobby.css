@@ -82,8 +82,9 @@ canvas{
 
 .podium{
     display: flex;
+    width: 100%;
     align-items: flex-end;
-    gap: 70px;
+    gap: 20px;
     justify-content: center;
 }
 
@@ -93,7 +94,6 @@ canvas{
     align-items: center;
     text-align: center;
     padding: 0;
-    width: 120px;
 }
 
 .podium-user{
@@ -234,16 +234,17 @@ canvas{
 }
 
 .toolbar-group{
+    margin-top: 5px;
     display: flex;
     align-items: center;
 }
 
 .active-tool{
     background-color: #292d54 !important;
-    border: none;
+    border: none !important;
     transform: scale(0.95);
 }
 
 .popover-body{
-    padding: 0px;
+    padding: 0px !important;
 }
