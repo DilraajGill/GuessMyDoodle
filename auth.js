@@ -160,3 +160,32 @@ router.get("/sign-out", (req, res) => {
   });
 });
 export default router;
+
+router.get("/check-username/:username", async (req, res) => {
+  try {
+    console.log("Checking");
+    const username = req.params.username;
+    const user = await User.findOne({ username: username });
+    if (user) {
+      res.json({ available: false });
+    } else {
+      res.json({ available: true });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Unable to check username", error: error });
+  }
+});
+
+router.get("/check-email/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await User.findOne({ email: email });
+    if (user) {
+      res.json({ available: false });
+    } else {
+      res.json({ available: true });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Unable to check email", error: error });
+  }
+});
