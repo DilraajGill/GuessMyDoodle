@@ -29,7 +29,6 @@ passport.deserializeUser(async (id, done) => {
     done(error);
   }
 });
-console.log(process.env.CLIENT_ID);
 passport.use(
   new GoogleStrategy(
     {
@@ -148,7 +147,6 @@ router.get(
   }
 );
 router.post("/complete-profile", async (req, res) => {
-  console.log("Updating profile");
   if (req.isAuthenticated() && req.user) {
     try {
       const user = await User.findById(req.user.id);
@@ -177,7 +175,6 @@ export default router;
 
 router.get("/check-username/:username", async (req, res) => {
   try {
-    console.log("Checking");
     const username = req.params.username;
     const user = await User.findOne({ username: username });
     if (user) {
