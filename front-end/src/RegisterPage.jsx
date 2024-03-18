@@ -3,6 +3,8 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { debounce } from "lodash";
+import { useNavigate } from "react-router-dom";
+
 /**
  * React component to create the register page
  * @class RegisterPage
@@ -15,6 +17,7 @@ function RegisterPage() {
   const [error, setError] = useState("");
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [emailAvailable, setEmailAvailable] = useState(true);
+  const navigation = useNavigate();
   // Submit request to the back end server
   /**
    * Submit the request to the back-end server to process form
@@ -29,6 +32,7 @@ function RegisterPage() {
           password,
           email,
         });
+        navigation("/home");
       } catch (error) {
         setError(error);
       }
