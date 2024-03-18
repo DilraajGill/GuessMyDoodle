@@ -4,6 +4,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import { User } from "./Database.js";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import PasswordValidator from "password-validator";
 import "dotenv/config";
 
 /**
@@ -53,6 +54,10 @@ passport.use(
   )
 );
 
+const validator = new PasswordValidator();
+
+validator.is().min(8).has().uppercase().has().symbols().has().not().spaces();
+
 // Create route for logging in
 /**
  * Route for sending login form to be processed
@@ -79,6 +84,15 @@ router.post("/register", async (req, res) => {
   try {
     const { username, password, email } = req.body;
     // Register user
+    username = username.trim();
+    if (!username) {
+      return res.status(400).json({ message: "Username cannot be empty!" });
+    }
+    if (!validator.validate(password)) {
+      return res
+        .status(400)
+        .json({ message: "Password does not meet the minimum requirements" });
+    }
     const newUser = await User.register({ email, username }, password);
     req.login(newUser, async (err) => {
       if (err) {
