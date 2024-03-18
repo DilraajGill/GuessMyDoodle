@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs, Tab, Container, Row, Col, Card } from "react-bootstrap";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+import { authContext } from "./App";
 import "./LoginAndRegister.css";
+import checkAuthentication from "./checkAuthentication";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 function LoginAndRegister({ defaultState }) {
+  const navigation = useNavigate();
   const [state, setState] = React.useState(defaultState);
+  const [signedIn, setSignedIn] = React.useContext(authContext);
+
+  useEffect(() => {
+    async function ensureLogin() {
+      const response = await checkAuthentication({ axios });
+      if (response.auth) {
+        if (!response.username) {
+          navigation("/complete-profile");
+        }
+        setSignedIn({
+          auth: true,
+          username: response.username,
+          points: response.points,
+          tools: response.tools,
+          profilePicture: response.profilePicture,
+          purchasedProfilePicture: response.purchasedProfilePicture,
+        });
+        navigation("/home");
+      }
+    }
+    ensureLogin();
+  });
 
   return (
     <Container fluid className="d-flex vh-100">
@@ -23,7 +50,7 @@ function LoginAndRegister({ defaultState }) {
               </Tabs>
             </Card.Header>
             <Card.Body>
-              {state === "login" ? <LoginPage /> : <RegisterPage />}
+              {state === "login" ? <LoginPage axios /> : <RegisterPage axios />}
             </Card.Body>
           </Card>
         </Col>

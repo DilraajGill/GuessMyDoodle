@@ -9,11 +9,10 @@ import "bootstrap-icons/font/bootstrap-icons.css";
  */
 function LoginPage() {
   // Define navigate object and React states to store information
-  const navigate = useNavigate();
+  const navigation = useNavigate();
   /**
    * Define React states to store values of username and password
    */
-  const [signedIn, setSignedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,10 +30,8 @@ function LoginPage() {
     try {
       const response = await axios.post("/auth/login", items);
       if (response.data.auth) {
-        setSignedIn(true);
-        console.log("valid");
         // If correct information, navigate to the home page
-        navigate("/home");
+        navigation("/home");
       } else {
       }
     } catch (error) {
