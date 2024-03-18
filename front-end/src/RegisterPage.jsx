@@ -14,7 +14,9 @@ function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [emailAvailable, setEmailAvailable] = useState(true);
   const navigation = useNavigate();
@@ -25,7 +27,13 @@ function RegisterPage() {
    */
   async function submitForm(e) {
     e.preventDefault();
-    if (usernameAvailable && emailAvailable) {
+    setConfirmPasswordValid(password === confirmPassword);
+    if (
+      usernameAvailable &&
+      emailAvailable &&
+      passwordValid &&
+      confirmPasswordValid
+    ) {
       try {
         await axios.post("/auth/register", {
           username,
@@ -34,7 +42,7 @@ function RegisterPage() {
         });
         navigation("/home");
       } catch (error) {
-        setError(error);
+        console.log(error);
       }
     }
   }
@@ -73,6 +81,12 @@ function RegisterPage() {
     }, 300),
     []
   );
+
+  // https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters
+  function checkValidPassword(password) {
+    const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    return regex.test(password);
+  }
 
   React.useEffect(() => {
     checkEmailAvailability(email);
@@ -122,13 +136,62 @@ function RegisterPage() {
             placeholder="Password"
             onChange={(e) => {
               setPassword(e.target.value);
-              setError("");
+              const valid = checkValidPassword(e.target.value);
+              setPasswordValid(valid);
             }}
             required
-            isInvalid={!!error}
+            isInvalid={!passwordValid}
           />
-          <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
         </Form.Group>
+        <Form.Group controlId="registerConfirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm Password"
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              setConfirmPasswordValid(e.target.value === password);
+            }}
+            required
+            isInvalid={!confirmPasswordValid}
+          />
+          <Form.Control.Feedback type="invalid">
+            Passwords do not match!
+          </Form.Control.Feedback>
+        </Form.Group>
+        <ul className="requirements">
+          <li>
+            <i
+              className={`${
+                password.length >= 8
+                  ? "bi-check-circle-fill valid"
+                  : "bi-x-circle-fill invalid"
+              }`}
+            ></i>
+            At least 8 characters long
+          </li>
+          <li>
+            <i
+              className={`${
+                /[A-Z]/.test(password)
+                  ? "bi-check-circle-fill valid"
+                  : "bi-x-circle-fill invalid"
+              }`}
+            ></i>
+            Contains an uppercase letter
+          </li>
+          <li>
+            <i
+              className={`${
+                /[!@#$%^&*]/.test(password)
+                  ? "bi-check-circle-fill valid"
+                  : "bi-x-circle-fill invalid"
+              }`}
+            ></i>
+            Contains a special character
+          </li>
+        </ul>
+
         <br />
         <Button variant="primary" size="lg" type="submit" className="me-2">
           Submit
