@@ -1,5 +1,6 @@
 import Round from "./Round.js";
 import { fetchUserProfilePicture, updateUserPoints } from "./Database.js";
+import words from "./Words.js";
 /**
  * Represent a game session
  */
@@ -40,10 +41,6 @@ class Game {
      */
     this.io = io;
     /**
-     * Track who is drawing
-     */
-    this.drawing;
-    /**
      * Drawing history to update late users
      */
     this.drawingHistory = [];
@@ -59,7 +56,7 @@ class Game {
     /**
      * Potential words to select
      */
-    this.words = ["dilraaj", "gill", "hello"];
+    this.words = words;
     this.customWords = "";
     this.privacy = "private";
     this.icon = "";
@@ -75,7 +72,6 @@ class Game {
     this.players.push({ socket, username, points: 0 });
     if (!this.host) {
       this.host = socket;
-      this.drawing = socket;
       this.icon = await fetchUserProfilePicture(username);
     }
   }
@@ -241,6 +237,16 @@ class Game {
         );
         player.points += turn;
         this.round.updateTurnPoints(player, turn);
+        const drawingPoints = Math.floor(turn / 2);
+        const drawingUser = this.players.find(
+          (player) =>
+            player.socket.id === this.round.getCurrentDrawer().socket.id
+        );
+        drawingUser.points += drawingPoints;
+        this.round.updateTurnPoints(
+          this.round.getCurrentDrawer(),
+          drawingPoints
+        );
         return true;
       }
     }
