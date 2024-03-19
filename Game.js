@@ -97,6 +97,11 @@ class Game {
     this.players = this.players.filter(
       (player) => player.socket.id !== socketId
     );
+
+    if (this.host.id === socketId && this.players.length > 0) {
+      this.host = this.players[0].socket;
+      this.icon = this.players[0].icon;
+    }
   }
   /**
    * Output who is in the current session
