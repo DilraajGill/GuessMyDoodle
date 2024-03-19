@@ -232,7 +232,11 @@ function Lobby() {
                   </Col>
                   <Col md={4}>
                     <div className="d-flex justify-content-center">
-                      <Hints word={drawingWord} hidden={hideWord} />
+                      <Hints
+                        word={drawingWord}
+                        hidden={hideWord}
+                        drawing={currentlyDrawing === signedIn.username}
+                      />
                     </div>
                   </Col>
                 </Row>

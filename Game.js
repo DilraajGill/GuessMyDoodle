@@ -101,6 +101,7 @@ class Game {
     if (this.host.id === socketId && this.players.length > 0) {
       this.host = this.players[0].socket;
       this.icon = this.players[0].icon;
+      this.io.to(this.id).emit("set-host", this.players[0].username);
     }
   }
   /**

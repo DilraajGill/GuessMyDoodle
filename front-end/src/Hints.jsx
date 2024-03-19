@@ -1,12 +1,12 @@
 import React from "react";
 
-function Hints({ word, hidden }) {
+function Hints({ word, hidden, drawing }) {
   return (
     <div className="hints-container text-center">
       {hidden ? (
         word.split("").map((letter, index) => (
           <div className="hint" key={index}>
-            {letter === " " ? " " : "_"}
+            {drawing ? letter : letter === " " ? " " : "_"}
           </div>
         ))
       ) : (
