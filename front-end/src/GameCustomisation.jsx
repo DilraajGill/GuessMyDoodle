@@ -6,6 +6,8 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Button,
+  OverlayTrigger,
+  Tooltip,
 } from "react-bootstrap";
 /**
  * Allow for customisation of gameplay settings
@@ -20,6 +22,7 @@ function GameCustomisation({
   minutes,
   lobbyType,
   customWords,
+  length,
 }) {
   // Update the number of rounds being modified
   /**
@@ -52,6 +55,8 @@ function GameCustomisation({
   function startGame() {
     socket.emit("start-game");
   }
+
+  console.log(length);
 
   return (
     <div>
@@ -104,7 +109,22 @@ function GameCustomisation({
               ></Form.Control>
             </Form.Group>
             <br />
-            <Button onClick={startGame}>Start Game</Button>
+            {length <= 1 ? (
+              <OverlayTrigger
+                placement="bottom"
+                overlay={
+                  <Tooltip>Cannot start game with only 1 player!</Tooltip>
+                }
+              >
+                <Button disabled={length <= 1} onClick={startGame}>
+                  Start Game
+                </Button>
+              </OverlayTrigger>
+            ) : (
+              <Button disabled={length <= 1} onClick={startGame}>
+                Start Game
+              </Button>
+            )}
           </Form>
         </Card.Body>
       </Card>

@@ -247,3 +247,7 @@ canvas{
 .popover-body{
     padding: 0px !important;
 }
+
+.btn:disabled{
+    pointer-events: all !important;
+}

@@ -242,6 +242,7 @@ function Lobby() {
               minutes={minutes}
               lobbyType={lobbyType}
               customWords={customWords}
+              length={players.length}
             />
             <CopyToClipboard lobbyId={lobbyId}></CopyToClipboard>
           </Col>
