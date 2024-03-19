@@ -11,7 +11,7 @@ import GameCustomisation from "./GameCustomisation";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
 import CopyToClipboard from "./CopyToClipboard";
-import { Row, Col, Button, Container, Card } from "react-bootstrap";
+import { Row, Col, Button, Container, Card, Modal } from "react-bootstrap";
 import ColourChooser from "./ColourChooser";
 import "./Lobby.css";
 import Hints from "./Hints";
@@ -47,6 +47,7 @@ function Lobby() {
   const [turnPoints, setTurnPoints] = React.useState([]);
   const [podiumPositions, setPodiumPositions] = React.useState([]);
   const [userPosition, setUserPosition] = React.useState();
+  const [showModal, setShowModal] = React.useState(false);
   const navigation = useNavigate();
 
   /**
@@ -141,6 +142,10 @@ function Lobby() {
 
     socket.on("end-points", (points) => {
       setTurnPoints(points);
+    });
+
+    socket.on("not-enough-players", () => {
+      setShowModal(true);
     });
   }, []);
 
@@ -382,6 +387,31 @@ function Lobby() {
           </>
         )}
       </Row>
+      <Modal
+        show={showModal}
+        onHide={() => {
+          setShowModal(false);
+          navigation("/home");
+        }}
+        centered
+      >
+        <Modal.Header closeButton>Session Expired</Modal.Header>
+        <Modal.Body>
+          The session has ended becasue there are not enough players in the
+          game!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowModal(false);
+              navigation("/home");
+            }}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
