@@ -110,9 +110,16 @@ class GameDispatcher {
           .to(lobbyId)
           .emit("set-players", await this.games[lobbyId].getPlayerAndPoints());
       } else {
-        this.io
-          .to(lobbyId)
-          .emit("receive-message", { text, username: socket.username });
+        if (!this.games[lobbyId].isDrawing(socket)) {
+          this.io
+            .to(lobbyId)
+            .emit("receive-message", { text, username: socket.username });
+        } else {
+          socket.emit("receive-message", {
+            text: "You cannot message while drawing!",
+            username: "Server",
+          });
+        }
       }
     }
   }
