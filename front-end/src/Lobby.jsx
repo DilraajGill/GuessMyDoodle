@@ -155,6 +155,22 @@ function Lobby() {
     }
   }, [gameState]);
 
+  useEffect(() => {
+    let wordTimer;
+
+    if (toSelectWord) {
+      wordTimer = setTimeout(() => {
+        if (toSelectWord && wordOptions.length > 0) {
+          handleWordClick(wordOptions[0]);
+        }
+      }, 10000);
+    }
+
+    return () => {
+      clearTimeout(wordTimer);
+    };
+  }, [toSelectWord, wordOptions]);
+
   function setNewTimer(duration) {
     clearInterval(roundTimerRef.current);
     setRoundTimer(duration - 5);
