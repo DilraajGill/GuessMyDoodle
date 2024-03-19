@@ -68,11 +68,24 @@ class Game {
    * @param {string} username
    */
   async addPlayer(socket, username) {
-    // Add user to list of players and if first player, it will become the host too
-    this.players.push({ socket, username, points: 0 });
-    if (!this.host) {
-      this.host = socket;
-      this.icon = await fetchUserProfilePicture(username);
+    try {
+      const indexPlayer = this.players.findIndex(
+        (player) => player.username === username
+      );
+      if (indexPlayer !== -1) {
+        if (this.host && this.host.username === username) {
+          this.host = socket;
+        }
+      } else {
+        const icon = await fetchUserProfilePicture(username);
+        this.players.push({ socket, username, points: 0, icon });
+        if (!this.host) {
+          this.host = socket;
+          this.icon = icon;
+        }
+      }
+    } catch (error) {
+      console.error("Unable to add player to the lobby");
     }
   }
   /**
@@ -96,11 +109,10 @@ class Game {
   async getPlayerAndPoints() {
     const players = [];
     for (const player of this.players) {
-      const profilePicture = await fetchUserProfilePicture(player.username);
       players.push({
         username: player.username,
         points: player.points,
-        profilePicture: profilePicture,
+        profilePicture: player.icon,
       });
     }
     return players;

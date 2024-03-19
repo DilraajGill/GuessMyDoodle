@@ -82,7 +82,7 @@ class GameDispatcher {
       socket.lobbyId = lobbyId;
       socket.points = 0;
       socket.join(lobbyId);
-      this.games[lobbyId].addPlayer(socket, username);
+      await this.games[lobbyId].addPlayer(socket, username);
       console.log(`Added ${username} to the lobby`);
       this.io
         .to(lobbyId)
