@@ -92,7 +92,7 @@ class Game {
    * Remove player from session
    * @param {string} socketId
    */
-  removePlayer(socketId) {
+  async removePlayer(socketId) {
     // Remove player from the list of players
     this.players = this.players.filter(
       (player) => player.socket.id !== socketId
@@ -372,6 +372,14 @@ class Game {
     this.players.forEach((player) => {
       player.points = 0;
     });
+  }
+  async notEnoughPlayers() {
+    try {
+      this.players[0].socket.emit("not-enough-players");
+      await this.updatePoints();
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 

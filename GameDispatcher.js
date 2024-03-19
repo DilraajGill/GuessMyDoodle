@@ -166,13 +166,17 @@ class GameDispatcher {
    * Remove a player from a session
    * @param {object} socket - User to remove
    */
-  removePlayer(socket) {
+  async removePlayer(socket) {
     if (this.checkExists(socket.lobbyId)) {
-      this.games[socket.lobbyId].removePlayer(socket.id);
-      this.io
-        .to(socket.lobbyId)
-        .emit("set-players", this.games[socket.lobbyId].getPlayerList());
-      if (this.games[socket.lobbyId].players.length === 0) {
+      await this.games[socket.lobbyId].removePlayer(socket.id);
+      const playerList = await this.games[socket.lobbyId].getPlayerAndPoints();
+      this.io.to(socket.lobbyId).emit("set-players", playerList);
+      if (
+        (this.games[socket.lobbyId].players.length === 1 &&
+          this.games[socket.lobbyId].state !== "settings") ||
+        this.games[socket.lobbyId].players.length === 0
+      ) {
+        await this.games[socket.lobbyId].notEnoughPlayers();
         this.deleteGame(socket.lobbyId);
       }
     }
@@ -300,6 +304,7 @@ class GameDispatcher {
   }
   deleteGame(lobbyId) {
     this.games[lobbyId].deleteGame();
+    delete this.games[lobbyId];
     this.remove(lobbyId);
   }
   async playAgain(lobbyId, socket) {
