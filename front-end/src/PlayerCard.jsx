@@ -1,10 +1,15 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
-function PlayerCard({ player, points, picture, drawing, host }) {
+function PlayerCard({ player, points, picture, drawing, host, kick }) {
   const address = `../${picture}`;
+
+  function kickUser() {
+    kick(player);
+  }
+
   return (
     <>
-      <Card>
+      <Card style={{ cursor: "pointer" }} onClick={kickUser}>
         <Row>
           <Col md={3}>
             <Card.Img variant="top" src={address} style={{ height: "100%" }} />
