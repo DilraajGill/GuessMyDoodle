@@ -277,7 +277,7 @@ class Game {
     // Start a timer for the user to draw within
     if (this.roundCount < this.maxRounds) {
       this.timerId = setInterval(() => {
-        if (this.timer === 5 && this.round && !this.revealWord) {
+        if (this.timer <= 5 && this.round && !this.revealWord) {
           this.io.to(this.id).emit("end-points", this.round.returnTurnPoints());
           this.io.to(this.id).emit("reveal-word", this.round.selectedWord);
           this.revealWord = true;
@@ -380,6 +380,19 @@ class Game {
       await this.updatePoints();
     } catch (error) {
       console.error(error);
+    }
+  }
+  async kickPlayer(player) {
+    const locatedPlayer = this.players.find((user) => player === user.username);
+    if (locatedPlayer) {
+      await this.removePlayer(locatedPlayer.socket.id);
+      locatedPlayer.socket.emit("kicked", "You have been kicked by the host");
+      if (this.round && this.round.getCurrentDrawer().username === player) {
+        this.io
+          .to(this.id)
+          .emit("update-players", await this.getPlayerAndPoints());
+        this.timer = 5;
+      }
     }
   }
 }
