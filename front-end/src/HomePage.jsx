@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { authContext } from "./App";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import checkAuthentication from "./checkAuthentication";
 import getPublic from "./getPublic";
 import LobbyCard from "./LobbyCard";
-import { Container, Button, Row, Col, Dropdown } from "react-bootstrap";
+import { Container, Button, Row, Col, Dropdown, Modal } from "react-bootstrap";
 import PictureSelector from "./PictureSelector";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./HomePage.css";
@@ -18,6 +18,8 @@ function HomePage() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
   const [lobbies, setLobbies] = React.useState([]);
   const navigation = useNavigate();
+  const [showKickedModal, setShowKickedModal] = React.useState(false);
+  const location = useLocation();
 
   // Ensure the user is signed in
   /**
@@ -50,6 +52,12 @@ function HomePage() {
     ensureLogin();
     loadLobbies();
   }, []);
+
+  useEffect(() => {
+    if (location.state?.kicked) {
+      setShowKickedModal(true);
+    }
+  }, [location]);
   /**
    * Create a lobby with a random unique ID and navigate to it
    */
@@ -176,6 +184,20 @@ function HomePage() {
           currentPicture={signedIn.profilePicture}
           availablePictures={signedIn.purchasedProfilePicture}
         />
+        <Modal show={showKickedModal} onHide={() => setShowKickedModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Kicked From Lobby!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{location.state?.message}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setShowKickedModal(false)}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );
