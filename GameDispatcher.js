@@ -169,6 +169,7 @@ class GameDispatcher {
   async removePlayer(socket) {
     if (this.checkExists(socket.lobbyId)) {
       await this.games[socket.lobbyId].removePlayer(socket.id);
+      socket.leave(socket.lobbyId);
       const playerList = await this.games[socket.lobbyId].getPlayerAndPoints();
       this.io.to(socket.lobbyId).emit("set-players", playerList);
       if (
