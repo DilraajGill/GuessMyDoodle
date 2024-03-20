@@ -345,3 +345,14 @@ Diary
 - Implement styling fixes to clearly display to the user the Username, as before it was blocked by similar colours
 - Changed profile picture button is now a dropdown that is toggled from selecting the user's profile picture / username
 - Dropdown functionality also includes a sign out button to reset the current session and navigate to the /login page
+
+07/03/24 - 18/03/24
+
+- Display the points total and the word at the end of each round to improve the user experience. This helps to show the progress each user is making at the end of each turn through a 5 second gap at the end of the timer
+- Styled new points total and word using CSS and React-Bootstrap components
+- Re-styled the toolbar at the bottom of the canvas to help show active tools
+- Improved the responsiveness of the website; the canvas can now scale and maintain aspect ratio to support varying screen resolutions and devices
+- Improved the components for LineThickness and ColourSelector to create a better sense of simplicity and drawing
+- At the end of the gameplay session, a play again button will appear that only the host can interact with to start the session again
+- Improved registering and logging in to check if the username and email address is valid and hasn't been taken and display this dynamically to the text fields
+- Implemented server side validation for confirming if password and username are valid fields and re-direct to the home page after registering
