@@ -388,11 +388,11 @@ class Game {
       await this.removePlayer(locatedPlayer.socket.id);
       locatedPlayer.socket.emit("kicked", "You have been kicked by the host");
       if (this.round && this.round.getCurrentDrawer().username === player) {
-        this.io
-          .to(this.id)
-          .emit("update-players", await this.getPlayerAndPoints());
         this.timer = 5;
       }
+      this.io
+        .to(this.id)
+        .emit("update-players", await this.getPlayerAndPoints());
     }
   }
 }
