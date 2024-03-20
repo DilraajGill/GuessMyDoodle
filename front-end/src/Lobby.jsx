@@ -48,6 +48,8 @@ function Lobby() {
   const [podiumPositions, setPodiumPositions] = React.useState([]);
   const [userPosition, setUserPosition] = React.useState();
   const [showModal, setShowModal] = React.useState(false);
+  const [showKickModal, setShowKickModal] = React.useState(false);
+  const [selectedKickUser, setSelectedKickUser] = React.useState(null);
   const navigation = useNavigate();
 
   /**
@@ -147,6 +149,10 @@ function Lobby() {
     socket.on("not-enough-players", () => {
       setShowModal(true);
     });
+
+    socket.on("kicked", (message) => {
+      navigation("/home", { state: { kicked: true, message } });
+    });
   }, []);
 
   useEffect(() => {
@@ -214,6 +220,21 @@ function Lobby() {
     socket.emit("play-again");
   }
 
+  function handleKick(player) {
+    if (host === signedIn.username) {
+      setSelectedKickUser(player);
+      setShowKickModal(true);
+    }
+  }
+
+  function confirmedKick() {
+    if (host === signedIn.username) {
+      socket.emit("kick-player", selectedKickUser);
+      setShowKickModal(false);
+      setSelectedKickUser(null);
+    }
+  }
+
   return (
     <Container fluid className="mt-3">
       <Row>
@@ -254,8 +275,35 @@ function Lobby() {
                 picture={player.profilePicture}
                 drawing={player.username === currentlyDrawing}
                 host={player.username === host}
+                kick={handleKick}
               />
             ))}
+            <Modal
+              show={showKickModal}
+              onHide={() => {
+                setShowKickModal(false);
+                setSelectedKickUser(null);
+              }}
+            >
+              <Modal.Header>Kick Player!</Modal.Header>
+              <Modal.Body>
+                Are you sure you want kick {selectedKickUser?.username}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setShowKickModal(false);
+                    setSelectedKickUser(null);
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button variant="danger" onClick={confirmedKick}>
+                  Kick
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
         </Col>
         {/* If the state is on the settings page, show this information */}
