@@ -200,6 +200,9 @@ io.on("connection", (socket) => {
   socket.on("kick-player", (player) => {
     games.kickPlayer(socket, player);
   });
+  socket.on("leave-session", () => {
+    games.removePlayer(socket);
+  });
 });
 
 export default app;

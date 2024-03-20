@@ -153,6 +153,10 @@ function Lobby() {
     socket.on("kicked", (message) => {
       navigation("/home", { state: { kicked: true, message } });
     });
+
+    return () => {
+      socket.emit("leave-session");
+    };
   }, []);
 
   useEffect(() => {
@@ -287,7 +291,7 @@ function Lobby() {
             >
               <Modal.Header>Kick Player!</Modal.Header>
               <Modal.Body>
-                Are you sure you want kick {selectedKickUser?.username}
+                Are you sure you want kick {selectedKickUser}
               </Modal.Body>
               <Modal.Footer>
                 <Button
