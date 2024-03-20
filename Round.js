@@ -133,9 +133,6 @@ class Round {
     this.players[this.drawingIndex].hasDrawn = true;
     let choices = this.getRandomWords();
     this.getCurrentDrawer().socket.emit("choose-words", choices);
-    console.log(
-      `Currently Drawing: ${this.getCurrentDrawer().socket.username}`
-    );
   }
   getRandomWords() {
     const result = [];

@@ -76,6 +76,11 @@ class Game {
         if (this.host && this.host.username === username) {
           this.host = socket;
         }
+        this.players[indexPlayer].socket.emit(
+          "kicked",
+          "You have joined from another device!"
+        );
+        this.players[indexPlayer].socket = socket;
       } else {
         const icon = await fetchUserProfilePicture(username);
         this.players.push({ socket, username, points: 0, icon });
