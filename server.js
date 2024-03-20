@@ -197,6 +197,9 @@ io.on("connection", (socket) => {
   socket.on("play-again", () => {
     games.playAgain(socket.lobbyId, socket);
   });
+  socket.on("kick-player", (player) => {
+    games.kickPlayer(socket, player);
+  });
 });
 
 export default app;

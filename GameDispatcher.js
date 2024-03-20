@@ -314,6 +314,21 @@ class GameDispatcher {
       }
     }
   }
+  async kickPlayer(socket, player) {
+    if (this.checkExists(socket.lobbyId)) {
+      if (this.checkHost(socket.lobbyId, socket)) {
+        await this.games[socket.lobbyId].kickPlayer(player);
+        if (
+          (this.games[socket.lobbyId].players.length === 1 &&
+            this.games[socket.lobbyId].state !== "settings") ||
+          this.games[socket.lobbyId].players.length === 0
+        ) {
+          await this.games[socket.lobbyId].notEnoughPlayers();
+          this.deleteGame(socket.lobbyId);
+        }
+      }
+    }
+  }
 }
 
 export default GameDispatcher;
