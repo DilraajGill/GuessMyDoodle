@@ -174,6 +174,20 @@ class Round {
       console.log(`Cannot find player ${user}`);
     }
   }
+
+  removePlayer(socketId) {
+    const index = this.players.findIndex(
+      (player) => player.socket.id === socketId
+    );
+    if (index) {
+      if (this.players[index].hasDrawn) {
+        this.drawingIndex -= 1;
+      }
+      this.players = this.players.filter(
+        (player) => player.socket.id !== socketId
+      );
+    }
+  }
 }
 
 export default Round;

@@ -103,6 +103,10 @@ class Game {
       this.icon = this.players[0].icon;
       this.io.to(this.id).emit("set-host", this.players[0].username);
     }
+
+    if (this.round) {
+      this.round.removePlayer(socketId);
+    }
   }
   /**
    * Output who is in the current session
@@ -390,9 +394,7 @@ class Game {
       if (this.round && this.round.getCurrentDrawer().username === player) {
         this.timer = 5;
       }
-      this.io
-        .to(this.id)
-        .emit("update-players", await this.getPlayerAndPoints());
+      this.io.to(this.id).emit("set-players", await this.getPlayerAndPoints());
     }
   }
 }
