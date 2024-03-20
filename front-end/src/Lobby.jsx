@@ -221,7 +221,7 @@ function Lobby() {
   }
 
   function handleKick(player) {
-    if (host === signedIn.username) {
+    if (host === signedIn.username && player !== signedIn.username) {
       setSelectedKickUser(player);
       setShowKickModal(true);
     }
