@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { User } from "./Database.js";
+import { User } from "./models/Database.js";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import PasswordValidator from "password-validator";
 import "dotenv/config";

@@ -3,8 +3,8 @@ import passport from "passport";
 import session from "express-session";
 import router from "./auth.js";
 import { Server as SocketIo } from "socket.io";
-import GameDispatcher from "./GameDispatcher.js";
-import { User } from "./Database.js";
+import GameDispatcher from "./game/GameDispatcher.js";
+import { User } from "./models/Database.js";
 
 // Initialise the server and establish middleware
 /**
