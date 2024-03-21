@@ -10,7 +10,7 @@ describe("request new lobby", () => {
     // create test user and sign in
     const testUser = {
       username: "Test",
-      password: "testing123",
+      password: "Testing123!",
     };
     const response = await request
       .post("/auth/login")

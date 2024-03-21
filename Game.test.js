@@ -19,16 +19,16 @@ const mockSocket = { emit: jest.fn(), id: "first" };
 
 describe("Game class tests", () => {
   // test to add players to session updates properties
-  test("add player to game", () => {
-    gameSession.addPlayer(mockSocket, "test");
+  test("add player to game", async () => {
+    await gameSession.addPlayer(mockSocket, "test");
     expect(gameSession.players).toHaveLength(1);
     expect(gameSession.host).toBe(mockSocket);
   });
   // test to remove players will accordingly update properties
-  test("remove player from game", () => {
+  test("remove player from game", async () => {
     const secondMock = { emit: jest.fn(), id: "second" };
-    gameSession.addPlayer(secondMock, "test2");
-    gameSession.removePlayer(secondMock.id);
+    await gameSession.addPlayer(secondMock, "test2");
+    await gameSession.removePlayer(secondMock.id);
     expect(gameSession.players).toHaveLength(1);
   });
   // test to ensure updating rounds will update properties
@@ -47,7 +47,6 @@ describe("Game class tests", () => {
   });
   // test to ensure access only to the host
   test("checking who is host", () => {
-    console.log(gameSession.host);
     expect(gameSession.isHost(mockSocket)).toBe(true);
   });
   // ensuring other users who are not host are not granted access

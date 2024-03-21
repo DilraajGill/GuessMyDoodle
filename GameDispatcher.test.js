@@ -32,14 +32,14 @@ describe("Testing Game dispatcher", () => {
     expect(outcome).toBe(true);
   });
   // test to create mock socket to join the lobby
-  test("handle joining game", () => {
-    Games.joinGame(addedLobby, mockSocket, "Test");
+  test("handle joining game", async () => {
+    await Games.joinGame(addedLobby, mockSocket, "Test");
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
   // test to display message to rest of lobby
-  test("send message to dispatcher and broadcast to lobby", () => {
+  test("send message to dispatcher and broadcast to lobby", async () => {
     Games.startGame(mockSocket);
-    Games.messageGame(addedLobby, "Hello", "Test");
+    await Games.messageGame(addedLobby, "Hello", "Test");
     expect(mockSocket.join).toHaveBeenCalled();
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
@@ -73,8 +73,8 @@ describe("Testing Game dispatcher", () => {
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
   // test to remove player through dispatcher
-  test("remove added player", () => {
-    Games.removePlayer(mockSocket);
+  test("remove added player", async () => {
+    await Games.removePlayer(mockSocket);
     expect(mockIo.to).toHaveBeenCalledWith(addedLobby);
   });
   // test to remove a game that does not exist returns false
