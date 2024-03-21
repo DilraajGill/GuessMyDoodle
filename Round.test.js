@@ -17,6 +17,7 @@ describe("round class tests", () => {
     expect(round.getCurrentDrawer().socket.emit).toHaveBeenCalledWith(
       "drawing-permitted"
     );
+    expect(round.checkDrawing(mockPlayers[0].socket));
   });
   test("should have next drawer avaiable", () => {
     // test to ensure there is another drawer available

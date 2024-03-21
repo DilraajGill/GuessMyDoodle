@@ -25,9 +25,15 @@ describe("Game class tests", () => {
     expect(gameSession.host).toBe(mockSocket);
   });
   // test to remove players will accordingly update properties
-  test("remove player from game", async () => {
+  test("initialise state and remove player from game", async () => {
     const secondMock = { emit: jest.fn(), id: "second" };
     await gameSession.addPlayer(secondMock, "test2");
+    await gameSession.initialiseState(secondMock);
+    expect(secondMock.emit).toHaveBeenCalledWith("set-state", "settings");
+    expect(secondMock.emit).toHaveBeenCalledWith("set-minutes", 1);
+    expect(secondMock.emit).toHaveBeenCalledWith("set-rounds", 1);
+    expect(secondMock.emit).toHaveBeenCalledWith("set-privacy", "private");
+    expect(secondMock.emit).toHaveBeenCalledWith("set-words", "");
     await gameSession.removePlayer(secondMock.id);
     expect(gameSession.players).toHaveLength(1);
   });
@@ -72,8 +78,27 @@ describe("Game class tests", () => {
   });
   // test to ensure that the drawing information property is updated
   test("began drawing", () => {
+    gameSession.addDrawing({ type: "move" });
     const drawingInformation = { x: 190, y: 290 };
     gameSession.addDrawing(drawingInformation);
     expect(gameSession.drawingHistory).toContain(drawingInformation);
+  });
+
+  test("undo drawing", () => {
+    gameSession.undoDrawing();
+    expect(gameSession.drawingHistory).toHaveLength(0);
+  });
+
+  test("change state to end", () => {
+    gameSession.endGame();
+    expect(gameSession.state).toBe("end");
+  });
+  test("play again changes state", async () => {
+    await gameSession.playAgain();
+    expect(gameSession.state).toBe("settings");
+  });
+  test("not enough players to start", async () => {
+    await gameSession.notEnoughPlayers();
+    expect(mockSocket.emit).toHaveBeenCalledWith("not-enough-players");
   });
 });
