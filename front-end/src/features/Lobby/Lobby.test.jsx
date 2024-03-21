@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Lobby from "./Lobby";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { authContext } from "./App";
+import { authContext } from "../../App";
 
 // create mock object for axios to return expected values
 jest.mock("axios", () => ({

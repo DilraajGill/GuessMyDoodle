@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import checkAuthentication from "./checkAuthentication";
-import { authContext } from "./App";
+import checkAuthentication from "../../components/CheckAuthentication";
+import { authContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import "./HomePage.css";

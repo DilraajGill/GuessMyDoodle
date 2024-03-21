@@ -1,12 +1,12 @@
 import React from "react";
-import HomePage from "./HomePage";
+import HomePage from "./features/Home Page/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Canvas from "./Canvas";
 import Lobby from "./Lobby";
-import CompleteProfile from "./CompleteProfile";
-import Store from "./Store";
+import CompleteProfile from "./features/Authentication/CompleteProfile";
+import Store from "./features/Store/Store";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LoginAndRegister from "./LoginAndRegister";
+import LoginAndRegister from "./features/Authentication/LoginAndRegister";
 
 // Create context to store authentication
 /**

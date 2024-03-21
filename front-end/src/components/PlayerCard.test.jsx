@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import PlayerCard from "./PlayerCard";
+import PlayerCard from "../../components/PlayerCard";
 
 describe("testing Player Card", () => {
   const mockPlayer = "Dilraaj";

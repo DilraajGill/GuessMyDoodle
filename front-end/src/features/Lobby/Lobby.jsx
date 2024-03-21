@@ -3,17 +3,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import LineThicknessButton from "./LineThicknessButton";
 import Canvas from "./Canvas";
 import ChatBox from "./ChatBox";
-import socket from "./SocketManager";
+import socket from "../../components/SocketManager";
 import axios from "axios";
-import checkAuthentication from "./checkAuthentication";
-import { authContext } from "./App";
+import checkAuthentication from "../../components/CheckAuthentication";
+import { authContext } from "../../App";
 import GameCustomisation from "./GameCustomisation";
 import ChooseWords from "./ChooseWords";
-import PlayerCard from "./PlayerCard";
+import PlayerCard from "../../components/PlayerCard";
 import CopyToClipboard from "./CopyToClipboard";
 import { Row, Col, Button, Container, Card, Modal } from "react-bootstrap";
 import ColourChooser from "./ColourChooser";
-import "./Lobby.css";
+import "../../styles/Lobby.css";
 import Hints from "./Hints";
 
 /**

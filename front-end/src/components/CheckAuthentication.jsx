@@ -1,7 +1,7 @@
 /**
  * Check if the user is authorised to be accessing this web page
  * @async
- * @function checkAuthentication
+ * @function CheckAuthentication
  * @param {AxiosInstance} Axios - Instance of Axios for making HTTP requests
  * @returns {object} Object containing authentication properties
  */

@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Tabs, Tab, Container, Row, Col, Card } from "react-bootstrap";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import { authContext } from "./App";
-import "./LoginAndRegister.css";
-import checkAuthentication from "./checkAuthentication";
+import { authContext } from "../../App";
+import "../../styles/LoginAndRegister.css";
+import checkAuthentication from "../../components/CheckAuthentication";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function LoginAndRegister({ defaultState }) {

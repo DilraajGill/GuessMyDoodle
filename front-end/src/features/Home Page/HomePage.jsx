@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { authContext } from "./App";
+import { authContext } from "../../App";
 import { useNavigate, useLocation } from "react-router-dom";
-import checkAuthentication from "./checkAuthentication";
-import getPublic from "./getPublic";
+import checkAuthentication from "../../components/CheckAuthentication";
+import getPublic from "../../components/GetPublic";
 import LobbyCard from "./LobbyCard";
 import { Container, Button, Row, Col, Dropdown, Modal } from "react-bootstrap";
 import PictureSelector from "./PictureSelector";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "./HomePage.css";
+import "../../styles/HomePage.css";
 /**
  * @class HomePage
  * Displays the home page for the User
