@@ -1,6 +1,7 @@
 import supertest from "supertest";
 import app from "./server";
 import mongoose from "mongoose";
+import { User } from "./Database";
 // run the server through supertest framework
 const request = supertest(app);
 /**
@@ -13,12 +14,34 @@ describe("Registration Tests", () => {
    * @memberof Register
    * @function testingNewRegister
    */
-  test("register new user", async () => {
-    console.log("running");
+  beforeAll(async () => {
+    await User.deleteOne({ username: "Test" });
+  });
+
+  test("register new user with invalid password", async () => {
     // create object storing user information
     const testUser = {
       username: "Test",
       password: "testing123",
+      email: "testing@gmail.com",
+    };
+    // emit this to the back-end server
+    const response = await request
+      .post("/auth/register")
+      .send(testUser)
+      .set("Content-Type", "application/json");
+    // expect response to be successful
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe(
+      "Password does not meet the minimum requirements"
+    );
+  });
+
+  test("register new user", async () => {
+    // create object storing user information
+    const testUser = {
+      username: "Test",
+      password: "Testing123!",
       email: "testing@gmail.com",
     };
     // emit this to the back-end server
@@ -36,7 +59,7 @@ describe("Registration Tests", () => {
     // test to ensure unique username is required by repeating fields
     const testUser = {
       username: "Test",
-      password: "testing123",
+      password: "Testing123!",
       email: "testing@gmail.com",
     };
     //  emit response to backend
@@ -74,7 +97,10 @@ describe("Registration Tests", () => {
       .send(testUser)
       .set("Content-Type", "application/json");
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty("name", "MissingPasswordError");
+    expect(response.body).toHaveProperty(
+      "message",
+      "Password does not meet the minimum requirements"
+    );
   });
   // test to enusre username field cannot be left empty
   test("empty string username", async () => {
@@ -87,5 +113,6 @@ describe("Registration Tests", () => {
       .send(testUser)
       .set("Content-Type", "application/json");
     expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("name", "MissingUsernameError");
   });
 });

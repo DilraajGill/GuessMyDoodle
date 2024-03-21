@@ -5,11 +5,24 @@ const request = supertest(app);
 
 describe("Login Tests", () => {
   // test to enusre legitimate account is allowed access
+  beforeAll(async () => {
+    const testUser = {
+      username: "Test",
+      password: "Testing123!",
+      email: "testing@gmail.com",
+    };
+    // emit this to the back-end server
+    const response = await request
+      .post("/auth/register")
+      .send(testUser)
+      .set("Content-Type", "application/json");
+  });
+
   test("login with user", async () => {
     // login with a test user that has account in database
     const testUser = {
       username: "Test",
-      password: "testing123",
+      password: "Testing123!",
     };
     // submit response
     const response = await request

@@ -81,8 +81,11 @@ router.post("/login", passport.authenticate("local"), async (req, res) => {
  */
 router.post("/register", async (req, res) => {
   try {
-    const { username, password, email } = req.body;
+    let { username, password, email } = req.body;
     // Register user
+    if (!username || username === "") {
+      return res.status(400).json({ name: "MissingUsernameError" });
+    }
     username = username.trim();
     if (!username) {
       return res.status(400).json({ message: "Username cannot be empty!" });

@@ -10,7 +10,7 @@ describe("check-authentication", () => {
     // create mock user
     const testUser = {
       username: "Test",
-      password: "testing123",
+      password: "Testing123!",
     };
     // send response ot the back end server
     const response = await request
