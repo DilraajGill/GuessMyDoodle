@@ -56,8 +56,6 @@ function GameCustomisation({
     socket.emit("start-game");
   }
 
-  console.log(length);
-
   return (
     <div>
       <Card>

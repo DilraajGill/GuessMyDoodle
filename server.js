@@ -122,7 +122,6 @@ const games = new GameDispatcher(io);
  * @param {object} socket - Socket object used for real-time communication
  */
 io.on("connection", (socket) => {
-  console.log("A user has connected");
   // Handler for joining a lobby
   socket.on("join-lobby", async (data) => {
     const { lobbyId, username } = data;

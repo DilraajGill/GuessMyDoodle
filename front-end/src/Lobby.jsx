@@ -83,7 +83,6 @@ function Lobby() {
     });
     // Handler to set player information
     socket.on("set-players", (data) => {
-      console.log(data);
       setPlayers(data);
     });
     // Handler to set the number of rounds
@@ -133,7 +132,6 @@ function Lobby() {
     });
 
     socket.on("set-host", (username) => {
-      console.log(username);
       setHost(username);
     });
 
