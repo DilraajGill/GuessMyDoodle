@@ -26,12 +26,12 @@ describe("tests to ensure copy to clipboard is working", () => {
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
   });
 
-  test("show toast message", async () => {
+  test("show confirmation message", async () => {
     render(<CopyToClipboard lobbyId={lobbyId} />);
     const item = screen.getByRole("clipboard-button");
     userEvent.click(item);
     await waitFor(() => {
-      const message = screen.getByText(/Link has been copied to clipboard!/i);
+      const message = screen.getByText(/Copied To Clipboard!/i);
       expect(message).toBeInTheDocument();
     });
   });
