@@ -4,8 +4,6 @@ import LineThicknessButton from "./LineThicknessButton";
 import Canvas from "./Canvas";
 import ChatBox from "./ChatBox";
 import socket from "../../components/SocketManager";
-import axios from "axios";
-import checkAuthentication from "../../components/CheckAuthentication";
 import { authContext } from "../../App";
 import GameCustomisation from "./GameCustomisation";
 import ChooseWords from "./ChooseWords";
@@ -58,25 +56,11 @@ function Lobby() {
    * @memberof Lobby
    */
   useEffect(() => {
-    // Ensure that the user is signed in, else emit them to the login page
-    async function ensureLogin() {
-      const response = await checkAuthentication({ axios });
-      if (response.auth) {
-        setSignedIn({
-          auth: true,
-          username: response.username,
-          points: response.points,
-          tools: response.tools,
-        });
-        socket.emit("join-lobby", {
-          lobbyId,
-          username: response.username,
-        });
-      } else {
-        navigation("/login");
-      }
-    }
-    ensureLogin();
+    socket.emit("join-lobby", {
+      lobbyId,
+      username: signedIn.username,
+    });
+
     // Handler to determine invalid sessions
     socket.on("invalid-game", () => {
       setValidGame(false);

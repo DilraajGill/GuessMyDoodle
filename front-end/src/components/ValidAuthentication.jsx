@@ -6,6 +6,7 @@ import checkAuthentication from "./CheckAuthentication";
 
 function ValidAuthentication({ children }) {
   const [signedIn, setSignedIn] = useContext(authContext);
+  const [loading, setLoading] = React.useState(true);
   const navigation = useNavigate();
   const location = useLocation();
 
@@ -29,10 +30,10 @@ function ValidAuthentication({ children }) {
         navigation("/login");
       }
     }
-    ensureLogin();
+    ensureLogin().then(setLoading(false));
   }, []);
 
-  return <>{signedIn.auth && children}</>;
+  return <>{signedIn.auth && !loading && children}</>;
 }
 
 export default ValidAuthentication;

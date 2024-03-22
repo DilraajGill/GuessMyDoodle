@@ -1,7 +1,6 @@
 import React from "react";
 import HomePage from "./features/Home Page/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Canvas from "./features/Lobby/Canvas";
 import Lobby from "./features/Lobby/Lobby";
 import CompleteProfile from "./features/Authentication/CompleteProfile";
 import Store from "./features/Store/Store";
@@ -47,8 +46,14 @@ function App() {
               </ValidAuthentication>
             }
           />
-          <Route path="/lobby/:lobbyId" element={<Lobby />} />
-          <Route path="/canvas" element={<Canvas />} />
+          <Route
+            path="/lobby/:lobbyId"
+            element={
+              <ValidAuthentication>
+                <Lobby />
+              </ValidAuthentication>
+            }
+          />
           <Route path="/complete-profile" element={<CompleteProfile />} />
           <Route path="/store" element={<Store />} />
         </Routes>
