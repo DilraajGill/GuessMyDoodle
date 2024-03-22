@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import {
   Form,
   Card,
@@ -67,12 +66,14 @@ function GameCustomisation({
               <ToggleButton
                 value="private"
                 onClick={() => privacyUpdate("private")}
+                data-testid="private-lobby-toggle"
               >
                 Private
               </ToggleButton>
               <ToggleButton
                 value="public"
                 onClick={() => privacyUpdate("public")}
+                data-testid="public-lobby-toggle"
               >
                 Public
               </ToggleButton>
@@ -85,6 +86,7 @@ function GameCustomisation({
                 max="6"
                 value={rounds}
                 onChange={roundUpdate}
+                data-testid="round-updates"
               ></Form.Control>
             </Form.Group>
             <Form.Group>
@@ -95,6 +97,7 @@ function GameCustomisation({
                 max="3"
                 value={minutes}
                 onChange={minutesUpdate}
+                data-testid="timer-update"
               ></Form.Control>
             </Form.Group>
             <Form.Group>
