@@ -4,7 +4,7 @@ import { authContext } from "../../App";
 import { useNavigate, useLocation } from "react-router-dom";
 import checkAuthentication from "../../components/CheckAuthentication";
 import getPublic from "../../components/GetPublic";
-import LobbyCard from "./LobbyCard";
+import LobbyCard from "../Lobby/LobbyCard";
 import { Container, Button, Row, Col, Dropdown, Modal } from "react-bootstrap";
 import PictureSelector from "./PictureSelector";
 import "bootstrap-icons/font/bootstrap-icons.css";

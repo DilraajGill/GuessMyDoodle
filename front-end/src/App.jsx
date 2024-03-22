@@ -1,8 +1,8 @@
 import React from "react";
 import HomePage from "./features/Home Page/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Canvas from "./Canvas";
-import Lobby from "./Lobby";
+import Canvas from "./features/Lobby/Canvas";
+import Lobby from "./features/Lobby/Lobby";
 import CompleteProfile from "./features/Authentication/CompleteProfile";
 import Store from "./features/Store/Store";
 import "bootstrap/dist/css/bootstrap.min.css";

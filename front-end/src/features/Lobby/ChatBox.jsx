@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
-import "./ChatBox.css";
+import "../../styles/ChatBox.css";
 // Function to receive message and update state
 /**
  * Function to handle receiving a message and updating state
