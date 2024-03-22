@@ -11,19 +11,23 @@ describe("testing picture modifications", () => {
       <PictureSelector
         currentPicture={currentPicture}
         availablePictures={availablePictures}
+        showModal={true}
+        setShowModal={jest.fn()}
       />
     );
-    const image = screen.getByTestId("current");
-    expect(image).toHaveAttribute("src", currentPicture);
+    const image = screen.getByTestId("selected");
+    expect(image).toHaveAttribute("src", `../${currentPicture}`);
   });
   test("selecting available pictures emits information", () => {
     render(
       <PictureSelector
         currentPicture={currentPicture}
         availablePictures={availablePictures}
+        showModal={true}
+        setShowModal={jest.fn()}
       />
     );
     const selection = screen.getAllByTestId("available");
-    expect(selection).toHaveLength(availablePictures.length);
+    expect(selection).toHaveLength(availablePictures.length - 1);
   });
 });

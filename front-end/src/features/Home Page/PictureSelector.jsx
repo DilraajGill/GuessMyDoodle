@@ -38,7 +38,9 @@ function PictureSelector({
                   <img
                     src={`../${pic}`}
                     key={pic}
-                    data-testId="available"
+                    data-testId={
+                      selectedPicture === `${pic}` ? "selected" : "available"
+                    }
                     className={`available-picture ${
                       selectedPicture === `${pic}` ? "selected-picture" : ""
                     }`}
