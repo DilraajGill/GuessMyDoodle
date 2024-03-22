@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Col, Row, Button, Modal } from "react-bootstrap";
 import axios from "axios";
-import "./HomePage.css";
-import "./PictureSelector.css";
+import "../../styles/HomePage.css";
+import "../../styles/PictureSelector.css";
 
 function PictureSelector({
   currentPicture,

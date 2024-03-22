@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
-import "./LoginAndRegister.css";
+import "../../styles/LoginAndRegister.css";
 import { debounce } from "lodash";
 
 function CompleteProfile() {
