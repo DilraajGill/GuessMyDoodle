@@ -173,7 +173,7 @@ class GameDispatcher {
       this.io.to(socket.lobbyId).emit("set-players", playerList);
       if (
         (this.games[socket.lobbyId].players.length === 1 &&
-          this.games[socket.lobbyId].state !== "settings") ||
+          this.games[socket.lobbyId].state === "drawing") ||
         this.games[socket.lobbyId].players.length === 0
       ) {
         await this.games[socket.lobbyId].notEnoughPlayers();
@@ -303,9 +303,11 @@ class GameDispatcher {
     }
   }
   deleteGame(lobbyId) {
-    this.games[lobbyId].deleteGame();
-    delete this.games[lobbyId];
-    this.remove(lobbyId);
+    if (this.checkExists(lobbyId)) {
+      this.games[lobbyId].deleteGame();
+      delete this.games[lobbyId];
+      this.remove(lobbyId);
+    }
   }
   async playAgain(lobbyId, socket) {
     if (this.checkExists(lobbyId)) {
@@ -320,7 +322,7 @@ class GameDispatcher {
         await this.games[socket.lobbyId].kickPlayer(player);
         if (
           (this.games[socket.lobbyId].players.length === 1 &&
-            this.games[socket.lobbyId].state !== "settings") ||
+            this.games[socket.lobbyId].state === "drawing") ||
           this.games[socket.lobbyId].players.length === 0
         ) {
           await this.games[socket.lobbyId].notEnoughPlayers();

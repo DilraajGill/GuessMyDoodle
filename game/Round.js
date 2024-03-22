@@ -177,7 +177,8 @@ class Round {
       (player) => player.socket.id === socketId
     );
     if (index) {
-      if (this.players[index].hasDrawn) {
+      const user = this.players[index];
+      if (user && user.hasDrawn) {
         this.drawingIndex -= 1;
       }
       this.players = this.players.filter(

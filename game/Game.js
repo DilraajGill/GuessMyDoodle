@@ -102,6 +102,9 @@ class Game {
    */
   async removePlayer(socketId) {
     // Remove player from the list of players
+    if (this.round) {
+      await this.round.removePlayer(socketId);
+    }
     this.players = this.players.filter(
       (player) => player.socket.id !== socketId
     );
@@ -110,10 +113,6 @@ class Game {
       this.host = this.players[0].socket;
       this.icon = this.players[0].icon;
       this.io.to(this.id).emit("set-host", this.players[0].username);
-    }
-
-    if (this.round) {
-      this.round.removePlayer(socketId);
     }
   }
   /**
@@ -387,11 +386,9 @@ class Game {
     });
   }
   async notEnoughPlayers() {
-    try {
+    if (this.players[0]) {
       this.players[0].socket.emit("not-enough-players");
       await this.updatePoints();
-    } catch (error) {
-      console.error(error);
     }
   }
   async kickPlayer(player) {
