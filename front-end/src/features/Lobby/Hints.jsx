@@ -5,7 +5,7 @@ function Hints({ word, hidden, drawing }) {
     <div className="hints-container text-center">
       {hidden ? (
         word.split("").map((letter, index) => (
-          <div className="hint" key={index}>
+          <div className="hint" key={index} data-testid="hint">
             {drawing ? letter : letter === " " ? " " : "_"}
           </div>
         ))
