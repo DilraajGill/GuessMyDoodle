@@ -55,7 +55,14 @@ function App() {
             }
           />
           <Route path="/complete-profile" element={<CompleteProfile />} />
-          <Route path="/store" element={<Store />} />
+          <Route
+            path="/store"
+            element={
+              <ValidAuthentication>
+                <Store />
+              </ValidAuthentication>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </authContext.Provider>
