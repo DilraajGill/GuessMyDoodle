@@ -1,26 +1,51 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import HomePage from "./HomePage";
-import checkAuthentication from "./checkAuthentication";
 import axios from "axios";
+import { BrowserRouter } from "react-router-dom";
+import { authContext } from "../../App";
 jest.mock("axios");
 
 describe("home page test", () => {
-  test("logged in", async () => {
-    // test to ensure authorised users are allowed to stay
-    axios.get.mockResolvedValue({ data: { auth: true } });
-    const navigationMock = jest.fn();
-    expect(await checkAuthentication({ axios, navigationMock })).toEqual({
-      auth: true,
-    });
+  const context = {
+    signedIn: true,
+    username: "Test",
+    profilePicture: "1.jpg",
+    points: 5000,
+  };
+  const setContext = jest.fn();
+
+  test("display the username and points", () => {
+    axios.get.mockResolvedValue({ data: [] });
+    render(
+      <authContext.Provider value={[context, setContext]}>
+        <BrowserRouter>
+          <HomePage />
+        </BrowserRouter>
+      </authContext.Provider>
+    );
+    expect(screen.getByText(context.username)).toBeInTheDocument();
+    expect(screen.getByText(context.points)).toBeInTheDocument();
   });
 
-  test("not logged in", async () => {
-    // test to ensure unauthorised users return false
-    axios.get.mockResolvedValue({ data: { auth: false } });
-    const navigationMock = jest.fn();
-    expect(await checkAuthentication({ axios, navigationMock })).toEqual({
-      auth: false,
+  test("sign out functionality", async () => {
+    axios.get
+      .mockResolvedValueOnce({ data: [] })
+      .mockResolvedValueOnce({ data: { auth: false } });
+
+    render(
+      <authContext.Provider value={[context, setContext]}>
+        <BrowserRouter>
+          <HomePage />
+        </BrowserRouter>
+      </authContext.Provider>
+    );
+    fireEvent.click(screen.getByText(context.username));
+    expect(screen.getByText("Sign Out")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("Sign Out"));
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith("/auth/sign-out");
     });
   });
 });
