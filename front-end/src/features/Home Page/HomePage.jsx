@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { authContext } from "../../App";
 import { useNavigate, useLocation } from "react-router-dom";
-import checkAuthentication from "../../components/CheckAuthentication";
 import getPublic from "../../components/GetPublic";
 import LobbyCard from "../Lobby/LobbyCard";
 import { Container, Button, Row, Col, Dropdown, Modal } from "react-bootstrap";
@@ -30,26 +29,6 @@ function HomePage() {
     setLobbies(response.data);
   }
   useEffect(() => {
-    async function ensureLogin() {
-      const response = await checkAuthentication({ axios });
-      if (response.auth) {
-        if (!response.username) {
-          navigation("/complete-profile");
-        }
-        setSignedIn({
-          auth: true,
-          username: response.username,
-          points: response.points,
-          tools: response.tools,
-          profilePicture: response.profilePicture,
-          purchasedProfilePicture: response.purchasedProfilePicture,
-        });
-      } else {
-        // If not signed in, navigate them to the /login page
-        navigation("/login");
-      }
-    }
-    ensureLogin();
     loadLobbies();
   }, []);
 
