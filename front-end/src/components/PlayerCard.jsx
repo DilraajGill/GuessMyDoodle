@@ -19,10 +19,17 @@ function PlayerCard({ player, points, picture, drawing, host, kick }) {
               <Card.Title>
                 {player}
                 <div className="ms-1" style={{ display: "inline-block" }}>
-                  {host && <i className="bi bi-star-fill"></i>}
+                  {host && (
+                    <i className="bi bi-star-fill" data-testid="host-icon"></i>
+                  )}
                 </div>
                 <div className="ms-1" style={{ display: "inline-block" }}>
-                  {drawing && <i class="bi bi-pencil-fill"></i>}
+                  {drawing && (
+                    <i
+                      className="bi bi-pencil-fill"
+                      data-testid="drawing-icon"
+                    ></i>
+                  )}
                 </div>
               </Card.Title>
               <Card.Text style={{ display: "block" }}>
