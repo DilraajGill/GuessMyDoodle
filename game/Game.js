@@ -86,7 +86,11 @@ class Game {
         this.players[indexPlayer].socket = socket;
       } else {
         const icon = await fetchUserProfilePicture(username);
-        this.players.push({ socket, username, points: 0, icon });
+        const info = { socket, username, points: 0, icon };
+        this.players.push(info);
+        if (this.round) {
+          this.round.addPlayer(info);
+        }
         if (!this.host) {
           this.host = socket;
           this.icon = icon;

@@ -131,6 +131,7 @@ class Round {
     this.selectedWord = "";
     this.drawingIndex += 1;
     this.players[this.drawingIndex].hasDrawn = true;
+    this.resetGuesses();
     let choices = this.getRandomWords();
     this.getCurrentDrawer().socket.emit("choose-words", choices);
   }
@@ -185,6 +186,14 @@ class Round {
         (player) => player.socket.id !== socketId
       );
     }
+  }
+  addPlayer(player) {
+    this.players.push({
+      ...player,
+      hasDrawn: false,
+      hasGuessedCorrectly: false,
+      turnPoints: 0,
+    });
   }
 }
 
