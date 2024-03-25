@@ -136,8 +136,11 @@ function Lobby() {
       navigation("/home", { state: { kicked: true, message } });
     });
 
+    window.addEventListener("keydown", keyDown);
+
     return () => {
       socket.emit("leave-session");
+      window.removeEventListener("keydown", keyDown);
     };
   }, []);
 
@@ -218,6 +221,28 @@ function Lobby() {
       socket.emit("kick-player", selectedKickUser);
       setShowKickModal(false);
       setSelectedKickUser(null);
+    }
+  }
+
+  function keyDown(ev) {
+    if (document.activeElement.tagName.toLowerCase() === "input") return;
+    switch (ev.key.toUpperCase()) {
+      case "U":
+        undoMove();
+        break;
+      case "B":
+        setDrawingTool("draw");
+        break;
+      case "E":
+        setDrawingTool("eraser");
+        break;
+      case "F":
+        if (signedIn.tools.includes("fill")) {
+          setDrawingTool("fill");
+        }
+        break;
+      default:
+        break;
     }
   }
 
