@@ -109,6 +109,8 @@ class Game {
     if (this.round) {
       await this.round.removePlayer(socketId);
     }
+    const locatedPlayer = this.players.find((user) => player === user.username);
+    await this.updateIndividualPoints(locatedPlayer);
     this.players = this.players.filter(
       (player) => player.socket.id !== socketId
     );
@@ -367,6 +369,17 @@ class Game {
           `Error updating points for ${player.username}: ${error.message}`
         );
       }
+    }
+  }
+
+  async updateIndividualPoints(player) {
+    try {
+      await updateUserPoints(player.username, player.points);
+      player.points = 0;
+    } catch (error) {
+      console.error(
+        `Error updating points for ${player.username}: ${error.message}`
+      );
     }
   }
   splitCustomWords() {
