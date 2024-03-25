@@ -424,16 +424,42 @@ function Lobby() {
                       <Button
                         onClick={() => setDrawingTool("draw")}
                         className={drawingTool === "draw" ? "active-tool" : ""}
+                        style={{ position: "relative" }}
                       >
                         <i class="bi bi-brush"></i>
+                        {drawingTool !== "draw" && (
+                          <span
+                            style={{
+                              position: "absolute",
+                              bottom: 0,
+                              right: 3,
+                              fontSize: "smaller",
+                            }}
+                          >
+                            B
+                          </span>
+                        )}
                       </Button>
                       <Button
                         onClick={() => setDrawingTool("eraser")}
                         className={
                           drawingTool === "eraser" ? "active-tool" : ""
                         }
+                        style={{ position: "relative" }}
                       >
                         <i class="bi bi-eraser-fill"></i>
+                        {drawingTool !== "eraser" && (
+                          <span
+                            style={{
+                              position: "absolute",
+                              bottom: 0,
+                              right: 3,
+                              fontSize: "smaller",
+                            }}
+                          >
+                            E
+                          </span>
+                        )}
                       </Button>
                       {signedIn.tools && signedIn.tools.includes("fill") && (
                         <Button
@@ -441,12 +467,39 @@ function Lobby() {
                           className={
                             drawingTool === "fill" ? "active-tool" : ""
                           }
+                          style={{ position: "relative" }}
                         >
                           <i class="bi bi-paint-bucket"></i>
+                          {drawingTool !== "fill" && (
+                            <span
+                              style={{
+                                position: "absolute",
+                                bottom: 0,
+                                right: 3,
+                                fontSize: "smaller",
+                              }}
+                            >
+                              F
+                            </span>
+                          )}
                         </Button>
                       )}
-                      <Button type="button" onClick={undoMove}>
+                      <Button
+                        type="button"
+                        onClick={undoMove}
+                        style={{ position: "relative" }}
+                      >
                         <i class="bi bi-arrow-counterclockwise"></i>
+                        <span
+                          style={{
+                            position: "absolute",
+                            bottom: 0,
+                            right: 3,
+                            fontSize: "smaller",
+                          }}
+                        >
+                          U
+                        </span>
                       </Button>
                       <Button type="button" onClick={clearCanvas}>
                         <i class="bi bi-trash-fill"></i>
