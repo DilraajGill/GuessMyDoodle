@@ -20,7 +20,7 @@ import Hints from "./Hints";
  */
 function Lobby() {
   // Define react states and parameters
-  const [signedIn, setSignedIn] = React.useContext(authContext);
+  const [signedIn] = React.useContext(authContext);
   const { lobbyId } = useParams();
   const [selectedColour, setSelectedColour] = React.useState("#000000");
   const [lineThickness, setLineThickness] = React.useState(2);
@@ -363,6 +363,7 @@ function Lobby() {
                                   <img
                                     src={`../${player.profilePicture}`}
                                     className="picture"
+                                    alt="profile icon"
                                   />
                                   <div className="username">
                                     {player.username}

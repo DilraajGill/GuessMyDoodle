@@ -106,14 +106,16 @@ class Game {
    */
   async removePlayer(socketId) {
     // Remove player from the list of players
-    if (this.round) {
-      await this.round.removePlayer(socketId);
-    }
-    const locatedPlayer = this.players.find((user) => player === user.username);
+    const locatedPlayer = this.players.find(
+      (user) => socketId === user.socket.id
+    );
     await this.updateIndividualPoints(locatedPlayer);
     this.players = this.players.filter(
       (player) => player.socket.id !== socketId
     );
+    if (this.round) {
+      await this.round.removePlayer(socketId);
+    }
 
     if (this.host.id === socketId && this.players.length > 0) {
       this.host = this.players[0].socket;
