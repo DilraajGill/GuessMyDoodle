@@ -79,6 +79,9 @@ class Game {
         if (this.host && this.host.username === username) {
           this.host = socket;
         }
+        if (this.round) {
+          this.round.updateUserSocket(socket, username);
+        }
         this.players[indexPlayer].socket.emit(
           "kicked",
           "You have joined from another device!"
@@ -420,6 +423,11 @@ class Game {
       }
       this.io.to(this.id).emit("set-players", await this.getPlayerAndPoints());
     }
+  }
+  activePlayer(socket, username) {
+    return this.players.some(
+      (user) => user.username === username && user.socket.id === socket.id
+    );
   }
 }
 

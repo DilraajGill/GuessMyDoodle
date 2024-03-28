@@ -195,6 +195,14 @@ class Round {
       turnPoints: 0,
     });
   }
+  updateUserSocket(socket, username) {
+    const indexPlayer = this.players.findIndex(
+      (player) => player.username === username
+    );
+    if (indexPlayer !== -1) {
+      this.players[indexPlayer].socket = socket;
+    }
+  }
 }
 
 export default Round;

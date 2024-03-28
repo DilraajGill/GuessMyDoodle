@@ -167,17 +167,21 @@ class GameDispatcher {
    */
   async removePlayer(socket) {
     if (this.checkExists(socket.lobbyId)) {
-      await this.games[socket.lobbyId].removePlayer(socket.id);
-      socket.leave(socket.lobbyId);
-      const playerList = await this.games[socket.lobbyId].getPlayerAndPoints();
-      this.io.to(socket.lobbyId).emit("set-players", playerList);
-      if (
-        (this.games[socket.lobbyId].players.length === 1 &&
-          this.games[socket.lobbyId].state === "drawing") ||
-        this.games[socket.lobbyId].players.length === 0
-      ) {
-        await this.games[socket.lobbyId].notEnoughPlayers();
-        this.deleteGame(socket.lobbyId);
+      if (this.games[socket.lobbyId].activePlayer(socket, socket.username)) {
+        await this.games[socket.lobbyId].removePlayer(socket.id);
+        socket.leave(socket.lobbyId);
+        const playerList = await this.games[
+          socket.lobbyId
+        ].getPlayerAndPoints();
+        this.io.to(socket.lobbyId).emit("set-players", playerList);
+        if (
+          (this.games[socket.lobbyId].players.length === 1 &&
+            this.games[socket.lobbyId].state === "drawing") ||
+          this.games[socket.lobbyId].players.length === 0
+        ) {
+          await this.games[socket.lobbyId].notEnoughPlayers();
+          this.deleteGame(socket.lobbyId);
+        }
       }
     }
   }
