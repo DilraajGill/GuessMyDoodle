@@ -203,6 +203,11 @@ class Game {
       );
       socket.emit("new-round", this.roundCount + 1);
       socket.emit("late-timer", this.timer);
+      if (this.isDrawing(socket)) {
+        if (this.round.selectedWord) {
+          socket.emit("selected-word", this.round.selectedWord);
+        }
+      }
     } else if (this.state === "settings") {
       socket.emit("set-state", "settings");
       socket.emit("set-minutes", this.selectedTimer);
@@ -245,7 +250,7 @@ class Game {
     this.state = "drawing";
     this.io.to(this.id).emit("set-state", this.state);
     this.timer = this.selectedTimer * 60 + 5;
-    this.round = new Round(this.players, this.lobbyId, this.words);
+    this.round = new Round(this.players, this.lobbyId, this.words, this.io);
     this.io
       .to(this.id)
       .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
@@ -339,7 +344,7 @@ class Game {
   }
   nextRound() {
     delete this.round;
-    this.round = new Round(this.players, this.lobbyId, this.words);
+    this.round = new Round(this.players, this.lobbyId, this.words, this.io);
     this.io
       .to(this.id)
       .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);

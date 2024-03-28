@@ -8,7 +8,7 @@ class Round {
    * @param {string} lobbyId - The ID of the lobby
    * @param {string[]} words - List of words to be used in the round
    */
-  constructor(players, lobbyId, words) {
+  constructor(players, lobbyId, words, io) {
     // Initialise attributes
     /**
      * Index of user who is currently drawing
@@ -36,6 +36,7 @@ class Round {
      * Store the lobby ID of the respective game session
      */
     this.lobbyId = lobbyId;
+    this.io = io;
     this.initialise();
   }
   // Initialise the round and begin interaction
@@ -134,6 +135,12 @@ class Round {
     this.resetGuesses();
     let choices = this.getRandomWords();
     this.getCurrentDrawer().socket.emit("choose-words", choices);
+    setTimeout(() => {
+      if (!this.selectedWord) {
+        this.setWord(choices[0]);
+        this.io.to(this.id).emit("selected-word", choices[0]);
+      }
+    });
   }
   getRandomWords() {
     const result = [];
