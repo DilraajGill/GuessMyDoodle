@@ -249,7 +249,7 @@ function Lobby() {
   return (
     <Container fluid className="mt-3">
       <Row>
-        {gameState === "drawing" && (
+        {gameState !== "settings" && (
           <Col md={12} className="mb-2">
             <Card>
               <Card.Body>
