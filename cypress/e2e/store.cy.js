@@ -4,7 +4,7 @@ describe("home e2e tests", () => {
     cy.get('input[type="text"]').type("userAccount");
     cy.get('input[type="password"]').type("Password!");
     cy.get('button[type="submit"]').click();
-    cy.contains("Go To Store!").click();
+    cy.get(".bi-cart-fill").click();
   });
   it("loads the store page", () => {
     cy.get("h2").contains("Store");
@@ -23,5 +23,9 @@ describe("home e2e tests", () => {
     );
     cy.get(".modal .btn-secondary").click();
     cy.get(".modal").should("not.exist");
+  });
+  it("direct user to home page", () => {
+    cy.get(".bi-house-fill").click();
+    cy.url().should("include", "/home");
   });
 });

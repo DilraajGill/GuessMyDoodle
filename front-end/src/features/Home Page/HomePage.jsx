@@ -153,7 +153,12 @@ function HomePage() {
                 <img
                   alt="cross"
                   src="./cross.png"
-                  style={{ width: "auto", height: "calc(90% - 100px)" }}
+                  style={{
+                    maxWidth: "90%",
+                    maxHeight: "90%",
+                    width: "auto",
+                    height: "auto",
+                  }}
                 />
                 <br />
                 <h3>No Lobbies Available</h3>
