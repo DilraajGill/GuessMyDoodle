@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { authContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { Container, Button, Row, Col } from "react-bootstrap";
+import { Container, Button, Row, Col, Modal } from "react-bootstrap";
 import "../../styles/HomePage.css";
 import StoreCard from "./StoreCard";
 import { PaintBucket } from "react-bootstrap-icons";
@@ -11,11 +11,14 @@ import "../../styles/Store.css";
 function Store() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
   const navigation = useNavigate();
+  const [moneyModal, setMoneyModal] = React.useState(false);
   async function purchaseFillTool() {
     try {
       const response = await axios.post("/store/buy/fill-tool");
     } catch (error) {
-      console.log("Error purchasing fill tool");
+      if (error.response && error.response.status === 400) {
+        setMoneyModal(true);
+      }
     }
   }
 
@@ -24,7 +27,9 @@ function Store() {
       const response = await axios.post(`/store/buy/${id}`);
       window.location.reload();
     } catch (error) {
-      console.log("Error purchasing profile picture");
+      if (error.response && error.response.status === 400) {
+        setMoneyModal(true);
+      }
     }
   }
 
@@ -250,6 +255,19 @@ function Store() {
             </Row>
           </div>
         </div>
+        <Modal show={moneyModal} onHide={() => setMoneyModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Unable to purchase item!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            You do not have enough money to purchase this item!
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setMoneyModal(false)}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );

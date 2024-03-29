@@ -2,7 +2,8 @@
     padding: 20px;
     border-radius: 10px;
     transition: all 0.4s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 90% !important;
 }
 
 .store-card:hover{
@@ -13,7 +14,7 @@
 .store-card .btn{
     margin-top: 15px;
     transition: all 0.4s;
-    width: 75%
+    width: 75%;
 }
 
 .store-card .btn:hover{
