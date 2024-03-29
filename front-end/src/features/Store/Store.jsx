@@ -105,9 +105,9 @@ function Store() {
               xs={1}
               sm={2}
               md={2}
-              lg={2}
-              xl={2}
-              xxl={3}
+              lg={3}
+              xl={3}
+              xxl={4}
             >
               <Col>
                 <StoreCard

@@ -128,31 +128,37 @@ function HomePage() {
             </Col>
           </Row>
           <Col md={12}>
-            <div className="room-container mt-2">
-              {lobbies.length > 0 ? (
-                <Row xs={1} md={3} lg={4}>
-                  {lobbies.map((lobby) => (
-                    <Col>
-                      <LobbyCard
-                        key={lobby.id}
-                        lobby={lobby}
-                        onClick={() => handleLobbyClick(lobby.id)}
-                      />
-                    </Col>
-                  ))}
-                </Row>
-              ) : (
-                <div className="no-lobbies">
-                  <img
-                    alt="cross"
-                    src="./cross.png"
-                    style={{ width: "auto", height: "calc(90% - 100px)" }}
-                  />
-                  <br />
-                  <h3>No Lobbies Available</h3>
-                </div>
-              )}
-            </div>
+            {lobbies.length > 0 ? (
+              <Row
+                xs={1}
+                sm={2}
+                md={2}
+                lg={3}
+                xl={3}
+                xxl={4}
+                className="room-container mt-2"
+              >
+                {lobbies.map((lobby) => (
+                  <Col>
+                    <LobbyCard
+                      key={lobby.id}
+                      lobby={lobby}
+                      onClick={() => handleLobbyClick(lobby.id)}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <div className="room-container mt-2 no-lobbies">
+                <img
+                  alt="cross"
+                  src="./cross.png"
+                  style={{ width: "auto", height: "calc(90% - 100px)" }}
+                />
+                <br />
+                <h3>No Lobbies Available</h3>
+              </div>
+            )}
           </Col>
           <div className="create-lobby mt-3">
             <Button variant="primary" onClick={createLobby}>
