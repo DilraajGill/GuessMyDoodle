@@ -1,5 +1,5 @@
 import React from "react";
-import HomePage from "./features/Home Page/HomePage";
+import HomePage from "./features/Home Page/HomePage.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Lobby from "./features/Lobby/Lobby";
 import CompleteProfile from "./features/Authentication/CompleteProfile";

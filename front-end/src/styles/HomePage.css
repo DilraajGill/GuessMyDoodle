@@ -1,34 +1,13 @@
-.home-page{
-    background-color: aliceblue;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 2px 2px 4px 0 rgba(0,0,0,.3);
-    width: auto;
-    margin: auto;
-    min-width: 80%;
+body, html{
     min-height: 700px;
+    min-width: 500px;
 }
 
-.lobby-card{
-    padding: 20px;
-    border-radius: 10px;
-    transition: all 0.4s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+.create-lobby{
+    display: flex;
+    justify-content: center;
 }
 
-.lobby-card:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2)
-}
-
-.room-container{
-    background-color: #9fbdc9;
-    border-radius: 10px;
-    overflow-y: auto;
-    min-height: 60vh;
-    max-height: 60vh;
-    padding: 10px 0;
-}
 
 .no-lobbies{
     text-align: center;
@@ -48,11 +27,39 @@
     border-radius: 10px;
 }
 
-.profile-username{
-    color: aliceblue
+
+.lobby-card{
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
 }
+
+.lobby-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2)
+}
+
 
 button:hover{
     transform: scale(1.05);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2)
+}
+
+.home-page{
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 2px 2px 4px 0 rgba(0,0,0,.3);
+}
+
+.room-container{
+    background-color: #9fbdc9;
+    border-radius: 10px;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+.profile-username{
+    color: aliceblue
 }

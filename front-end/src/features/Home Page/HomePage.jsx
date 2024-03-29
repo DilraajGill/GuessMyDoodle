@@ -71,8 +71,12 @@ function HomePage() {
     }
   }
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center vh-100">
-      <Container className="text-center">
+    <Container
+      fluid
+      className="min-vh-100 d-flex align-items-center justify-content-center"
+    >
+      <Col md={3} />
+      <Col md={6}>
         <Col md={12} className="profile">
           <Dropdown>
             <Dropdown.Toggle variant="link">
@@ -91,94 +95,91 @@ function HomePage() {
             </Dropdown.Menu>
           </Dropdown>
         </Col>
-        <div className="home-page">
-          <div className="top-bar align-items-center">
-            <Row>
-              <Col md={4}>
-                <div className="toolbar">
-                  <Button
-                    variant="primary"
-                    onClick={() => loadLobbies()}
-                    className="me-3"
-                  >
-                    <i class="bi bi-arrow-clockwise"></i>
-                  </Button>
-                  <Button
-                    className="me-3"
-                    variant="primary"
-                    onClick={() => navigation("/store")}
-                  >
-                    Go To Store!
-                  </Button>
-                </div>
-              </Col>
-              <Col md={4}>
-                <h2>Home</h2>
-              </Col>
-              <Col md={4}>
-                <div className="points-container text-right mr-3">
-                  <div className="points-label">Points</div>
-                  <div className="points-value">
-                    <strong>{signedIn.points}</strong>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </div>
-
-          <div className="room-container my-3 p-3">
-            {lobbies.length > 0 ? (
-              <Row xs={1} md={3} lg={4}>
-                {lobbies.map((lobby) => (
-                  <Col>
-                    <LobbyCard
-                      key={lobby.id}
-                      lobby={lobby}
-                      onClick={() => handleLobbyClick(lobby.id)}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            ) : (
-              <div className="no-lobbies">
-                <img
-                  alt="cross"
-                  src="./cross.png"
-                  style={{ width: "400px", height: "400px" }}
-                />
-                <br />
-                <h3>No Lobbies Available</h3>
+        <Col md={12} className="home-page">
+          <Row className="top-bar align-items-center text-center">
+            <Col md={4}>
+              <div className="toolbar">
+                <Button
+                  variant="primary"
+                  onClick={() => loadLobbies()}
+                  className="me-3"
+                >
+                  <i class="bi bi-arrow-clockwise"></i>
+                </Button>
+                <Button
+                  className="me-3"
+                  variant="primary"
+                  onClick={() => navigation("/store")}
+                >
+                  <i class="bi bi-cart-fill"></i>
+                </Button>
               </div>
-            )}
-          </div>
-          <div className="toolbar">
-            <Button variant="primary" onClick={createLobby} className="me-3">
+            </Col>
+            <Col md={4}>
+              <h2>Home</h2>
+            </Col>
+            <Col md={4}>
+              <div className="points-container text-right mr-3">
+                <div className="points-label">Points</div>
+                <div className="points-value">
+                  <strong>{signedIn.points}</strong>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Col md={12}>
+            <div className="room-container mt-2">
+              {lobbies.length > 0 ? (
+                <Row xs={1} md={3} lg={4}>
+                  {lobbies.map((lobby) => (
+                    <Col>
+                      <LobbyCard
+                        key={lobby.id}
+                        lobby={lobby}
+                        onClick={() => handleLobbyClick(lobby.id)}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              ) : (
+                <div className="no-lobbies">
+                  <img
+                    alt="cross"
+                    src="./cross.png"
+                    style={{ width: "400px", height: "400px" }}
+                  />
+                  <br />
+                  <h3>No Lobbies Available</h3>
+                </div>
+              )}
+            </div>
+          </Col>
+          <div className="create-lobby mt-3">
+            <Button variant="primary" onClick={createLobby}>
               Create Lobby!
             </Button>
           </div>
-        </div>
-        <PictureSelector
-          showModal={changePicture}
-          setShowModal={setChangePicture}
-          currentPicture={signedIn.profilePicture}
-          availablePictures={signedIn.purchasedProfilePicture}
-        />
-        <Modal show={showKickedModal} onHide={() => setShowKickedModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Kicked From Lobby!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{location.state?.message}</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => setShowKickedModal(false)}
-            >
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </Container>
-    </div>
+        </Col>
+      </Col>
+      <Col md={3} />
+      <PictureSelector
+        showModal={changePicture}
+        setShowModal={setChangePicture}
+        currentPicture={signedIn.profilePicture}
+        availablePictures={signedIn.purchasedProfilePicture}
+      />
+      <Modal show={showKickedModal} onHide={() => setShowKickedModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Kicked From Lobby!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{location.state?.message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowKickedModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Container>
   );
 }
 
