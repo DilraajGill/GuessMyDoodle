@@ -4,6 +4,12 @@
     transition: all 0.4s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 90% !important;
+    width: 100%;
+}
+
+.room-container{
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 .store-card:hover{

@@ -75,8 +75,8 @@ function HomePage() {
       fluid
       className="min-vh-100 d-flex align-items-center justify-content-center"
     >
-      <Col md={3} />
-      <Col md={6}>
+      <Col md={1} />
+      <Col md={10}>
         <Col md={12} className="profile">
           <Dropdown>
             <Dropdown.Toggle variant="link">
@@ -146,7 +146,7 @@ function HomePage() {
                   <img
                     alt="cross"
                     src="./cross.png"
-                    style={{ width: "400px", height: "400px" }}
+                    style={{ width: "auto", height: "calc(90% - 100px)" }}
                   />
                   <br />
                   <h3>No Lobbies Available</h3>
@@ -161,7 +161,7 @@ function HomePage() {
           </div>
         </Col>
       </Col>
-      <Col md={3} />
+      <Col md={1} />
       <PictureSelector
         showModal={changePicture}
         setShowModal={setChangePicture}

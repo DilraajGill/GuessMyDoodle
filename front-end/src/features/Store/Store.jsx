@@ -2,19 +2,21 @@ import React from "react";
 import axios from "axios";
 import { authContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { Container, Button, Row, Col, Modal } from "react-bootstrap";
+import { Container, Button, Row, Col, Modal, Dropdown } from "react-bootstrap";
 import "../../styles/HomePage.css";
 import StoreCard from "./StoreCard";
 import { PaintBucket } from "react-bootstrap-icons";
+import PictureSelector from "../Home Page/PictureSelector";
 import "../../styles/Store.css";
 
 function Store() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
   const navigation = useNavigate();
   const [moneyModal, setMoneyModal] = React.useState(false);
+  const [changePicture, setChangePicture] = React.useState(false);
   async function purchaseFillTool() {
     try {
-      const response = await axios.post("/store/buy/fill-tool");
+      await axios.post("/store/buy/fill-tool");
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setMoneyModal(true);
@@ -24,7 +26,7 @@ function Store() {
 
   async function purchasedProfilePicture(id) {
     try {
-      const response = await axios.post(`/store/buy/${id}`);
+      await axios.post(`/store/buy/${id}`);
       window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -33,43 +35,80 @@ function Store() {
     }
   }
 
-  return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <Container className="text-center">
-        <Col md={12} className="profile">
-          <img className="profile-picture" src={signedIn.profilePicture} />
-          <span className="ms-2 profile-username">{signedIn.username}</span>
-        </Col>
-        <div className="home-page">
-          <div className="top-bar align-items-center">
-            <Row>
-              <Col md={4}>
-                <div className="toolbar">
-                  <Button
-                    className="me-3"
-                    variant="primary"
-                    onClick={() => navigation("/home")}
-                  >
-                    Go To Home!
-                  </Button>
-                </div>
-              </Col>
-              <Col md={4}>
-                <h2>Store</h2>
-              </Col>
-              <Col md={4}>
-                <div className="points-container text-right mr-3">
-                  <div className="points-label">Points</div>
-                  <div className="points-value">
-                    <strong>{signedIn.points}</strong>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </div>
+  async function signOut() {
+    try {
+      const status = await axios.get("/auth/sign-out");
+      if (!status.data.auth) {
+        setSignedIn({
+          auth: false,
+        });
+        navigation("/login");
+      }
+    } catch (error) {
+      console.log("Unable to sign out");
+    }
+  }
 
-          <div className="room-container my-3 p-3">
-            <Row xs={1} sm={2} md={2} lg={3} xl={4}>
+  return (
+    <Container
+      fluid
+      className="min-vh-100 d-flex align-items-center justify-content-center"
+    >
+      <Col md={1} />
+      <Col md={10}>
+        <Col md={12} className="profile">
+          <Dropdown>
+            <Dropdown.Toggle variant="link">
+              <img
+                className="profile-picture"
+                src={signedIn.profilePicture}
+                alt={`${signedIn.username}'s Profile'`}
+              />
+              <span className="ms-2 profile-username">{signedIn.username}</span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setChangePicture(true)}>
+                Change Icon
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => signOut()}>Sign Out</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col md={12} className="home-page">
+          <Row className="top-bar align-items-center text-center">
+            <Col md={4}>
+              <div className="toolbar">
+                <Button
+                  className="me-3"
+                  variant="primary"
+                  onClick={() => navigation("/home")}
+                >
+                  <i class="bi bi-house-fill"></i>
+                </Button>
+              </div>
+            </Col>
+            <Col md={4}>
+              <h2>Store</h2>
+            </Col>
+            <Col md={4}>
+              <div className="points-container text-right mr-3">
+                <div className="points-label">Points</div>
+                <div className="points-value">
+                  <strong>{signedIn.points}</strong>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Col md={12}>
+            <Row
+              className="room-container mt-2"
+              xs={1}
+              sm={2}
+              md={2}
+              lg={2}
+              xl={2}
+              xxl={3}
+            >
               <Col>
                 <StoreCard
                   Icon={PaintBucket}
@@ -253,23 +292,30 @@ function Store() {
                 />
               </Col>
             </Row>
-          </div>
-        </div>
-        <Modal show={moneyModal} onHide={() => setMoneyModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Unable to purchase item!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            You do not have enough money to purchase this item!
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setMoneyModal(false)}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </Container>
-    </div>
+          </Col>
+        </Col>
+      </Col>
+      <Col md={1} />
+      <PictureSelector
+        showModal={changePicture}
+        setShowModal={setChangePicture}
+        currentPicture={signedIn.profilePicture}
+        availablePictures={signedIn.purchasedProfilePicture}
+      />
+      <Modal show={moneyModal} onHide={() => setMoneyModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Unable to purchase item!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          You do not have enough money to purchase this item!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setMoneyModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Container>
   );
 }
 

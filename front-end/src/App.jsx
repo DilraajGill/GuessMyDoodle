@@ -3,7 +3,7 @@ import HomePage from "./features/Home Page/HomePage.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Lobby from "./features/Lobby/Lobby";
 import CompleteProfile from "./features/Authentication/CompleteProfile";
-import Store from "./features/Store/Store";
+import Store from "./features/Store/Store.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginAndRegister from "./features/Authentication/LoginAndRegister";
 import ValidAuthentication from "./components/ValidAuthentication";
