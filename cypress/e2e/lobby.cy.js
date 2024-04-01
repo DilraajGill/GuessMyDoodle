@@ -29,6 +29,5 @@ describe("lobby e2e tests", () => {
   it("disabled button if only one player", () => {
     cy.get("button").contains("Create Lobby!").click();
     cy.get("button").contains("Start Game").should("be.disabled");
-    cy.get("button").contains("Start Game").click();
   });
 });

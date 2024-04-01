@@ -50,3 +50,13 @@ export async function fetchUserProfilePicture(username) {
     console.error("Error fetching username");
   }
 }
+
+export async function deleteUser(username) {
+  try {
+    await User.findOneAndDelete({ username: username });
+    return true;
+  } catch (error) {
+    console.error("Account does not exist!");
+    return false;
+  }
+}

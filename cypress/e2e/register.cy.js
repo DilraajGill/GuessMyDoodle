@@ -1,4 +1,8 @@
 describe("register e2e tests", () => {
+  before(() => {
+    cy.task("deleteUser", { username: "userAccount" });
+  });
+
   beforeEach(() => {
     cy.visit("http://localhost:3000/register");
   });

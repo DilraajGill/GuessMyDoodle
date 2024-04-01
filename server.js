@@ -79,8 +79,8 @@ app.post("/store/buy/:iconId", async (req, res) => {
   if (user.purchasedProfilePicture.includes(`${iconId}.jpg`)) {
     return res.status(400).send("Picture already purchased!");
   }
-  if (user.points >= 10000) {
-    user.points -= 10000;
+  if (user.points >= 5000) {
+    user.points -= 5000;
     user.purchasedProfilePicture.push(`${iconId}.jpg`);
     user.profilePicture = `${iconId}.jpg`;
     await user.save();
