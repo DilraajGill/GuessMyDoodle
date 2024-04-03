@@ -35,7 +35,11 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
    * @param {MouseEvent} ev - Mouse event triggering it
    */
   function beginDrawing(ev) {
-    const { offsetX, offsetY } = ev.nativeEvent;
+    const boundingRect = canvasRef.current.getBoundingClientRect();
+    const scaleX = canvasRef.current.width / boundingRect.width;
+    const scaleY = canvasRef.current.height / boundingRect.height;
+    const offsetX = (ev.clientX - boundingRect.left) * scaleX;
+    const offsetY = (ev.clientY - boundingRect.top) * scaleY;
     setIsDrawing(true);
     socket.emit("beginDrawing", { lobbyId });
     if (type === "fill") {
