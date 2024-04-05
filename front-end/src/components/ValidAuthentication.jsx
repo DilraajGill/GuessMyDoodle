@@ -4,6 +4,11 @@ import axios from "axios";
 import { authContext } from "../App";
 import checkAuthentication from "./CheckAuthentication";
 
+/**
+ * Wrap child componeonts within this to ensure that users are signed in, otherwise they are navigated to the login page
+ * @param {React.ReactNode} props.children - Children contais the components to render if the user is signed in
+ * @returns {React.ReactNode} - Child component is rendered if valid authentication
+ */
 function ValidAuthentication({ children }) {
   const [signedIn, setSignedIn] = useContext(authContext);
   const [loading, setLoading] = React.useState(true);
@@ -11,6 +16,9 @@ function ValidAuthentication({ children }) {
   const location = useLocation();
 
   useEffect(() => {
+    /**
+     * Communicate with back-end server to ensure the user is authenticated
+     */
     async function ensureLogin() {
       const response = await checkAuthentication({ axios });
       if (response.auth) {

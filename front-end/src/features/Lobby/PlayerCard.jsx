@@ -1,6 +1,15 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
-
+/**
+ * Component to display each player's information
+ * @param {} props.player Player username
+ * @param {} props.points Points accumulated by the player
+ * @param {} props.picture Path of the player's pictre
+ * @param {} props.drawing Indicate if the player is drawing
+ * @param {} props.host Indicate if the player is the host
+ * @param {} props.kick Function to call if they are to be kicked from the lobby
+ * @returns
+ */
 function PlayerCard({ player, points, picture, drawing, host, kick }) {
   const address = `../${picture}`;
 

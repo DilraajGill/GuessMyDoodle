@@ -1,9 +1,9 @@
 import React from "react";
-import { Form } from "react-bootstrap";
 
 /**
  * Adjust the line thickness for the user when drawing
- * @param {*} thickness - React state storing the thickness of the drawing
+ * @param {number} props.thickness - React state storing the thickness of the drawing
+ * @param {Function} props.setLineThickness - Function to update value of the state
  */
 function LineThickness({ thickness, setLineThickness }) {
   const options = [2, 4, 6, 8, 10];

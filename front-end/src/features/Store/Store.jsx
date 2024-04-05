@@ -8,33 +8,48 @@ import StoreCard from "./StoreCard";
 import { PaintBucket } from "react-bootstrap-icons";
 import PictureSelector from "../Home Page/PictureSelector";
 import "../../styles/Store.css";
-
+/**
+ *
+ * @returns {React.Component} Display the store page
+ */
 function Store() {
   const [signedIn, setSignedIn] = React.useContext(authContext);
   const navigation = useNavigate();
   const [moneyModal, setMoneyModal] = React.useState(false);
   const [changePicture, setChangePicture] = React.useState(false);
+  /**
+   * Function to purchase fill tool
+   */
   async function purchaseFillTool() {
     try {
       await axios.post("/store/buy/fill-tool");
     } catch (error) {
       if (error.response && error.response.status === 400) {
+        // Display modal if lacking money to purchase item
         setMoneyModal(true);
       }
     }
   }
 
+  /**
+   * Function to purchase profile picture
+   * @param {string} id - ID of profile picture to purchase
+   */
   async function purchasedProfilePicture(id) {
     try {
       await axios.post(`/store/buy/${id}`);
       window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 400) {
+        // Display modal if lacking money to purchase item
         setMoneyModal(true);
       }
     }
   }
 
+  /**
+   * Function to sing out of the web page
+   */
   async function signOut() {
     try {
       const status = await axios.get("/auth/sign-out");
@@ -109,6 +124,7 @@ function Store() {
               xl={3}
               xxl={4}
             >
+              {/* Display store card for each item in the store */}
               <Col>
                 <StoreCard
                   Icon={PaintBucket}

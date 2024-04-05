@@ -11,9 +11,12 @@ import {
 /**
  * Allow for customisation of gameplay settings
  * @class GameCustomisation
- * @param {object} socket
- * @param {number} rounds
- * @param {number} minutes
+ * @param {object} props.socket Socket object of the user
+ * @param {number} props.rounds The number of rounds to play
+ * @param {number} props.minutes The number of minutes the rounds should have
+ * @param {string} props.lobbyType The lobby type (private or public)
+ * @param {string} props.customWords The custom words to be mixed with the normal words
+ * @param {number} props.length Number of players in the lobby
  */
 function GameCustomisation({
   socket,
@@ -26,7 +29,7 @@ function GameCustomisation({
   // Update the number of rounds being modified
   /**
    * Update the number of rounds being played
-   * @param {mouseEvent} ev
+   * @param {mouseEvent} ev The event object
    */
   function roundUpdate(ev) {
     socket.emit("update-rounds", ev.target.value);
@@ -34,16 +37,25 @@ function GameCustomisation({
   // Update the number of minutes being modified
   /**
    * Update the number of minutes being played
-   * @param {mouseEvent} ev
+   * @param {mouseEvent} ev The event object
    */
   function minutesUpdate(ev) {
     socket.emit("update-minutes", ev.target.value);
   }
-
+  // Update the privacy of lobby being modified
+  /**
+   * Update the privacy of the lobby
+   * @param {mouseEvent} ev The event object
+   */
   function privacyUpdate(ev) {
     socket.emit("update-privacy", ev);
   }
 
+  // Update the custom words of lobby being modified
+  /**
+   * Update the custom words
+   * @param {mouseEvent} ev The event object
+   */
   function wordsUpdate(ev) {
     socket.emit("update-words", ev.target.value);
   }
@@ -60,6 +72,7 @@ function GameCustomisation({
       <Card>
         <Card.Body>
           <Form>
+            {/* Update the lobby type */}
             <Form.Label>Lobby Type</Form.Label>
             <br />
             <ToggleButtonGroup type="radio" name="lobbyType" value={lobbyType}>
@@ -78,6 +91,7 @@ function GameCustomisation({
                 Public
               </ToggleButton>
             </ToggleButtonGroup>
+            {/* Modify the number of rounds */}
             <Form.Group>
               <Form.Label>Number of Rounds</Form.Label>
               <Form.Control
@@ -89,6 +103,7 @@ function GameCustomisation({
                 data-testid="round-updates"
               ></Form.Control>
             </Form.Group>
+            {/* Modify the duration of turn */}
             <Form.Group>
               <Form.Label>Number of Minutes</Form.Label>
               <Form.Control
@@ -100,6 +115,7 @@ function GameCustomisation({
                 data-testid="timer-update"
               ></Form.Control>
             </Form.Group>
+            {/* Modify the custom words */}
             <Form.Group>
               <Form.Label>Custom Words</Form.Label>
               <Form.Control
@@ -110,6 +126,7 @@ function GameCustomisation({
               ></Form.Control>
             </Form.Group>
             <br />
+            {/* Avoid triggering start with only one player */}
             {length <= 1 ? (
               <OverlayTrigger
                 placement="bottom"

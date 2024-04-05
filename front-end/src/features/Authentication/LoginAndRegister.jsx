@@ -7,16 +7,24 @@ import "../../styles/LoginAndRegister.css";
 import checkAuthentication from "../../components/CheckAuthentication";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+/**
+ * Component that allows end-user to login or create an account
+ * @param {string} props.defaultState - Pass through the initial state when rendering component
+ * @returns {React.Component} -  LoginAndRegister component
+ */
 function LoginAndRegister({ defaultState }) {
   const navigation = useNavigate();
   const [state, setState] = React.useState(defaultState);
   const [signedIn, setSignedIn] = React.useContext(authContext);
 
+  // Check if the user is already authenticated
   useEffect(() => {
     async function ensureLogin() {
       const response = await checkAuthentication({ axios });
       if (response.auth) {
         if (!response.username) {
+          // If no username, navigate to complete the profile
           navigation("/complete-profile");
         }
         setSignedIn({
@@ -27,6 +35,7 @@ function LoginAndRegister({ defaultState }) {
           profilePicture: response.profilePicture,
           purchasedProfilePicture: response.purchasedProfilePicture,
         });
+        // Redirect to home if they are signed in
         navigation("/home");
       }
     }

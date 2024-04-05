@@ -90,52 +90,53 @@ function Lobby() {
       }
       setGameState(state);
     });
+    // Handler to store who is currently drawing
     socket.on("currently-drawing", (data) => {
       setCurrentlyDrawing(data);
       setNewTimer(minutes * 60 + 5);
       setDrawingWord(`${data} is picking a word!`);
       setHideWord(false);
     });
-
+    // Handler to select a word if drawing
     socket.on("selected-word", (data) => {
       setHideWord(true);
       setDrawingWord(data);
     });
-
+    // Handler to make new round
     socket.on("new-round", (round) => {
       setRoundCount(round);
     });
-
+    // Handler to set timer if user joins late
     socket.on("late-timer", (time) => {
       setNewTimer(time);
     });
-
+    // Handler to display word options
     socket.on("choose-words", (words) => {
       setWordOptions(words);
       setToSelectWord(true);
     });
-
+    // Handler to set the new host
     socket.on("set-host", (username) => {
       setHost(username);
     });
-
+    // Handler to reveal the word at the end of the game
     socket.on("reveal-word", (word) => {
       setRevealWord({ show: true, word: word });
       setTimeout(() => setRevealWord({ show: false, word: "" }), 5000);
     });
-
+    // Handler to display the points at the end of the game
     socket.on("end-points", (points) => {
       setTurnPoints(points);
     });
-
+    // Handler to kick user out of the game if not enough players
     socket.on("not-enough-players", () => {
       setShowModal(true);
     });
-
+    // Handler to kick any user back to the home page
     socket.on("kicked", (message) => {
       navigation("/home", { state: { kicked: true, message } });
     });
-
+    // Event listenener to process key binds
     window.addEventListener("keydown", keyDown);
 
     return () => {
@@ -143,13 +144,13 @@ function Lobby() {
       window.removeEventListener("keydown", keyDown);
     };
   }, []);
-
+  // Effect function to handle the end of the game and calculate podium positions
   useEffect(() => {
     if (gameState === "end") {
       calculatePodiumPositions();
     }
   }, [gameState]);
-
+  // Automatically select a word if the user has not submitted their selection
   useEffect(() => {
     let wordTimer;
 
@@ -166,6 +167,7 @@ function Lobby() {
     };
   }, [toSelectWord, wordOptions]);
 
+  // Function to set a timer when drawing
   function setNewTimer(duration) {
     clearInterval(roundTimerRef.current);
     setRoundTimer(duration - 5);
@@ -179,23 +181,24 @@ function Lobby() {
       });
     }, 1000);
   }
-
+  // Custom return if the user has not selected a valid lobby
   if (!validGame) {
-    return <h1>Invalid Game</h1>;
+    return <h1 style={{ color: "aliceblue" }}>Invalid Game</h1>;
   }
-
+  // Function to handle word selection
   function handleWordClick(word) {
     setToSelectWord(false);
     socket.emit("selected-word", word);
   }
-
+  // Function to clear the canvas if clicked
   function clearCanvas() {
     socket.emit("clear-canvas");
   }
+  // Function to undo the most recent move if clicked
   function undoMove() {
     socket.emit("undo-move");
   }
-
+  // Function to calculate the podium positions according to the points
   function calculatePodiumPositions() {
     const sorted = [...players].sort((a, b) => b.points - a.points);
     setPodiumPositions(sorted.slice(0, Math.min(3, players.length)));
@@ -204,18 +207,18 @@ function Lobby() {
     );
     setUserPosition(userIndex + 1);
   }
-
+  // Function called if the host wants to play again
   function playAgain() {
     socket.emit("play-again");
   }
-
+  // Function to display modal if trying to kick a user out
   function handleKick(player) {
     if (host === signedIn.username && player !== signedIn.username) {
       setSelectedKickUser(player);
       setShowKickModal(true);
     }
   }
-
+  // Function to emit message to server and kick user
   function confirmedKick() {
     if (host === signedIn.username) {
       socket.emit("kick-player", selectedKickUser);
@@ -223,7 +226,7 @@ function Lobby() {
       setSelectedKickUser(null);
     }
   }
-
+  // Function to execute drawing action according to keybinds
   function keyDown(ev) {
     if (document.activeElement.tagName.toLowerCase() === "input") return;
     switch (ev.key.toUpperCase()) {
@@ -354,6 +357,7 @@ function Lobby() {
                     {gameState === "end" && (
                       <div className="reveal-word">
                         <div className="podium">
+                          {/* Display podium and user's final position */}
                           {podiumPositions.map((player, index) => (
                             <div
                               className={`podium-position place-${index + 1}`}
@@ -392,6 +396,7 @@ function Lobby() {
                     )}
                     {revealWord.show && (
                       <div className="reveal-word">
+                        {/* Reveal word at the end of the user's turn */}
                         <h2>The word was {revealWord.word}</h2>
                         <Row className="justify-content-md-center reveal-points">
                           {turnPoints.map((player, index) => (

@@ -5,11 +5,16 @@ import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import "../../styles/LoginAndRegister.css";
 import { debounce } from "lodash";
 
+/**
+ * Component for completing the user profile if signing in with Google OAuth 2.0
+ * @returns {React.Component} - CompleteProfile Component
+ */
 function CompleteProfile() {
   const [username, setUsername] = React.useState("");
   const navigation = useNavigate();
   const [usernameAvailable, setUsernameAvailable] = React.useState(true);
 
+  // Function to check if the username is available
   const checkUsernameAvailability = useCallback(
     debounce(async (username) => {
       if (!username) {
@@ -26,10 +31,15 @@ function CompleteProfile() {
     []
   );
 
+  // Check if the username is available when "username" state changes
   React.useEffect(() => {
     checkUsernameAvailability(username);
   }, [username]);
 
+  /**
+   * Submit username to the back-end server
+   * @param {React.FormEvent} ev - Event passed as parameter after submitting form
+   */
   async function submitUsername(ev) {
     ev.preventDefault();
     if (usernameAvailable) {
@@ -38,6 +48,7 @@ function CompleteProfile() {
           username,
         });
         if (response.data.success) {
+          // If valid username, direct user to the home page
           navigation("/home");
         }
       } catch (error) {

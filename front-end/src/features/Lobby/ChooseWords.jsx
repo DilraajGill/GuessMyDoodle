@@ -1,6 +1,12 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
+/**
+ * Display the options as buttons to display to the user
+ * @param {Array<string>} props.list Array of words to be chosen as choices
+ * @param {Function} props.click Function when word is clicked
+ * @returns
+ */
 function ChooseWords({ list, click }) {
   return (
     <div className="d-flex flex-column align-items-center justify-content-center">

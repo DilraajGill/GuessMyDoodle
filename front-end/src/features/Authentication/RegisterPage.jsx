@@ -46,11 +46,12 @@ function RegisterPage() {
       }
     }
   }
-
+  // Function for registering with oAuth 2.0
   function googleLogin() {
     window.location.href = "http://localhost:3001/auth/google";
   }
 
+  // Check if the email is available
   const checkEmailAvailability = useCallback(
     debounce(async (email) => {
       if (!email) {
@@ -66,6 +67,7 @@ function RegisterPage() {
     }, 300),
     []
   );
+  // Check if the username is available
   const checkUsernameAvailability = useCallback(
     debounce(async (username) => {
       if (!username) {
@@ -88,6 +90,7 @@ function RegisterPage() {
     return regex.test(password);
   }
 
+  // Call upon functions that will check the username/email availability if they change
   React.useEffect(() => {
     checkEmailAvailability(email);
   }, [email]);
@@ -99,6 +102,7 @@ function RegisterPage() {
   return (
     <div>
       <Form onSubmit={submitForm}>
+        {/* Email Input */}
         <Form.Group controlId="registerEmail">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -114,6 +118,7 @@ function RegisterPage() {
             Email is already in use!
           </Form.Control.Feedback>
         </Form.Group>
+        {/* Username Input */}
         <Form.Group controlId="registerUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -129,6 +134,7 @@ function RegisterPage() {
             Username is already in use!
           </Form.Control.Feedback>
         </Form.Group>
+        {/* Passowrd Input */}
         <Form.Group controlId="registerPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -143,6 +149,7 @@ function RegisterPage() {
             isInvalid={!passwordValid}
           />
         </Form.Group>
+        {/* Confirm Password Input */}
         <Form.Group controlId="registerConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control

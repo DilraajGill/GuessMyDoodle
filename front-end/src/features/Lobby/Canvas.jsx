@@ -35,6 +35,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
    * @param {MouseEvent} ev - Mouse event triggering it
    */
   function beginDrawing(ev) {
+    // Scale the drawing according to the canvas size display
     const boundingRect = canvasRef.current.getBoundingClientRect();
     const scaleX = canvasRef.current.width / boundingRect.width;
     const scaleY = canvasRef.current.height / boundingRect.height;
@@ -95,7 +96,10 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     contextRef.current.lineTo(x, y);
     contextRef.current.stroke();
   }
-
+  /**
+   * Fill a region of the canvas with colour as required
+   * @param {Object} drawing - Drawing data to be used in the floodfill
+   */
   function handleFloodFill(drawing) {
     const { x, y, colour } = drawing;
     contextRef.current.fillStyle = colour;
@@ -123,6 +127,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     socket.on("initial-drawings", (data) => {
       setDrawings(data);
     });
+    // Clear the canvas
     socket.on("clear-canvas", () => {
       if (contextRef.current && canvasRef.current) {
         contextRef.current.clearRect(
@@ -133,6 +138,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
         );
       }
     });
+    // Undo the most recent drawing move
     socket.on("undo-move", (data) => {
       if (contextRef.current && canvasRef.current) {
         contextRef.current.clearRect(
@@ -144,6 +150,7 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
       }
       setDrawings(data);
     });
+    // Fill a region of the canvas according to drawing data
     socket.on("fill-canvas", (data) => {
       handleFloodFill(data);
     });

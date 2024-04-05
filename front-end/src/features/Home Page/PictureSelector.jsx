@@ -4,6 +4,14 @@ import axios from "axios";
 import "../../styles/HomePage.css";
 import "../../styles/PictureSelector.css";
 
+/**
+ *
+ * @param {string} props.currentPicture The current profile picture selected
+ * @param {Array<string>} props.availablePictures List of all available profile pictures
+ * @param {boolean} props.showModal Determine whether or not to display modal according to this state
+ * @param {Function} props.setShowModal Modify the react state
+ * @returns {React.Component} Modal component to display profile picture modifications available
+ */
 function PictureSelector({
   currentPicture,
   availablePictures,
@@ -11,9 +19,10 @@ function PictureSelector({
   setShowModal,
 }) {
   const [selectedPicture, setSelectedPicture] = React.useState(currentPicture);
-
+  /**
+   * Update the picture according to the selected state
+   */
   async function updatePicture() {
-    // POST to the server the new profile picture to use
     try {
       const response = await axios.post("/update-picture", {
         picture: selectedPicture,

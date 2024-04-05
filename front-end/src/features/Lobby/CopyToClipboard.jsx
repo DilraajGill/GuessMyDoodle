@@ -1,9 +1,17 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
+/**
+ * Allow the users to press the button to store the lobby URL into the clipboard
+ * @param {string} props.lobbyId - ID of the lobby to be stored
+ * @returns
+ */
 function CopyToClipboard({ lobbyId }) {
   const [copied, setCopied] = React.useState(false);
 
+  /**
+   * Copy the custom URL into the clipboard
+   */
   async function copy() {
     try {
       const lobby = `localhost:3000/lobby/${lobbyId}`;

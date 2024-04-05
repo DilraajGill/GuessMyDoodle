@@ -32,6 +32,9 @@ function HomePage() {
     loadLobbies();
   }, []);
 
+  /**
+   * Display kicked modal is user has been kicked from a lobby
+   */
   useEffect(() => {
     if (location.state?.kicked) {
       setShowKickedModal(true);
@@ -50,13 +53,19 @@ function HomePage() {
       console.log("Error making lobby");
     }
   }
-
+  /**
+   * Function called when joining a lobby
+   * @param {string} lobbyId - Navigate to the lobby of respective ID
+   */
   function handleLobbyClick(lobbyId) {
     navigation(`/lobby/${lobbyId}`);
   }
 
   const [changePicture, setChangePicture] = React.useState(false);
 
+  /**
+   * Sign out the user and go to the home page
+   */
   async function signOut() {
     try {
       const status = await axios.get("/auth/sign-out");
@@ -78,6 +87,7 @@ function HomePage() {
       <Col md={1} />
       <Col md={10}>
         <Col md={12} className="profile">
+          {/* Display profiel information */}
           <Dropdown>
             <Dropdown.Toggle variant="link">
               <img
@@ -88,6 +98,7 @@ function HomePage() {
               <span className="ms-2 profile-username">{signedIn.username}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
+              {/* Allow user to sign out / change picture */}
               <Dropdown.Item onClick={() => setChangePicture(true)}>
                 Change Icon
               </Dropdown.Item>
@@ -99,6 +110,7 @@ function HomePage() {
           <Row className="top-bar align-items-center text-center">
             <Col md={4}>
               <div className="toolbar">
+                {/* Toolbar to refresh lobbies or navigate to the store */}
                 <Button
                   variant="primary"
                   onClick={() => loadLobbies()}
@@ -119,6 +131,7 @@ function HomePage() {
               <h2>Home</h2>
             </Col>
             <Col md={4}>
+              {/* Display user's points */}
               <div className="points-container text-right mr-3">
                 <div className="points-label">Points</div>
                 <div className="points-value">
@@ -138,6 +151,7 @@ function HomePage() {
                 xxl={4}
                 className="room-container mt-2"
               >
+                {/* Display the user lobbies */}
                 {lobbies.map((lobby) => (
                   <Col>
                     <LobbyCard
@@ -166,6 +180,7 @@ function HomePage() {
             )}
           </Col>
           <div className="create-lobby mt-3">
+            {/* Create a lobby */}
             <Button variant="primary" onClick={createLobby}>
               Create Lobby!
             </Button>
@@ -173,12 +188,14 @@ function HomePage() {
         </Col>
       </Col>
       <Col md={1} />
+      {/* Picture Selector modal */}
       <PictureSelector
         showModal={changePicture}
         setShowModal={setChangePicture}
         currentPicture={signedIn.profilePicture}
         availablePictures={signedIn.purchasedProfilePicture}
       />
+      {/* Modal to display if user has been kicked */}
       <Modal show={showKickedModal} onHide={() => setShowKickedModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Kicked From Lobby!</Modal.Title>

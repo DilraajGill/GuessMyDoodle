@@ -2,7 +2,7 @@
  * Check if the user is authorised to be accessing this web page
  * @async
  * @function CheckAuthentication
- * @param {AxiosInstance} Axios - Instance of Axios for making HTTP requests
+ * @param {AxiosInstance} axios - Instance of Axios for making HTTP requests
  * @returns {object} Object containing authentication properties
  */
 async function checkAuthentication({ axios }) {
