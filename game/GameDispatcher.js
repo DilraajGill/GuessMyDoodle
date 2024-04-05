@@ -380,6 +380,11 @@ class GameDispatcher {
       }
     }
   }
+  /**
+   * Check if a lobby exists and if the user is host
+   * @param {string} lobbyId - ID of the lobby
+   * @param {object} socket - User's socket
+   */
   existsAndHost(lobbyId, socket) {
     return this.checkExists(lobbyId) && this.checkHost(lobbyId, socket);
   }
