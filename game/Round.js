@@ -37,6 +37,9 @@ class Round {
      */
     this.lobbyId = lobbyId;
     this.io = io;
+    /**
+     * Initialise the lobby
+     */
     this.initialise();
   }
   // Initialise the round and begin interaction
@@ -79,7 +82,7 @@ class Round {
   /**
    * Check if the user's guess is correct to that of the word being drawn
    * @param {string} word - The player's guessed word
-   * @param {Object} selectedUser - The player who has made the guess
+   * @param {Object} socket - The player's socket who has made the guess
    * @returns {boolean} returns true if the guess is correct
    */
   guess(word, socket) {
@@ -142,6 +145,10 @@ class Round {
       }
     });
   }
+  /**
+   * Retrieve 3 items from the list of words and custom words to be sent to the user
+   * @returns {string[]} 3 words that the user can select to draw
+   */
   getRandomWords() {
     const result = [];
     while (result.length < 3) {
@@ -153,6 +160,10 @@ class Round {
     return result;
   }
 
+  /**
+   * Obtain each users points from that turn and reset them all
+   * @returns {object[]} List of all users who gained points that round
+   */
   returnTurnPoints() {
     const points = this.players
       .filter((player) => player.turnPoints > 0)
@@ -168,7 +179,11 @@ class Round {
 
     return points;
   }
-
+  /**
+   * Update the user's turn points when they guess correctly
+   * @param {object} user - Account that made the correct guess
+   * @param {number} points - The value to set their new Turn Points to
+   */
   updateTurnPoints(user, points) {
     const foundPlayer = this.players.find(
       (player) => player.socket.id === user.socket.id
@@ -180,6 +195,10 @@ class Round {
     }
   }
 
+  /**
+   * Remove the player from the round
+   * @param {object} socketId - Socket ID of the user
+   */
   removePlayer(socketId) {
     const index = this.players.findIndex(
       (player) => player.socket.id === socketId
@@ -194,6 +213,10 @@ class Round {
       );
     }
   }
+  /**
+   * Add the player to the round
+   * @param {object} player - User and their information
+   */
   addPlayer(player) {
     this.players.push({
       ...player,
@@ -202,6 +225,11 @@ class Round {
       turnPoints: 0,
     });
   }
+  /**
+   * Update the socket to show they have rejoined from another location
+   * @param {object} socket
+   * @param {string} username
+   */
   updateUserSocket(socket, username) {
     const indexPlayer = this.players.findIndex(
       (player) => player.username === username

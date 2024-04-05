@@ -77,11 +77,13 @@ class GameDispatcher {
    * @param {string} username - Username of the user joining lobby
    */
   async joinGame(lobbyId, socket, username) {
+    // Check if username exists
     if (this.checkExists(lobbyId)) {
       socket.username = username;
       socket.lobbyId = lobbyId;
       socket.points = 0;
       socket.join(lobbyId);
+      // Add user & initialise state adn values
       await this.games[lobbyId].addPlayer(socket, username);
       this.io
         .to(lobbyId)
@@ -99,7 +101,9 @@ class GameDispatcher {
    * @param {string} username - Username sending the message
    */
   async messageGame(lobbyId, text, socket) {
+    // Check if lobby exists
     if (this.checkExists(lobbyId)) {
+      // Check if the word equals the selected word
       if (this.games[lobbyId].guessWord(text, socket)) {
         this.io.to(lobbyId).emit("receive-message", {
           text: `${socket.username} has guessed correctly!`,
@@ -109,6 +113,7 @@ class GameDispatcher {
           .to(lobbyId)
           .emit("set-players", await this.games[lobbyId].getPlayerAndPoints());
       } else {
+        // Do not permit drawing user to message
         if (!this.games[lobbyId].isDrawing(socket)) {
           this.io
             .to(lobbyId)
@@ -156,6 +161,11 @@ class GameDispatcher {
     this.io.to(lobbyId).emit("beginDrawing");
     this.games[lobbyId].addDrawing({ type: "move" });
   }
+  // Emit to the lobby that the user has stopped rawing
+  /**
+   * Triggered by mouse event of the user ending their path
+   * @param {string} lobbyId - ID of the lobby
+   */
   endDrawing(lobbyId) {
     this.io.to(lobbyId).emit("endDrawing");
     this.games[lobbyId].addDrawing({ type: "end" });
@@ -166,14 +176,18 @@ class GameDispatcher {
    * @param {object} socket - User to remove
    */
   async removePlayer(socket) {
+    // Check if the lobbt exists
     if (this.checkExists(socket.lobbyId)) {
+      // Check if the user being removed is from the "active socket" to avoid duplicate usernames and sockets
       if (this.games[socket.lobbyId].activePlayer(socket, socket.username)) {
+        // Remove user and update the lobby
         await this.games[socket.lobbyId].removePlayer(socket.id);
         socket.leave(socket.lobbyId);
         const playerList = await this.games[
           socket.lobbyId
         ].getPlayerAndPoints();
         this.io.to(socket.lobbyId).emit("set-players", playerList);
+        // Ensure there is still enough players
         if (
           (this.games[socket.lobbyId].players.length === 1 &&
             this.games[socket.lobbyId].state === "drawing") ||
@@ -261,13 +275,24 @@ class GameDispatcher {
   checkDrawing(lobbyId, socket) {
     return this.games[lobbyId].isDrawing(socket);
   }
+  /**
+   * Process the drawing user's selected word
+   * @param {string} lobbyId0 - ID of lobby
+   * @param {object} socket - Socket of user
+   * @param {string} word - Selected word
+   */
   setWord(lobbyId, socket, word) {
+    // Check if the user is drawing and the lobby exists
     if (this.checkExists(lobbyId)) {
       if (this.checkDrawing(lobbyId, socket)) {
         this.games[lobbyId].setWord(word);
       }
     }
   }
+  /**
+   * Gather list of all public games available to join
+   * @returns {object[]} List of all available games
+   */
   getPublic() {
     const publicGames = [];
     for (const lobbyId in this.games) {
@@ -283,6 +308,11 @@ class GameDispatcher {
     }
     return publicGames;
   }
+  /**
+   * Clear the canvas for all users
+   * @param {string} lobbyId - ID of the lobby
+   * @param {object} socket - User's socket
+   */
   clearDrawing(lobbyId, socket) {
     if (this.checkExists(lobbyId)) {
       if (this.checkDrawing(lobbyId, socket)) {
@@ -291,6 +321,11 @@ class GameDispatcher {
       }
     }
   }
+  /**
+   * Undo most recent path / action on the canvas for all users
+   * @param {string} lobbyId - ID of the lobby
+   * @param {object} socket - User's socket
+   */
   undoDrawing(lobbyId, socket) {
     if (this.checkExists(lobbyId)) {
       if (this.checkDrawing(lobbyId, socket)) {
@@ -298,6 +333,12 @@ class GameDispatcher {
       }
     }
   }
+  /**
+   * Fill a region of the canvas with drawing information
+   * @param {string} lobbyId - ID of the lobby
+   * @param {object} socket - User's socket
+   * @param {*} drawing - Drawing information such as co-ordinates, colour etc
+   */
   fillCanvas(lobbyId, socket, drawing) {
     if (this.checkExists(lobbyId)) {
       if (this.checkDrawing(lobbyId, socket)) {
@@ -306,6 +347,10 @@ class GameDispatcher {
       }
     }
   }
+  /**
+   * Delete the game session from memory
+   * @param {string} lobbyId - ID of the lobby
+   */
   deleteGame(lobbyId) {
     if (this.checkExists(lobbyId)) {
       this.games[lobbyId].deleteGame();
@@ -313,6 +358,11 @@ class GameDispatcher {
       this.remove(lobbyId);
     }
   }
+  /**
+   * Restart the game session from the beginning with saved settings
+   * @param {string} lobbyId - ID of the lobby
+   * @param {object} socket - User's socket
+   */
   async playAgain(lobbyId, socket) {
     if (this.checkExists(lobbyId)) {
       if (this.checkHost(lobbyId, socket)) {
@@ -320,6 +370,11 @@ class GameDispatcher {
       }
     }
   }
+  /**
+   * Kick a player from the lobby session
+   * @param {string} lobbyId - ID of the lobby
+   * @param {object} socket - User's socket
+   */
   async kickPlayer(socket, player) {
     if (this.checkExists(socket.lobbyId)) {
       if (this.checkHost(socket.lobbyId, socket)) {

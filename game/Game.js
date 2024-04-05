@@ -60,9 +60,21 @@ class Game {
      * Potential words to select
      */
     this.words = words;
+    /**
+     * List of custom words
+     */
     this.customWords = "";
+    /**
+     * Visibility of the lobby
+     */
     this.privacy = "private";
+    /**
+     * Icon associated to the lobby and host
+     */
     this.icon = "";
+    /**
+     * Flag to determine if end of user's turn and display new word
+     */
     this.revealWord = false;
   }
   /**
@@ -72,22 +84,26 @@ class Game {
    */
   async addPlayer(socket, username) {
     try {
+      // Check if user is already in the lobby
       const indexPlayer = this.players.findIndex(
         (player) => player.username === username
       );
       if (indexPlayer !== -1) {
+        // Update their information if the user is rejoining from another device
         if (this.host && this.host.username === username) {
           this.host = socket;
         }
         if (this.round) {
           this.round.updateUserSocket(socket, username);
         }
+        // Kick the old lobby device out
         this.players[indexPlayer].socket.emit(
           "kicked",
           "You have joined from another device!"
         );
         this.players[indexPlayer].socket = socket;
       } else {
+        // Add the user's information into their Object
         const icon = await fetchUserProfilePicture(username);
         const info = { socket, username, points: 0, icon };
         this.players.push(info);
@@ -112,6 +128,7 @@ class Game {
     const locatedPlayer = this.players.find(
       (user) => socketId === user.socket.id
     );
+    // Update their points
     await this.updateIndividualPoints(locatedPlayer);
     this.players = this.players.filter(
       (player) => player.socket.id !== socketId
@@ -119,7 +136,7 @@ class Game {
     if (this.round) {
       await this.round.removePlayer(socketId);
     }
-
+    // Check if the host needs to be re-assigned
     if (this.host.id === socketId && this.players.length > 0) {
       this.host = this.players[0].socket;
       this.icon = this.players[0].icon;
@@ -134,6 +151,10 @@ class Game {
     // Output list of players via their username
     return this.players.map((player) => player.username);
   }
+  /**
+   * Get the player, profile picture and points of every user in the lobby
+   * @returns {object[]} List of all the information for each user (points, name and profile picture)
+   */
   async getPlayerAndPoints() {
     const players = [];
     for (const player of this.players) {
@@ -162,9 +183,15 @@ class Game {
     // Store drawing data to render for those joining late
     this.drawingHistory.push(data);
   }
+  /**
+   * Clear drawing history
+   */
   clearDrawing() {
     this.drawingHistory = [];
   }
+  /**
+   * Undo most recent drawing action
+   */
   undoDrawing() {
     const index = this.lastMoveIndex();
     if (index !== -1) {
@@ -172,6 +199,10 @@ class Game {
       this.io.to(this.id).emit("undo-move", this.getDrawing());
     }
   }
+  /**
+   * Find last replaceable drawing action
+   * @returns {number} Last time the user did an action that is undo-able
+   */
   lastMoveIndex() {
     for (let i = this.drawingHistory.length - 1; i >= 0; i--) {
       if (this.drawingHistory[i].type === "move") {
@@ -195,6 +226,7 @@ class Game {
     // Initialise the state of the lobby for those joining
     socket.emit("set-host", this.host.username);
     if (this.state === "drawing") {
+      // Emit all drawing information, timers, selected word
       socket.emit("set-state", "drawing");
       socket.emit("initial-drawings", this.getDrawing());
       socket.emit(
@@ -209,12 +241,14 @@ class Game {
         }
       }
     } else if (this.state === "settings") {
+      // Emit all updated settings for the user
       socket.emit("set-state", "settings");
       socket.emit("set-minutes", this.selectedTimer);
       socket.emit("set-rounds", this.maxRounds);
       socket.emit("set-privacy", this.privacy);
       socket.emit("set-words", this.customWords);
     } else if (this.state === "end") {
+      // Emit that the game has ended
       socket.emit("set-state", "end");
     }
   }
@@ -249,6 +283,7 @@ class Game {
     this.words = this.words.concat(this.listCustom);
     this.state = "drawing";
     this.io.to(this.id).emit("set-state", this.state);
+    // Set the timer and get the first person drawing
     this.timer = this.selectedTimer * 60 + 5;
     this.round = new Round(this.players, this.lobbyId, this.words, this.io);
     this.io
@@ -266,17 +301,29 @@ class Game {
     // Check if the socket is the one allowed access to draw
     return this.round.checkDrawing(socket);
   }
+  /**
+   * Update variable containing the word that is to be drawn
+   * @param {string} word - Chosen word to be drawn
+   */
   setWord(word) {
     this.round.setWord(word);
     this.io.to(this.id).emit("selected-word", word);
   }
 
+  /**
+   * Handle user guesses and update points as required for drawing and guessing users
+   * @param {string} word - Word to be checked against drawing word
+   * @param {object} socket - User's socket
+   * @returns
+   */
   guessWord(word, socket) {
+    // Check if guess was correct and the word has not been revealed
     if (this.round.guess(word, socket) && !this.revealWord) {
       const player = this.players.find(
         (player) => player.socket.id === socket.id
       );
       if (player) {
+        // Find both drawing user and guessing user to update their stored points
         const turn = Math.floor(
           this.timer * (5000 / (this.selectedTimer * 60))
         );
@@ -305,11 +352,13 @@ class Game {
     if (this.roundCount < this.maxRounds) {
       this.timerId = setInterval(() => {
         if (this.timer <= 5 && this.round && !this.revealWord) {
+          // Emit word and display this alongside how each user performed
           this.io.to(this.id).emit("end-points", this.round.returnTurnPoints());
           this.io.to(this.id).emit("reveal-word", this.round.selectedWord);
           this.revealWord = true;
         }
         if (this.timer <= 0) {
+          // Display chosen word in the chatbox
           clearInterval(this.timerId);
           this.revealWord = false;
           this.io.to(this.id).emit("receive-message", {
@@ -342,6 +391,9 @@ class Game {
       this.endGame();
     }
   }
+  /**
+   * Go to the next round, begin drawing and start timer
+   */
   nextRound() {
     delete this.round;
     this.round = new Round(this.players, this.lobbyId, this.words, this.io);
@@ -355,6 +407,9 @@ class Game {
     this.beginTimer();
   }
 
+  /**
+   * Go to the next drawing user and begin timer
+   */
   resetNextDrawer() {
     this.round.nextDrawer();
     this.io
@@ -364,11 +419,17 @@ class Game {
     this.io.to(this.id).emit("clear-canvas");
     this.beginTimer();
   }
+  /**
+   * Change the game state to signify the game has ended and update each users points
+   */
   endGame() {
     this.updatePoints();
     this.state = "end";
     this.io.to(this.id).emit("set-state", "end");
   }
+  /**
+   * Update the points of EVERY user in the lobby session currently to the database
+   */
   async updatePoints() {
     for (const player of this.players) {
       try {
@@ -381,7 +442,10 @@ class Game {
       }
     }
   }
-
+  /**
+   * Update the points of the individual user specified to the database
+   * @param {object} player
+   */
   async updateIndividualPoints(player) {
     try {
       await updateUserPoints(player.username, player.points);
@@ -392,14 +456,24 @@ class Game {
       );
     }
   }
+  /**
+   * Split custom words into an array
+   * @returns {string[]} List of all the custom words inputted
+   */
   splitCustomWords() {
     const arrayWords = this.customWords.split(",").map((word) => word.trim());
     return arrayWords;
   }
+  /**
+   * Delete the current game and round object if they exist
+   */
   deleteGame() {
     clearInterval(this.timerId);
     if (this.round) delete this.round;
   }
+  /**
+   * Reset the game state back to the beginning to let users play again
+   */
   async playAgain() {
     this.state = "settings";
     this.roundCount = 0;
@@ -407,28 +481,46 @@ class Game {
     this.io.to(this.id).emit("set-state", "settings");
     this.io.to(this.id).emit("set-players", await this.getPlayerAndPoints());
   }
+  /**
+   * Reset every active user's points
+   */
   resetPlayerPoints() {
     this.players.forEach((player) => {
       player.points = 0;
     });
   }
+  /**
+   * Kick the last player out of the game due to a lack of players
+   * Avoid issues where only one person is in the active game session by themselves
+   */
   async notEnoughPlayers() {
     if (this.players[0]) {
       this.players[0].socket.emit("not-enough-players");
       await this.updatePoints();
     }
   }
+  /**
+   * Kick this player out of the lobby and back to home page
+   * @param {object} player
+   */
   async kickPlayer(player) {
     const locatedPlayer = this.players.find((user) => player === user.username);
     if (locatedPlayer) {
       await this.removePlayer(locatedPlayer.socket.id);
       locatedPlayer.socket.emit("kicked", "You have been kicked by the host");
+      // If they were drawing, reset the timer
       if (this.round && this.round.getCurrentDrawer().username === player) {
         this.timer = 5;
       }
       this.io.to(this.id).emit("set-players", await this.getPlayerAndPoints());
     }
   }
+  /**
+   * Check if the username is already in the game session and being joined elsewhere
+   * @param {object} socket - Socket of chosen user
+   * @param {string} username - Username of chosen user
+   * @returns
+   */
   activePlayer(socket, username) {
     return this.players.some(
       (user) => user.username === username && user.socket.id === socket.id

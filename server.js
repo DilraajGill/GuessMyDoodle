@@ -47,20 +47,39 @@ app.post("/create-lobby", (req, res) => {
   const generatedID = games.create();
   return res.status(201).json({ lobbyId: generatedID });
 });
-
+// Route for getting list of all public lobbies
+/**
+ * Retrieve and return list of all available public lobbies
+ * @memberof Server
+ * @name post/get-public
+ * @function get-public
+ * @param {express.Request} req - Request Object
+ * @param {express.Response} res - Response Object
+ */
 app.get("/get-public", async (req, res) => {
   const publicLobbies = await games.getPublic();
   res.json(publicLobbies);
 });
-
+// Route for buying the fill tool
+/**
+ * Buy the fill tool on the user account if authenticated and containing enough points
+ * @memberof Server
+ * @name post/store/buy/fill-tool
+ * @function buy-fill-tool
+ * @param {express.Request} req - Request Object
+ * @param {express.Response} res - Response Object
+ */
 app.post("/store/buy/fill-tool", async (req, res) => {
+  // Check if authenticated
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not authenticated" });
   }
   const user = await User.findById(req.user.id);
+  // Check if user already owns the fill tool
   if (user.purchasedTools.includes("fill")) {
     return res.status(400).send("Fill tool already purchased");
   }
+  // Check if user has enough points for the item
   if (user.points >= 10000) {
     user.points -= 10000;
     user.purchasedTools.push("fill");
@@ -69,16 +88,27 @@ app.post("/store/buy/fill-tool", async (req, res) => {
   }
   res.status(400).send("Not enough points!");
 });
-
+// Route for buying the icon selected
+/**
+ * Buy the requested profile icon on the user account if authenticated and containing enough points
+ * @memberof Server
+ * @name post/store/buy/iconId
+ * @function buy-icon
+ * @param {express.Request} req - Request Object
+ * @param {express.Response} res - Response Object
+ */
 app.post("/store/buy/:iconId", async (req, res) => {
   const iconId = req.params.iconId;
+  // Check if authenticated
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not authenticated" });
   }
   const user = await User.findById(req.user.id);
+  // Check if user already owns the profile icon
   if (user.purchasedProfilePicture.includes(`${iconId}.jpg`)) {
     return res.status(400).send("Picture already purchased!");
   }
+  // Check if user has enough points
   if (user.points >= 5000) {
     user.points -= 5000;
     user.purchasedProfilePicture.push(`${iconId}.jpg`);
@@ -89,11 +119,22 @@ app.post("/store/buy/:iconId", async (req, res) => {
   res.status(400).send("Not enough points!");
 });
 
+// Route for buying the fill tool
+/**
+ * Buy the fill tool on the user account if authenticated and containing enough points
+ * @memberof Server
+ * @name post/update-picture
+ * @function update-picture
+ * @param {express.Request} req - Request Object
+ * @param {express.Response} res - Response Object
+ */
 app.post("/update-picture", async (req, res) => {
+  // Check if authenticated
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: "User not authenticated" });
   }
   const user = await User.findById(req.user.id);
+  // Check if user owns picture they are trying to change to - else return errro
   const { picture } = req.body;
   if (user.purchasedProfilePicture.includes(picture)) {
     user.profilePicture = picture;
@@ -137,6 +178,7 @@ io.on("connection", (socket) => {
     const { lobbyId } = data;
     games.beganDrawing(lobbyId);
   });
+  // Handler for when the user stops drawing
   socket.on("endDrawing", (data) => {
     const { lobbyId } = data;
     games.endDrawing(lobbyId);
@@ -163,9 +205,11 @@ io.on("connection", (socket) => {
   socket.on("update-minutes", (minutes) => {
     games.updateMinutes(socket, minutes);
   });
+  // Handler for updating the privacy of specific lobby
   socket.on("update-privacy", (privacy) => {
     games.updatePrivacy(socket, privacy);
   });
+  // Handler for updating the words of specific lobby
   socket.on("update-words", (words) => {
     games.updateWords(socket, words);
   });
@@ -181,24 +225,31 @@ io.on("connection", (socket) => {
   socket.on("initialise-drawings", () => {
     games.initialiseDrawings(socket);
   });
+  // Handler for storing the word user is going to draw
   socket.on("selected-word", (word) => {
     games.setWord(socket.lobbyId, socket, word);
   });
+  // Handler for clearing the drawing for those in the lobby
   socket.on("clear-canvas", () => {
     games.clearDrawing(socket.lobbyId, socket);
   });
+  // Handler for undoing the most recent action
   socket.on("undo-move", () => {
     games.undoDrawing(socket.lobbyId, socket);
   });
+  // Handler for filling in the region specified with floodfill
   socket.on("fill-canvas", (drawing) => {
     games.fillCanvas(socket.lobbyId, socket, drawing);
   });
+  // Handler for playing again at the end of the round
   socket.on("play-again", () => {
     games.playAgain(socket.lobbyId, socket);
   });
+  // Handler for kicking a player out of a lobby
   socket.on("kick-player", (player) => {
     games.kickPlayer(socket, player);
   });
+  // Handler for leaving a current session by using back arrow on Chrome
   socket.on("leave-session", () => {
     games.removePlayer(socket);
   });

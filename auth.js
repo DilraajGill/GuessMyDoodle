@@ -29,6 +29,7 @@ passport.deserializeUser(async (id, done) => {
     done(error);
   }
 });
+// Enable GoogleStrategy for using OAuth 2.0 for signing in and registering
 passport.use(
   new GoogleStrategy(
     {
@@ -54,7 +55,7 @@ passport.use(
 );
 
 const validator = new PasswordValidator();
-
+// Define validator for ensuring the password is valid
 validator.is().min(8).has().uppercase().has().symbols().has().not().spaces();
 
 // Create route for logging in
@@ -82,19 +83,22 @@ router.post("/login", passport.authenticate("local"), async (req, res) => {
 router.post("/register", async (req, res) => {
   try {
     let { username, password, email } = req.body;
-    // Register user
+    // Ensure username is not empty string
     if (!username || username === "") {
       return res.status(400).json({ name: "MissingUsernameError" });
     }
     username = username.trim();
+    // Check if username is empty
     if (!username) {
       return res.status(400).json({ message: "Username cannot be empty!" });
     }
+    // Check if password is valid
     if (!validator.validate(password)) {
       return res
         .status(400)
         .json({ message: "Password does not meet the minimum requirements" });
     }
+    // Register the account and sign them in
     const newUser = await User.register({ email, username }, password);
     req.login(newUser, async (err) => {
       if (err) {
@@ -133,25 +137,55 @@ router.get("/check-auth", async (req, res) => {
     res.send({ auth: false });
   }
 });
+// Define a route for signing in with google
+/**
+ * Route for OAuth 2.0 signing in with Google account
+ * @name get/google
+ * @function google
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-
+// Define a route for Google callback
+/**
+ * Route for callback after completing registration or signing in
+ * @name get/google/callback
+ * @function google-callback
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
     if (!req.user.username) {
+      // Re-direct the user to complete their profile if they have no username
       res.redirect("http://localhost:3000/complete-profile");
     } else {
       res.redirect("http://localhost:3000/home");
     }
   }
 );
+
+// Define a route for submitted complete profile form
+/**
+ * Route for allowing new Google users to submit their username
+ * @name post/complete-profile
+ * @function complete-profile
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.post("/complete-profile", async (req, res) => {
+  // Check if user is signed in
   if (req.isAuthenticated() && req.user) {
     try {
+      // Update the user account
       const user = await User.findById(req.user.id);
       user.username = req.body.username;
       await user.save();
@@ -165,7 +199,15 @@ router.post("/complete-profile", async (req, res) => {
 });
 
 // https://www.passportjs.org/concepts/authentication/logout/
-// Snippet utilised from documentation
+// Snippet utilised from documentation for signing user out
+/**
+ * Route for validating authentication
+ * @name get/sign-out
+ * @function sign-out
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.get("/sign-out", (req, res) => {
   req.logout(function (err) {
     if (err) {
@@ -174,10 +216,19 @@ router.get("/sign-out", (req, res) => {
     res.send({ auth: false });
   });
 });
-export default router;
 
+// Define a route for checking availability of requested username
+/**
+ * Route for validating if username is available
+ * @name get/check-username
+ * @function check-username
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.get("/check-username/:username", async (req, res) => {
   try {
+    // Check if a user exists with matching username
     const username = req.params.username;
     const user = await User.findOne({ username: username });
     if (user) {
@@ -190,8 +241,18 @@ router.get("/check-username/:username", async (req, res) => {
   }
 });
 
+// Define a route for checking availability of requested email address
+/**
+ * Route for validating if email address is available
+ * @name get/check-email
+ * @function check-email
+ * @memberof AuthRouter
+ * @param {express.Request} req - Request object
+ * @param {express.Response} res - Response object
+ */
 router.get("/check-email/:email", async (req, res) => {
   try {
+    // Check if user exists with matching email address
     const email = req.params.email;
     const user = await User.findOne({ email: email });
     if (user) {
@@ -203,3 +264,4 @@ router.get("/check-email/:email", async (req, res) => {
     res.status(500).json({ message: "Unable to check email", error: error });
   }
 });
+export default router;
