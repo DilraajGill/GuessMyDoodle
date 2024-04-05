@@ -356,3 +356,28 @@ Diary
 - At the end of the gameplay session, a play again button will appear that only the host can interact with to start the session again
 - Improved registering and logging in to check if the username and email address is valid and hasn't been taken and display this dynamically to the text fields
 - Implemented server side validation for confirming if password and username are valid fields and re-direct to the home page after registering
+
+19/03/24 - 27/03/24
+
+- Display the word to the user drawing as a measure in case they either forget or were not present for the selection
+- Usability improvements by implementing front-end timer to automatically select the word after 10 seconds to avoid users not selecting anything
+- Fixed issue of only one user in lobby by removing user from an active game session if they are the only ones remaining
+- Bug fix to re-distribute the "host" role if the host were to leave the game
+- Restrict starting the lobby unless 2 or more users are present
+- Efficiency improvements to avoid frequent fetching of user information from the database
+- Calculate points for the drawing user
+- Utilise a public repository to fetch words that can be drawn
+- Further usability improvements by allowing users to re-connect from another device without any issues
+  - The old device will be kicked from the lobby session and will continue to run
+- Bug fix where host could kick themselves out
+- Bug fix to leave the socket room upon disconnection
+- Reformatted unit test cases after adjusting code from standard HTML to Bootstrap components
+- Usability improvements by implementing keybinds for all users to access
+
+28/03/24 - 05/04/24
+
+- Server side validation that a user has selected a word after 10 seconds
+- Finalised automated end-to-end tests using Cypress
+- Display responsiveness improvements to adjust according to screen size
+- Custom command to run front and back end servers simultaneously
+- Updating final report
