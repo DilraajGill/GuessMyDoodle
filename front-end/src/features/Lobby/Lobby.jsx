@@ -7,7 +7,7 @@ import socket from "../../components/SocketManager";
 import { authContext } from "../../App";
 import GameCustomisation from "./GameCustomisation";
 import ChooseWords from "./ChooseWords";
-import PlayerCard from "../../components/PlayerCard";
+import PlayerCard from "./PlayerCard";
 import CopyToClipboard from "./CopyToClipboard";
 import { Row, Col, Button, Container, Card, Modal } from "react-bootstrap";
 import ColourChooser from "./ColourChooser";

@@ -130,12 +130,16 @@ class Game {
     );
     // Update their points
     await this.updateIndividualPoints(locatedPlayer);
+
+    if (this.round) {
+      if (this.round.getCurrentDrawer().username === locatedPlayer.username) {
+        this.timer = 5;
+      }
+      this.round.removePlayer(locatedPlayer.socket.id);
+    }
     this.players = this.players.filter(
       (player) => player.socket.id !== socketId
     );
-    if (this.round) {
-      await this.round.removePlayer(socketId);
-    }
     // Check if the host needs to be re-assigned
     if (this.host.id === socketId && this.players.length > 0) {
       this.host = this.players[0].socket;
@@ -508,10 +512,6 @@ class Game {
     if (locatedPlayer) {
       await this.removePlayer(locatedPlayer.socket.id);
       locatedPlayer.socket.emit("kicked", "You have been kicked by the host");
-      // If they were drawing, reset the timer
-      if (this.round && this.round.getCurrentDrawer().username === player) {
-        this.timer = 5;
-      }
       this.io.to(this.id).emit("set-players", await this.getPlayerAndPoints());
     }
   }

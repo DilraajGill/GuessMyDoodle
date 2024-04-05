@@ -203,7 +203,7 @@ class Round {
     const index = this.players.findIndex(
       (player) => player.socket.id === socketId
     );
-    if (index) {
+    if (index >= 0) {
       const user = this.players[index];
       if (user && user.hasDrawn) {
         this.drawingIndex -= 1;
@@ -211,6 +211,8 @@ class Round {
       this.players = this.players.filter(
         (player) => player.socket.id !== socketId
       );
+    } else {
+      console.log("Cannot find user");
     }
   }
   /**
