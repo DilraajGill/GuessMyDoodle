@@ -176,12 +176,12 @@ io.on("connection", (socket) => {
   // Handler for when the user begins drawing
   socket.on("beginDrawing", (data) => {
     const { lobbyId } = data;
-    games.beganDrawing(lobbyId);
+    games.beganDrawing(lobbyId, socket);
   });
   // Handler for when the user stops drawing
   socket.on("endDrawing", (data) => {
     const { lobbyId } = data;
-    games.endDrawing(lobbyId);
+    games.endDrawing(lobbyId, socket);
   });
   // Handler for testing if permission has been given to draw
   socket.on("test-drawing-allowed", () => {

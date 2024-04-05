@@ -157,18 +157,22 @@ class GameDispatcher {
    * Triggered by mouse event of user drawing to start new path
    * @param {string} lobbyId - ID of the lobby
    */
-  beganDrawing(lobbyId) {
-    this.io.to(lobbyId).emit("beginDrawing");
-    this.games[lobbyId].addDrawing({ type: "move" });
+  beganDrawing(lobbyId, socket) {
+    if (this.checkDrawing(lobbyId, socket)) {
+      this.io.to(lobbyId).emit("beginDrawing");
+      this.games[lobbyId].addDrawing({ type: "move" });
+    }
   }
   // Emit to the lobby that the user has stopped rawing
   /**
    * Triggered by mouse event of the user ending their path
    * @param {string} lobbyId - ID of the lobby
    */
-  endDrawing(lobbyId) {
-    this.io.to(lobbyId).emit("endDrawing");
-    this.games[lobbyId].addDrawing({ type: "end" });
+  endDrawing(lobbyId, socket) {
+    if (this.checkDrawing(lobbyId, socket)) {
+      this.io.to(lobbyId).emit("endDrawing");
+      this.games[lobbyId].addDrawing({ type: "end" });
+    }
   }
   // Remove a player from the lobby
   /**
@@ -206,11 +210,9 @@ class GameDispatcher {
    * @param {number} minutes - Number of minutes
    */
   updateMinutes(socket, minutes) {
-    if (this.checkExists(socket.lobbyId)) {
-      if (this.checkHost(socket.lobbyId, socket)) {
-        this.io.to(socket.lobbyId).emit("set-minutes", minutes);
-        this.games[socket.lobbyId].setMinutes(minutes);
-      }
+    if (this.existsAndHost(socket.lobbyId, socket)) {
+      this.io.to(socket.lobbyId).emit("set-minutes", minutes);
+      this.games[socket.lobbyId].setMinutes(minutes);
     }
   }
   // Update teh number of rounds that will be played
@@ -220,27 +222,21 @@ class GameDispatcher {
    * @param {number} rounds - Number of rounds
    */
   updateRounds(socket, rounds) {
-    if (this.checkExists(socket.lobbyId)) {
-      if (this.checkHost(socket.lobbyId, socket)) {
-        this.io.to(socket.lobbyId).emit("set-rounds", rounds);
-        this.games[socket.lobbyId].setRounds(rounds);
-      }
+    if (this.existsAndHost(socket.lobbyId, socket)) {
+      this.io.to(socket.lobbyId).emit("set-rounds", rounds);
+      this.games[socket.lobbyId].setRounds(rounds);
     }
   }
   updatePrivacy(socket, privacy) {
-    if (this.checkExists(socket.lobbyId)) {
-      if (this.checkHost(socket.lobbyId, socket)) {
-        this.io.to(socket.lobbyId).emit("set-privacy", privacy);
-        this.games[socket.lobbyId].setPrivacy(privacy);
-      }
+    if (this.existsAndHost(socket.lobbyId, socket)) {
+      this.io.to(socket.lobbyId).emit("set-privacy", privacy);
+      this.games[socket.lobbyId].setPrivacy(privacy);
     }
   }
   updateWords(socket, words) {
-    if (this.checkExists(socket.lobbyId)) {
-      if (this.checkHost(socket.lobbyId, socket)) {
-        this.io.to(socket.lobbyId).emit("set-words", words);
-        this.games[socket.lobbyId].setWords(words);
-      }
+    if (this.existsAndHost(socket.lobbyId, socket)) {
+      this.io.to(socket.lobbyId).emit("set-words", words);
+      this.games[socket.lobbyId].setWords(words);
     }
   }
   // Start the game after checking if user has permissions
@@ -249,10 +245,8 @@ class GameDispatcher {
    * @param {object} socket - Socket trying to initiate
    */
   startGame(socket) {
-    if (this.checkExists(socket.lobbyId)) {
-      if (this.checkHost(socket.lobbyId, socket)) {
-        this.games[socket.lobbyId].start();
-      }
+    if (this.existsAndHost(socket.lobbyId, socket)) {
+      this.games[socket.lobbyId].start();
     }
   }
   // If a user joins late, it will emit the information they have missed
@@ -364,10 +358,8 @@ class GameDispatcher {
    * @param {object} socket - User's socket
    */
   async playAgain(lobbyId, socket) {
-    if (this.checkExists(lobbyId)) {
-      if (this.checkHost(lobbyId, socket)) {
-        await this.games[lobbyId].playAgain();
-      }
+    if (this.existsAndHost(lobbyId, socket)) {
+      await this.games[lobbyId].playAgain();
     }
   }
   /**
@@ -376,19 +368,20 @@ class GameDispatcher {
    * @param {object} socket - User's socket
    */
   async kickPlayer(socket, player) {
-    if (this.checkExists(socket.lobbyId)) {
-      if (this.checkHost(socket.lobbyId, socket)) {
-        await this.games[socket.lobbyId].kickPlayer(player);
-        if (
-          (this.games[socket.lobbyId].players.length === 1 &&
-            this.games[socket.lobbyId].state === "drawing") ||
-          this.games[socket.lobbyId].players.length === 0
-        ) {
-          await this.games[socket.lobbyId].notEnoughPlayers();
-          this.deleteGame(socket.lobbyId);
-        }
+    if (this.existsAndHost(socket.lobbyId.socket)) {
+      await this.games[socket.lobbyId].kickPlayer(player);
+      if (
+        (this.games[socket.lobbyId].players.length === 1 &&
+          this.games[socket.lobbyId].state === "drawing") ||
+        this.games[socket.lobbyId].players.length === 0
+      ) {
+        await this.games[socket.lobbyId].notEnoughPlayers();
+        this.deleteGame(socket.lobbyId);
       }
     }
+  }
+  existsAndHost(lobbyId, socket) {
+    return this.checkExists(lobbyId) && this.checkHost(lobbyId, socket);
   }
 }
 
