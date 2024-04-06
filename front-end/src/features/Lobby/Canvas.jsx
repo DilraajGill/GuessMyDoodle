@@ -73,7 +73,6 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
         type: "draw",
         lobbyId,
       });
-    } else {
     }
   }
   // Adjust the state to show user has stopped drawing

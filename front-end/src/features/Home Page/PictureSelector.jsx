@@ -24,7 +24,7 @@ function PictureSelector({
    */
   async function updatePicture() {
     try {
-      const response = await axios.post("/update-picture", {
+      await axios.post("/update-picture", {
         picture: selectedPicture,
       });
       setShowModal(false);

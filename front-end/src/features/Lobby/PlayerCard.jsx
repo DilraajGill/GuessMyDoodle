@@ -2,12 +2,12 @@ import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 /**
  * Component to display each player's information
- * @param {} props.player Player username
- * @param {} props.points Points accumulated by the player
- * @param {} props.picture Path of the player's pictre
- * @param {} props.drawing Indicate if the player is drawing
- * @param {} props.host Indicate if the player is the host
- * @param {} props.kick Function to call if they are to be kicked from the lobby
+ * @param {string} props.player Player username
+ * @param {number} props.points Points accumulated by the player
+ * @param {string} props.picture Path of the player's pictre
+ * @param {boolean} props.drawing Indicate if the player is drawing
+ * @param {boolean} props.host Indicate if the player is the host
+ * @param {Function} props.kick Function to call if they are to be kicked from the lobby
  * @returns
  */
 function PlayerCard({ player, points, picture, drawing, host, kick }) {
@@ -28,11 +28,16 @@ function PlayerCard({ player, points, picture, drawing, host, kick }) {
             <Card.Title className="mb-0">
               {player}
               {host && (
-                <i className="bi bi-star-fill ms-2" data-testid="host-icon"></i>
+                <i
+                  className="bi bi-star-fill ms-2"
+                  style={{ color: "gold" }}
+                  data-testid="host-icon"
+                ></i>
               )}
               {drawing && (
                 <i
                   className="bi bi-pencil-fill ms-2"
+                  style={{ color: "#27afc4" }}
                   data-testid="drawing-icon"
                 ></i>
               )}

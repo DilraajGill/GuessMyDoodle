@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { authContext } from "../App";
 import checkAuthentication from "./CheckAuthentication";
@@ -13,7 +13,6 @@ function ValidAuthentication({ children }) {
   const [signedIn, setSignedIn] = useContext(authContext);
   const [loading, setLoading] = React.useState(true);
   const navigation = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     /**

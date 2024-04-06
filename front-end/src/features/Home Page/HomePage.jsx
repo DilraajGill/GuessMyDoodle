@@ -196,13 +196,31 @@ function HomePage() {
         availablePictures={signedIn.purchasedProfilePicture}
       />
       {/* Modal to display if user has been kicked */}
-      <Modal show={showKickedModal} onHide={() => setShowKickedModal(false)}>
+      <Modal
+        show={showKickedModal}
+        onHide={() => {
+          setShowKickedModal(false);
+          navigation(location.pathname, {
+            replace: true,
+            state: { ...location.state, kicked: false },
+          });
+        }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Kicked From Lobby!</Modal.Title>
         </Modal.Header>
         <Modal.Body>{location.state?.message}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowKickedModal(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowKickedModal(false);
+              navigation(location.pathname, {
+                replace: true,
+                state: { ...location.state, kicked: false },
+              });
+            }}
+          >
             Close
           </Button>
         </Modal.Footer>
