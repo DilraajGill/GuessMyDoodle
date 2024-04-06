@@ -259,7 +259,7 @@ function Lobby() {
                 <Row>
                   <Col md={4}>
                     <h4 className="game-stats">
-                      Round: {roundCount} <i class="bi bi-stopwatch"></i>:
+                      <i class="bi bi-stopwatch"></i>:
                       <span className={roundTimer < 10 ? "flash" : ""}>
                         {roundTimer}
                       </span>
@@ -273,6 +273,15 @@ function Lobby() {
                         drawing={currentlyDrawing === signedIn.username}
                       />
                     </div>
+                  </Col>
+                  <Col md={4}>
+                    <h4
+                      className="game-stats"
+                      style={{ flexDirection: "row-reverse" }}
+                    >
+                      <span>:{roundCount}</span>
+                      <i class="bi bi-arrow-repeat" />
+                    </h4>
                   </Col>
                 </Row>
               </Card.Body>
