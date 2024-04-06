@@ -199,7 +199,13 @@ function HomePage() {
       {/* Modal to display if user has been kicked */}
       <KickedModal
         show={showKickedModal}
-        onClose={() => setShowKickedModal(false)}
+        onClose={() => {
+          setShowKickedModal(false);
+          navigation(location.pathname, {
+            replace: true,
+            state: { ...location.state, kicked: false },
+          });
+        }}
       />
     </Container>
   );

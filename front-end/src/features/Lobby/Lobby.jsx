@@ -13,6 +13,7 @@ import { Row, Col, Button, Container, Card, Modal } from "react-bootstrap";
 import ColourChooser from "./ColourChooser";
 import "../../styles/Lobby.css";
 import Hints from "./Hints";
+import ExpiredSession from "./ExpiredSession";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -534,31 +535,13 @@ function Lobby() {
           </>
         )}
       </Row>
-      <Modal
+      <ExpiredSession
         show={showModal}
-        onHide={() => {
+        onClose={() => {
           setShowModal(false);
           navigation("/home");
         }}
-        centered
-      >
-        <Modal.Header closeButton>Session Expired</Modal.Header>
-        <Modal.Body>
-          The session has ended becasue there are not enough players in the
-          game!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              setShowModal(false);
-              navigation("/home");
-            }}
-          >
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      />
     </Container>
   );
 }
