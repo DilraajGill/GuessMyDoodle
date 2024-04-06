@@ -30,6 +30,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 // Enable GoogleStrategy for using OAuth 2.0 for signing in and registering
+// https://www.passportjs.org/packages/passport-google-oauth20/
 passport.use(
   new GoogleStrategy(
     {
