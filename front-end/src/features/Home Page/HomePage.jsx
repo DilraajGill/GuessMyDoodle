@@ -8,6 +8,7 @@ import { Container, Button, Row, Col, Dropdown, Modal } from "react-bootstrap";
 import PictureSelector from "./PictureSelector";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../styles/HomePage.css";
+import KickedModal from "./KickedModal";
 /**
  * @class HomePage
  * Displays the home page for the User
@@ -196,35 +197,10 @@ function HomePage() {
         availablePictures={signedIn.purchasedProfilePicture}
       />
       {/* Modal to display if user has been kicked */}
-      <Modal
+      <KickedModal
         show={showKickedModal}
-        onHide={() => {
-          setShowKickedModal(false);
-          navigation(location.pathname, {
-            replace: true,
-            state: { ...location.state, kicked: false },
-          });
-        }}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Kicked From Lobby!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{location.state?.message}</Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              setShowKickedModal(false);
-              navigation(location.pathname, {
-                replace: true,
-                state: { ...location.state, kicked: false },
-              });
-            }}
-          >
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        onClose={() => setShowKickedModal(false)}
+      />
     </Container>
   );
 }
