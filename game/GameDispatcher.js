@@ -368,7 +368,7 @@ class GameDispatcher {
    * @param {object} socket - User's socket
    */
   async kickPlayer(socket, player) {
-    if (this.existsAndHost(socket.lobbyId.socket)) {
+    if (this.existsAndHost(socket.lobbyId, socket)) {
       await this.games[socket.lobbyId].kickPlayer(player);
       if (
         (this.games[socket.lobbyId].players.length === 1 &&

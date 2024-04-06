@@ -1,4 +1,4 @@
-// Words extracted from https://gist.github.com/mvark/9e0682c62d75625441f6ded366245203#file-skribbl-words-csv
+// https://gist.github.com/mvark/9e0682c62d75625441f6ded366245203#file-skribbl-words-csv
 const words = [
   "ace",
   "ant",

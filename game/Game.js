@@ -421,6 +421,7 @@ class Game {
       .emit("currently-drawing", this.round.getCurrentDrawer().socket.username);
     this.timer = this.selectedTimer * 60 + 5;
     this.io.to(this.id).emit("clear-canvas");
+    this.drawingHistory = [];
     this.beginTimer();
   }
   /**
