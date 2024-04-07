@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: front-end/src/features/Authentication/LoginAndRegister.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: front-end/src/features/Authentication/LoginAndRegister.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect } from "react";
+import { Tabs, Tab, Container, Row, Col, Card } from "react-bootstrap";
+import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
+import { authContext } from "../../App";
+import "../../styles/LoginAndRegister.css";
+import checkAuthentication from "../../components/CheckAuthentication";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+/**
+ * Component that allows end-user to login or create an account
+ * @param {string} props.defaultState - Pass through the initial state when rendering component
+ * @returns {React.Component} -  LoginAndRegister component
+ */
+function LoginAndRegister({ defaultState }) {
+  const navigation = useNavigate();
+  const [state, setState] = React.useState(defaultState);
+  const [signedIn, setSignedIn] = React.useContext(authContext);
+
+  // Check if the user is already authenticated
+  useEffect(() => {
+    async function ensureLogin() {
+      const response = await checkAuthentication({ axios });
+      if (response.auth) {
+        if (!response.username) {
+          // If no username, navigate to complete the profile
+          navigation("/complete-profile");
+        }
+        setSignedIn({
+          auth: true,
+          username: response.username,
+          points: response.points,
+          tools: response.tools,
+          profilePicture: response.profilePicture,
+          purchasedProfilePicture: response.purchasedProfilePicture,
+        });
+        // Redirect to home if they are signed in
+        navigation("/home");
+      }
+    }
+    ensureLogin();
+  });
+
+  return (
+    &lt;Container fluid className="d-flex vh-100">
+      &lt;Row className="m-auto align-self-center">
+        &lt;Col>
+          &lt;Card>
+            &lt;Card.Header>
+              &lt;Tabs
+                id="tab-state"
+                activeKey={state}
+                onSelect={(e) => setState(e)}
+                className="nav-pills justify-content-center"
+              >
+                &lt;Tab eventKey="login" title="Login">&lt;/Tab>
+                &lt;Tab eventKey="register" title="Register">&lt;/Tab>
+              &lt;/Tabs>
+            &lt;/Card.Header>
+            &lt;Card.Body>
+              {state === "login" ? &lt;LoginPage axios /> : &lt;RegisterPage axios />}
+            &lt;/Card.Body>
+          &lt;/Card>
+        &lt;/Col>
+      &lt;/Row>
+    &lt;/Container>
+  );
+}
+
+export default LoginAndRegister;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthRouter.html">AuthRouter</a></li><li><a href="Game.html">Game</a></li><li><a href="GameDispatcher.html">GameDispatcher</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="Lobby.html">Lobby</a></li><li><a href="Round.html">Round</a></li><li><a href="Server.html">Server</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CanvasToolbar">CanvasToolbar</a></li><li><a href="global.html#ChatBox">ChatBox</a></li><li><a href="global.html#CheckAuthentication">CheckAuthentication</a></li><li><a href="global.html#ChooseWords">ChooseWords</a></li><li><a href="global.html#ColourChooser">ColourChooser</a></li><li><a href="global.html#CompleteProfile">CompleteProfile</a></li><li><a href="global.html#ConfirmKick">ConfirmKick</a></li><li><a href="global.html#CopyToClipboard">CopyToClipboard</a></li><li><a href="global.html#ExpiredSession">ExpiredSession</a></li><li><a href="global.html#GameCustomisation">GameCustomisation</a></li><li><a href="global.html#Hints">Hints</a></li><li><a href="global.html#KickedModal">KickedModal</a></li><li><a href="global.html#LineThickness">LineThickness</a></li><li><a href="global.html#LineThicknessButton">LineThicknessButton</a></li><li><a href="global.html#LobbyCard">LobbyCard</a></li><li><a href="global.html#LoginAndRegister">LoginAndRegister</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#PictureSelector">PictureSelector</a></li><li><a href="global.html#PlayerCard">PlayerCard</a></li><li><a href="global.html#Podium">Podium</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#RevealWord">RevealWord</a></li><li><a href="global.html#Store">Store</a></li><li><a href="global.html#StoreCard">StoreCard</a></li><li><a href="global.html#ValidAuthentication">ValidAuthentication</a></li><li><a href="global.html#authContext">authContext</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#fetchUserPoints">fetchUserPoints</a></li><li><a href="global.html#fetchUserProfilePicture">fetchUserProfilePicture</a></li><li><a href="global.html#getPublic">getPublic</a></li><li><a href="global.html#receiveMessage">receiveMessage</a></li><li><a href="global.html#updateUserPoints">updateUserPoints</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Apr 07 2024 22:31:20 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

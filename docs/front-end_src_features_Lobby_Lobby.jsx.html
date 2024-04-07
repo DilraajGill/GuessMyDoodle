@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: front-end/src/features/Lobby/Lobby.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: front-end/src/features/Lobby/Lobby.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import LineThicknessButton from "./LineThicknessButton";
+import Canvas from "./Canvas";
+import ChatBox from "./ChatBox";
+import socket from "../../components/SocketManager";
+import { authContext } from "../../App";
+import GameCustomisation from "./GameCustomisation";
+import ChooseWords from "./ChooseWords";
+import PlayerCard from "./PlayerCard";
+import CopyToClipboard from "./CopyToClipboard";
+import { Row, Col, Container, Card } from "react-bootstrap";
+import ColourChooser from "./ColourChooser";
+import "../../styles/Lobby.css";
+import Hints from "./Hints";
+import ExpiredSession from "./ExpiredSession";
+import CanvasToolbar from "./CanvasToolbar";
+import RevealWord from "./RevealWord";
+import Podium from "./Podium";
+import ConfirmKick from "./ConfirmKick";
+
+/**
+ * Lobby to handle all interaction of settings, drawing and communication
+ * @class Lobby
+ */
+function Lobby() {
+  // Define react states and parameters
+  const [signedIn] = React.useContext(authContext);
+  const { lobbyId } = useParams();
+  const [selectedColour, setSelectedColour] = React.useState("#000000");
+  const [lineThickness, setLineThickness] = React.useState(2);
+  const [validGame, setValidGame] = React.useState(true);
+  const [players, setPlayers] = React.useState([]);
+  const [minutes, setMinutes] = React.useState(1);
+  const [rounds, setRounds] = React.useState(1);
+  const [gameState, setGameState] = React.useState("settings");
+  const [currentlyDrawing, setCurrentlyDrawing] = React.useState("");
+  const [toSelectWord, setToSelectWord] = React.useState(false);
+  const [wordOptions, setWordOptions] = React.useState([]);
+  const [lobbyType, setLobbyType] = React.useState("private");
+  const [customWords, setCustomWords] = React.useState("");
+  const [drawingTool, setDrawingTool] = React.useState("draw");
+  const [roundTimer, setRoundTimer] = React.useState(null);
+  const [roundCount, setRoundCount] = React.useState(0);
+  const [host, setHost] = React.useState("");
+  const [drawingWord, setDrawingWord] = React.useState("");
+  const [hideWord, setHideWord] = React.useState(true);
+  const roundTimerRef = React.useRef(null);
+  const [revealWord, setRevealWord] = React.useState({ show: false, word: "" });
+  const [turnPoints, setTurnPoints] = React.useState([]);
+  const [podiumPositions, setPodiumPositions] = React.useState([]);
+  const [userPosition, setUserPosition] = React.useState();
+  const [showModal, setShowModal] = React.useState(false);
+  const [showKickModal, setShowKickModal] = React.useState(false);
+  const [selectedKickUser, setSelectedKickUser] = React.useState(null);
+  const navigation = useNavigate();
+
+  /**
+   * Ran at the start to ensure only authorised users are permitted
+   * @function ensureLogin
+   * @memberof Lobby
+   */
+  useEffect(() => {
+    socket.emit("join-lobby", {
+      lobbyId,
+      username: signedIn.username,
+    });
+
+    // Handler to determine invalid sessions
+    socket.on("invalid-game", () => {
+      setValidGame(false);
+    });
+    // Handler to set player information
+    socket.on("set-players", (data) => {
+      setPlayers(data);
+    });
+    // Handler to set the number of rounds
+    socket.on("set-rounds", (rounds) => {
+      setRounds(rounds);
+    });
+    // Handler to set the number of minutes
+    socket.on("set-minutes", (minutes) => {
+      setMinutes(minutes);
+    });
+    socket.on("set-privacy", (privacy) => {
+      setLobbyType(privacy);
+    });
+    socket.on("set-words", (words) => {
+      setCustomWords(words);
+    });
+    // Handler to set the state of session
+    socket.on("set-state", async (state) => {
+      if (state === "end") {
+        calculatePodiumPositions();
+      }
+      if (state === "drawing") {
+        // Event listenener to process key binds;
+        window.addEventListener("keyup", keyUp);
+      } else {
+        try {
+          window.removeEventListener("keyup", keyUp);
+        } catch (error) {
+          console.log("No listener");
+        }
+      }
+      setGameState(state);
+    });
+    // Handler to store who is currently drawing
+    socket.on("currently-drawing", (data) => {
+      setCurrentlyDrawing(data);
+      setNewTimer(minutes * 60 + 5);
+      setDrawingWord(`${data} is picking a word!`);
+      setHideWord(false);
+    });
+    // Handler to select a word if drawing
+    socket.on("selected-word", (data) => {
+      setHideWord(true);
+      setDrawingWord(data);
+    });
+    // Handler to make new round
+    socket.on("new-round", (round) => {
+      setRoundCount(round);
+    });
+    // Handler to set timer if user joins late
+    socket.on("late-timer", (time) => {
+      setNewTimer(time);
+    });
+    // Handler to display word options
+    socket.on("choose-words", (words) => {
+      setWordOptions(words);
+      setToSelectWord(true);
+    });
+    // Handler to set the new host
+    socket.on("set-host", (username) => {
+      setHost(username);
+    });
+    // Handler to reveal the word at the end of the game
+    socket.on("reveal-word", (word) => {
+      setRevealWord({ show: true, word: word });
+      setTimeout(() => setRevealWord({ show: false, word: "" }), 5000);
+    });
+    // Handler to display the points at the end of the game
+    socket.on("end-points", (points) => {
+      setTurnPoints(points);
+    });
+    // Handler to kick user out of the game if not enough players
+    socket.on("not-enough-players", () => {
+      setShowModal(true);
+    });
+    // Handler to kick any user back to the home page
+    socket.on("kicked", (message) => {
+      navigation("/home", { state: { kicked: true, message } });
+    });
+
+    return () => {
+      socket.emit("leave-session");
+      window.removeEventListener("keyup", keyUp);
+    };
+  }, []);
+  // Effect function to handle the end of the game and calculate podium positions
+  useEffect(() => {
+    if (gameState === "end") {
+      calculatePodiumPositions();
+    }
+  }, [gameState]);
+  // Automatically select a word if the user has not submitted their selection
+  useEffect(() => {
+    let wordTimer;
+
+    if (toSelectWord) {
+      wordTimer = setTimeout(() => {
+        if (toSelectWord &amp;&amp; wordOptions.length > 0) {
+          handleWordClick(wordOptions[0]);
+        }
+      }, 10000);
+    }
+
+    return () => {
+      clearTimeout(wordTimer);
+    };
+  }, [toSelectWord, wordOptions]);
+
+  // Function to set a timer when drawing
+  function setNewTimer(duration) {
+    clearInterval(roundTimerRef.current);
+    setRoundTimer(duration - 5);
+    roundTimerRef.current = setInterval(() => {
+      setRoundTimer((prev) => {
+        if (prev &lt;= 1) {
+          clearInterval(roundTimerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
+  // Custom return if the user has not selected a valid lobby
+  if (!validGame) {
+    return &lt;h1 style={{ color: "aliceblue" }}>Invalid Game&lt;/h1>;
+  }
+  // Function to handle word selection
+  function handleWordClick(word) {
+    setToSelectWord(false);
+    socket.emit("selected-word", word);
+  }
+  // Function to clear the canvas if clicked
+  function clearCanvas() {
+    socket.emit("clear-canvas");
+  }
+  // Function to undo the most recent move if clicked
+  function undoMove() {
+    socket.emit("undo-move");
+  }
+  // Function to calculate the podium positions according to the points
+  function calculatePodiumPositions() {
+    const sorted = [...players].sort((a, b) => b.points - a.points);
+    setPodiumPositions(sorted.slice(0, Math.min(3, players.length)));
+    const userIndex = sorted.findIndex(
+      (player) => player.username === signedIn.username
+    );
+    setUserPosition(userIndex + 1);
+  }
+  // Function called if the host wants to play again
+  function playAgain() {
+    socket.emit("play-again");
+  }
+  // Function to display modal if trying to kick a user out
+  function handleKick(player) {
+    if (host === signedIn.username &amp;&amp; player !== signedIn.username) {
+      setSelectedKickUser(player);
+      setShowKickModal(true);
+    }
+  }
+  // Function to emit message to server and kick user
+  function confirmedKick() {
+    if (host === signedIn.username) {
+      socket.emit("kick-player", selectedKickUser);
+      setShowKickModal(false);
+      setSelectedKickUser(null);
+    }
+  }
+  // Function to execute drawing action according to keybinds
+  function keyUp(ev) {
+    if (document.activeElement.tagName.toLowerCase() === "input") return;
+    switch (ev.key.toUpperCase()) {
+      case "U":
+        undoMove();
+        break;
+      case "B":
+        setDrawingTool("draw");
+        break;
+      case "E":
+        setDrawingTool("eraser");
+        break;
+      case "F":
+        if (signedIn.tools.includes("fill")) {
+          setDrawingTool("fill");
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  return (
+    &lt;Container fluid className="mt-3">
+      &lt;Row>
+        {gameState !== "settings" &amp;&amp; (
+          &lt;Col md={12} className="mb-2">
+            &lt;Card>
+              &lt;Card.Body>
+                &lt;Row>
+                  &lt;Col md={4}>
+                    &lt;h4 className="game-stats">
+                      &lt;i className="bi bi-stopwatch">&lt;/i>:
+                      &lt;span className={roundTimer &lt; 10 ? "flash" : ""}>
+                        {roundTimer}
+                      &lt;/span>
+                    &lt;/h4>
+                  &lt;/Col>
+                  &lt;Col md={4}>
+                    &lt;div className="d-flex justify-content-center">
+                      &lt;Hints
+                        word={drawingWord}
+                        hidden={hideWord}
+                        drawing={currentlyDrawing === signedIn.username}
+                      />
+                    &lt;/div>
+                  &lt;/Col>
+                  &lt;Col md={4}>
+                    &lt;h4
+                      className="game-stats"
+                      style={{ flexDirection: "row-reverse" }}
+                    >
+                      &lt;span>:{roundCount}&lt;/span>
+                      &lt;i className="bi bi-arrow-repeat" />
+                    &lt;/h4>
+                  &lt;/Col>
+                &lt;/Row>
+              &lt;/Card.Body>
+            &lt;/Card>
+          &lt;/Col>
+        )}
+        &lt;Col md={3}>
+          &lt;div className="player-list">
+            {players.map((player, index) => (
+              &lt;PlayerCard
+                key={index}
+                player={player.username}
+                points={player.points}
+                picture={player.profilePicture}
+                drawing={player.username === currentlyDrawing}
+                host={player.username === host}
+                kick={handleKick}
+              />
+            ))}
+            &lt;ConfirmKick
+              show={showKickModal}
+              onHide={() => {
+                setShowKickModal(false);
+                setSelectedKickUser(null);
+              }}
+              kickUser={confirmedKick}
+              selectedUser={selectedKickUser}
+            />
+          &lt;/div>
+        &lt;/Col>
+        {/* If the state is on the settings page, show this information */}
+        {gameState === "settings" ? (
+          &lt;Col md={8}>
+            &lt;GameCustomisation
+              socket={socket}
+              rounds={rounds}
+              minutes={minutes}
+              lobbyType={lobbyType}
+              customWords={customWords}
+              length={players.length}
+            />
+            &lt;CopyToClipboard lobbyId={lobbyId}>&lt;/CopyToClipboard>
+          &lt;/Col>
+        ) : (
+          &lt;>
+            &lt;Col md={6}>
+              &lt;div>
+                &lt;Row>
+                  &lt;Col md={12} className="drawing-word-container">
+                    &lt;Canvas
+                      type={drawingTool}
+                      lineThickness={lineThickness}
+                      colour={selectedColour}
+                      socket={socket}
+                      lobbyId={lobbyId}
+                    />
+                    {toSelectWord &amp;&amp; gameState === "drawing" &amp;&amp; (
+                      &lt;div className="reveal-word">
+                        &lt;ChooseWords
+                          list={wordOptions}
+                          click={handleWordClick}
+                        />
+                      &lt;/div>
+                    )}
+                    {gameState === "end" &amp;&amp; (
+                      &lt;Podium
+                        podiumPositions={podiumPositions}
+                        userPosition={userPosition}
+                        playAgain={playAgain}
+                      />
+                    )}
+                    {revealWord.show &amp;&amp; (
+                      &lt;RevealWord
+                        revealWord={revealWord}
+                        turnPoints={turnPoints}
+                      />
+                    )}
+                  &lt;/Col>
+                  &lt;Col md={12} className="canvas-toolbar">
+                    &lt;div className="toolbar-group left-side">
+                      &lt;ColourChooser toCanvas={setSelectedColour} />
+                      &lt;LineThicknessButton
+                        thickness={lineThickness}
+                        setLineThickness={setLineThickness}
+                      />
+                    &lt;/div>
+                    &lt;CanvasToolbar
+                      drawingTool={drawingTool}
+                      setDrawingTool={setDrawingTool}
+                      ownedTools={signedIn.tools}
+                      undoMove={undoMove}
+                      clearCanvas={clearCanvas}
+                    />
+                  &lt;/Col>
+                &lt;/Row>
+              &lt;/div>
+            &lt;/Col>
+            &lt;Col md={3}>
+              &lt;ChatBox
+                socket={socket}
+                username={signedIn.username}
+                lobbyId={lobbyId}
+              />
+            &lt;/Col>
+          &lt;/>
+        )}
+      &lt;/Row>
+      &lt;ExpiredSession
+        show={showModal}
+        onClose={() => {
+          setShowModal(false);
+          navigation("/home");
+        }}
+      />
+    &lt;/Container>
+  );
+}
+
+export default Lobby;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AuthRouter.html">AuthRouter</a></li><li><a href="Game.html">Game</a></li><li><a href="GameDispatcher.html">GameDispatcher</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="Lobby.html">Lobby</a></li><li><a href="Round.html">Round</a></li><li><a href="Server.html">Server</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Canvas">Canvas</a></li><li><a href="global.html#CanvasToolbar">CanvasToolbar</a></li><li><a href="global.html#ChatBox">ChatBox</a></li><li><a href="global.html#CheckAuthentication">CheckAuthentication</a></li><li><a href="global.html#ChooseWords">ChooseWords</a></li><li><a href="global.html#ColourChooser">ColourChooser</a></li><li><a href="global.html#CompleteProfile">CompleteProfile</a></li><li><a href="global.html#ConfirmKick">ConfirmKick</a></li><li><a href="global.html#CopyToClipboard">CopyToClipboard</a></li><li><a href="global.html#ExpiredSession">ExpiredSession</a></li><li><a href="global.html#GameCustomisation">GameCustomisation</a></li><li><a href="global.html#Hints">Hints</a></li><li><a href="global.html#KickedModal">KickedModal</a></li><li><a href="global.html#LineThickness">LineThickness</a></li><li><a href="global.html#LineThicknessButton">LineThicknessButton</a></li><li><a href="global.html#LobbyCard">LobbyCard</a></li><li><a href="global.html#LoginAndRegister">LoginAndRegister</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#PictureSelector">PictureSelector</a></li><li><a href="global.html#PlayerCard">PlayerCard</a></li><li><a href="global.html#Podium">Podium</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#RevealWord">RevealWord</a></li><li><a href="global.html#Store">Store</a></li><li><a href="global.html#StoreCard">StoreCard</a></li><li><a href="global.html#ValidAuthentication">ValidAuthentication</a></li><li><a href="global.html#authContext">authContext</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#fetchUserPoints">fetchUserPoints</a></li><li><a href="global.html#fetchUserProfilePicture">fetchUserProfilePicture</a></li><li><a href="global.html#getPublic">getPublic</a></li><li><a href="global.html#receiveMessage">receiveMessage</a></li><li><a href="global.html#updateUserPoints">updateUserPoints</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Apr 07 2024 22:31:20 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
