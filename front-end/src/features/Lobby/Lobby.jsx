@@ -94,11 +94,11 @@ function Lobby() {
         calculatePodiumPositions();
       }
       if (state === "drawing") {
-        // Event listenener to process key binds
-        window.addEventListener("keydown", keyDown);
+        // Event listenener to process key binds;
+        window.addEventListener("keyup", keyUp);
       } else {
         try {
-          window.removeEventListener("keydown", keyDown);
+          window.removeEventListener("keyup", keyUp);
         } catch (error) {
           console.log("No listener");
         }
@@ -154,7 +154,7 @@ function Lobby() {
 
     return () => {
       socket.emit("leave-session");
-      window.removeEventListener("keydown", keyDown);
+      window.removeEventListener("keyup", keyUp);
     };
   }, []);
   // Effect function to handle the end of the game and calculate podium positions
@@ -240,7 +240,7 @@ function Lobby() {
     }
   }
   // Function to execute drawing action according to keybinds
-  function keyDown(ev) {
+  function keyUp(ev) {
     if (document.activeElement.tagName.toLowerCase() === "input") return;
     switch (ev.key.toUpperCase()) {
       case "U":
