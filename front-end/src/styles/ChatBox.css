@@ -17,3 +17,13 @@
     display: inline-block;
     max-width: 95%;
 }
+
+@keyframes flashGreen{
+    0% { background-color: #e9eaea;}
+    50% {background-color: lightgreen;}
+    100%{background-color: #e9eaea}
+}
+
+.flashGreen{
+    animation: flashGreen 2s;
+}
