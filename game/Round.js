@@ -86,7 +86,10 @@ class Round {
    * @returns {boolean} returns true if the guess is correct
    */
   guess(word, socket) {
-    if (word.toLowerCase() === this.selectedWord.toLowerCase()) {
+    if (
+      this.selectedWord &&
+      word.toLowerCase() === this.selectedWord.toLowerCase()
+    ) {
       const player = this.players.find((user) => user.socket === socket);
       if (
         !player.hasGuessedCorrectly &&

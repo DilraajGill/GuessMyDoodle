@@ -1,4 +1,6 @@
 import Round from "../game/Round";
+import { Server } from "socket.io";
+
 describe("round class tests", () => {
   // Define mock objects for tests
   const mockPlayers = [
@@ -8,7 +10,20 @@ describe("round class tests", () => {
   ];
   const lobbyId = "ABCDE";
   const words = ["Dilraaj", "Custom", "Words", "Multiple", "Characters"];
-  const round = new Round(mockPlayers, lobbyId, words);
+  // creating mock objects for tests
+  jest.mock("socket.io", () => {
+    return {
+      Server: jest.fn(() => ({
+        on: jest.fn(),
+        to: jest.fn(() => ({
+          emit: jest.fn(),
+        })),
+        emit: jest.fn(),
+      })),
+    };
+  });
+  const mockIo = new Server();
+  const round = new Round(mockPlayers, lobbyId, words, mockIo);
 
   test("initialise round", () => {
     // initialise the round and expect information about who is drawing to be the first user
