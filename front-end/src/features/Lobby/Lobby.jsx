@@ -9,11 +9,15 @@ import GameCustomisation from "./GameCustomisation";
 import ChooseWords from "./ChooseWords";
 import PlayerCard from "./PlayerCard";
 import CopyToClipboard from "./CopyToClipboard";
-import { Row, Col, Button, Container, Card, Modal } from "react-bootstrap";
+import { Row, Col, Container, Card } from "react-bootstrap";
 import ColourChooser from "./ColourChooser";
 import "../../styles/Lobby.css";
 import Hints from "./Hints";
 import ExpiredSession from "./ExpiredSession";
+import CanvasToolbar from "./CanvasToolbar";
+import RevealWord from "./RevealWord";
+import Podium from "./Podium";
+import ConfirmKick from "./ConfirmKick";
 
 /**
  * Lobby to handle all interaction of settings, drawing and communication
@@ -302,32 +306,15 @@ function Lobby() {
                 kick={handleKick}
               />
             ))}
-            <Modal
+            <ConfirmKick
               show={showKickModal}
               onHide={() => {
                 setShowKickModal(false);
                 setSelectedKickUser(null);
               }}
-            >
-              <Modal.Header>Kick Player!</Modal.Header>
-              <Modal.Body>
-                Are you sure you want kick {selectedKickUser}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    setShowKickModal(false);
-                    setSelectedKickUser(null);
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button variant="danger" onClick={confirmedKick}>
-                  Kick
-                </Button>
-              </Modal.Footer>
-            </Modal>
+              kickUser={confirmedKick}
+              selectedUser={selectedKickUser}
+            />
           </div>
         </Col>
         {/* If the state is on the settings page, show this information */}
@@ -365,67 +352,17 @@ function Lobby() {
                       </div>
                     )}
                     {gameState === "end" && (
-                      <div className="reveal-word">
-                        <div className="podium">
-                          {/* Display podium and user's final position */}
-                          {podiumPositions.map((player, index) => (
-                            <div
-                              className={`podium-position place-${index + 1}`}
-                            >
-                              <div className="podium-user">
-                                <div className="profile-information">
-                                  <img
-                                    src={`../${player.profilePicture}`}
-                                    className="picture"
-                                    alt="profile icon"
-                                  />
-                                  <div className="username">
-                                    {player.username}
-                                  </div>
-                                </div>
-                                <span className="position-number">
-                                  #{index + 1}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="finish-message">
-                          <h3>{`You finished ${userPosition}${
-                            userPosition === 1
-                              ? "st"
-                              : userPosition === 2
-                              ? "nd"
-                              : userPosition === 3
-                              ? "rd"
-                              : "th"
-                          }`}</h3>
-                        </div>
-                        <Button onClick={playAgain}>Play Again!</Button>
-                      </div>
+                      <Podium
+                        podiumPositions={podiumPositions}
+                        userPosition={userPosition}
+                        playAgain={playAgain}
+                      />
                     )}
                     {revealWord.show && (
-                      <div className="reveal-word">
-                        {/* Reveal word at the end of the user's turn */}
-                        <h2>The word was {revealWord.word}</h2>
-                        <Row className="justify-content-md-center reveal-points">
-                          {turnPoints.map((player, index) => (
-                            <Col
-                              md={12}
-                              key={index}
-                              className="player-point-container"
-                            >
-                              <span className="player-name">
-                                {player.username}:
-                              </span>
-
-                              <span className="player-points">
-                                {player.value}
-                              </span>
-                            </Col>
-                          ))}
-                        </Row>
-                      </div>
+                      <RevealWord
+                        revealWord={revealWord}
+                        turnPoints={turnPoints}
+                      />
                     )}
                   </Col>
                   <Col md={12} className="canvas-toolbar">
@@ -436,91 +373,13 @@ function Lobby() {
                         setLineThickness={setLineThickness}
                       />
                     </div>
-                    <div className="toolbar-group right-side">
-                      <Button
-                        onClick={() => setDrawingTool("draw")}
-                        className={drawingTool === "draw" ? "active-tool" : ""}
-                        style={{ position: "relative" }}
-                      >
-                        <i class="bi bi-brush"></i>
-                        {drawingTool !== "draw" && (
-                          <span
-                            style={{
-                              position: "absolute",
-                              bottom: 0,
-                              right: 3,
-                              fontSize: "smaller",
-                            }}
-                          >
-                            B
-                          </span>
-                        )}
-                      </Button>
-                      <Button
-                        onClick={() => setDrawingTool("eraser")}
-                        className={
-                          drawingTool === "eraser" ? "active-tool" : ""
-                        }
-                        style={{ position: "relative" }}
-                      >
-                        <i class="bi bi-eraser-fill"></i>
-                        {drawingTool !== "eraser" && (
-                          <span
-                            style={{
-                              position: "absolute",
-                              bottom: 0,
-                              right: 3,
-                              fontSize: "smaller",
-                            }}
-                          >
-                            E
-                          </span>
-                        )}
-                      </Button>
-                      {signedIn.tools && signedIn.tools.includes("fill") && (
-                        <Button
-                          onClick={() => setDrawingTool("fill")}
-                          className={
-                            drawingTool === "fill" ? "active-tool" : ""
-                          }
-                          style={{ position: "relative" }}
-                        >
-                          <i class="bi bi-paint-bucket"></i>
-                          {drawingTool !== "fill" && (
-                            <span
-                              style={{
-                                position: "absolute",
-                                bottom: 0,
-                                right: 3,
-                                fontSize: "smaller",
-                              }}
-                            >
-                              F
-                            </span>
-                          )}
-                        </Button>
-                      )}
-                      <Button
-                        type="button"
-                        onClick={undoMove}
-                        style={{ position: "relative" }}
-                      >
-                        <i class="bi bi-arrow-counterclockwise"></i>
-                        <span
-                          style={{
-                            position: "absolute",
-                            bottom: 0,
-                            right: 3,
-                            fontSize: "smaller",
-                          }}
-                        >
-                          U
-                        </span>
-                      </Button>
-                      <Button type="button" onClick={clearCanvas}>
-                        <i class="bi bi-trash-fill"></i>
-                      </Button>
-                    </div>
+                    <CanvasToolbar
+                      drawingTool={drawingTool}
+                      setDrawingTool={setDrawingTool}
+                      ownedTools={signedIn.tools}
+                      undoMove={undoMove}
+                      clearCanvas={clearCanvas}
+                    />
                   </Col>
                 </Row>
               </div>

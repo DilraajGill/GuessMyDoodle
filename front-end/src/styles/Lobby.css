@@ -251,3 +251,14 @@ canvas{
 .btn:disabled{
     pointer-events: all !important;
 }
+
+.tool-button{
+    position: relative;
+}
+
+.tool-label{
+    position: absolute;
+    bottom: 0px;
+    right: 3px;
+    font-size: smaller;
+}
