@@ -42,12 +42,12 @@ function PictureSelector({
         <Container>
           <Row>
             {availablePictures &&
-              availablePictures.map((pic) => (
-                <Col md={3}>
+              availablePictures.map((pic, index) => (
+                <Col md={3} key={index}>
                   <img
                     src={`../${pic}`}
                     key={pic}
-                    data-testId={
+                    data-testid={
                       selectedPicture === `${pic}` ? "selected" : "available"
                     }
                     className={`available-picture ${
