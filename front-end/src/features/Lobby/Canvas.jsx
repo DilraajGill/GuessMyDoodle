@@ -153,6 +153,8 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
     socket.on("fill-canvas", (data) => {
       handleFloodFill(data);
     });
+
+    socket.emit("initialise-drawings");
   }, []);
 
   useEffect(() => {
@@ -164,6 +166,8 @@ function Canvas({ type, lineThickness, colour, socket, lobbyId }) {
         contextRef.current.beginPath();
       } else if (drawing.type === "end") {
         contextRef.current.closePath();
+      } else if (drawing.type === "fill") {
+        handleFloodFill(drawing);
       }
     });
   }, [drawings]);

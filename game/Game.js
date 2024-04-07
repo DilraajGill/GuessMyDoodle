@@ -232,17 +232,15 @@ class Game {
     if (this.state === "drawing") {
       // Emit all drawing information, timers, selected word
       socket.emit("set-state", "drawing");
-      socket.emit("initial-drawings", this.getDrawing());
+      socket.emit("initial-drawings", this.drawingHistory);
       socket.emit(
         "currently-drawing",
         this.round.getCurrentDrawer().socket.username
       );
       socket.emit("new-round", this.roundCount + 1);
       socket.emit("late-timer", this.timer);
-      if (this.isDrawing(socket)) {
-        if (this.round.selectedWord) {
-          socket.emit("selected-word", this.round.selectedWord);
-        }
+      if (this.round.selectedWord) {
+        socket.emit("selected-word", this.round.selectedWord);
       }
     } else if (this.state === "settings") {
       // Emit all updated settings for the user
