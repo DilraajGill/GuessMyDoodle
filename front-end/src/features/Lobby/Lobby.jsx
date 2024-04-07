@@ -93,6 +93,16 @@ function Lobby() {
       if (state === "end") {
         calculatePodiumPositions();
       }
+      if (state === "drawing") {
+        // Event listenener to process key binds
+        window.addEventListener("keydown", keyDown);
+      } else {
+        try {
+          window.removeEventListener("keydown", keyDown);
+        } catch (error) {
+          console.log("No listener");
+        }
+      }
       setGameState(state);
     });
     // Handler to store who is currently drawing
@@ -141,8 +151,6 @@ function Lobby() {
     socket.on("kicked", (message) => {
       navigation("/home", { state: { kicked: true, message } });
     });
-    // Event listenener to process key binds
-    window.addEventListener("keydown", keyDown);
 
     return () => {
       socket.emit("leave-session");

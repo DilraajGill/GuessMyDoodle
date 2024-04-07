@@ -23,6 +23,7 @@ function Store() {
   async function purchaseFillTool() {
     try {
       await axios.post("/store/buy/fill-tool");
+      navigation(0);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         // Display modal if lacking money to purchase item
