@@ -375,7 +375,7 @@ class Game {
               this.resetNextDrawer();
             } else {
               // If nobody else is left to draw, delete the round and make a new Round object
-              if (this.roundCount + 1 !== this.maxRounds) {
+              if (this.roundCount + 1 < this.maxRounds) {
                 this.nextRound();
               } else {
                 this.roundCount += 1;

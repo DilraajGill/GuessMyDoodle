@@ -117,14 +117,14 @@ function HomePage() {
                   onClick={() => loadLobbies()}
                   className="me-3"
                 >
-                  <i class="bi bi-arrow-clockwise"></i>
+                  <i className="bi bi-arrow-clockwise"></i>
                 </Button>
                 <Button
                   className="me-3"
                   variant="primary"
                   onClick={() => navigation("/store")}
                 >
-                  <i class="bi bi-cart-fill"></i>
+                  <i className="bi bi-cart-fill"></i>
                 </Button>
               </div>
             </Col>

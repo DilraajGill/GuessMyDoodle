@@ -264,7 +264,7 @@ function Lobby() {
                 <Row>
                   <Col md={4}>
                     <h4 className="game-stats">
-                      <i class="bi bi-stopwatch"></i>:
+                      <i className="bi bi-stopwatch"></i>:
                       <span className={roundTimer < 10 ? "flash" : ""}>
                         {roundTimer}
                       </span>
@@ -285,7 +285,7 @@ function Lobby() {
                       style={{ flexDirection: "row-reverse" }}
                     >
                       <span>:{roundCount}</span>
-                      <i class="bi bi-arrow-repeat" />
+                      <i className="bi bi-arrow-repeat" />
                     </h4>
                   </Col>
                 </Row>
