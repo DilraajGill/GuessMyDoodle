@@ -1,6 +1,11 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-
+/**
+ * Reveal the word at the end of each turn and how the user's performed
+ * @param {object} props.revealWord - Object containing the word being drawn
+ * @param {array<object>} props.turnPoints - Array containing every user's name and points
+ * @returns {React.Component} Reveal Word component rendered
+ */
 function RevealWord({ revealWord, turnPoints }) {
   return (
     <div className="reveal-word">

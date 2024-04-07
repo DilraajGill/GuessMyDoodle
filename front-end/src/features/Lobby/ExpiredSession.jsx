@@ -1,6 +1,12 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
+/**
+ * Modal if the previous game session had expired
+ * @param {boolean} show - Flag to display the modal
+ * @param {Function} onClose - Function to minimise the modal
+ * @returns {React.Component} Expired Session modal is rendered (visible if flag is true)
+ */
 function ExpiredSession({ show, onClose }) {
   return (
     <Modal show={show} onHide={onClose} centered>

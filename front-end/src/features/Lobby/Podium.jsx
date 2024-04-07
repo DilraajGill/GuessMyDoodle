@@ -1,6 +1,13 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
+/**
+ * Display the podium (top 3) users of the game
+ * @param {array<object>} props.podiumPositions - Array of users in the podium alongside their profiel picture
+ * @param {number} userPosition - The position the current user finished with
+ * @param {Function} playAgain - Function to be called if the host wishes to play again
+ * @returns {React.Component} Renders the Podium component
+ */
 function Podium({ podiumPositions, userPosition, playAgain }) {
   return (
     <div className="reveal-word">

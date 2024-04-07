@@ -2,6 +2,15 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import "../../styles/Lobby.css";
 
+/**
+ * Allow user's to change the current tools being utilised and undo or delete their canvas
+ * @param {string} props.drawingTool - Store the current tool being used
+ * @param {Function} props.setDrawingTool - Function to update drawingTool
+ * @param {array<string>} ownedTools - Array storing what tools the user owns
+ * @param {Function} undoMove - Function to undo a recent drawing action
+ * @param {Function} clearCanvas - Function to clear the drawings on the canvas
+ * @returns {React.Component} Renders the Canvas Toolbar
+ */
 function CanvasToolbar({
   drawingTool,
   setDrawingTool,
