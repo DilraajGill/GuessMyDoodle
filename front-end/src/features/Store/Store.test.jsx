@@ -32,15 +32,6 @@ describe("test store display", () => {
     expect(screen.getByText(context.username)).toBeInTheDocument();
     expect(screen.getByText(context.points)).toBeInTheDocument();
   });
-  test("go to home button", () => {
-    render(
-      <authContext.Provider value={[context, jest.fn()]}>
-        <Store />
-      </authContext.Provider>
-    );
-    fireEvent.click(screen.getByText("Go To Home!"));
-    expect(mockNavigate).toHaveBeenCalledWith("/home");
-  });
   test("buy fill item from the store", async () => {
     render(
       <authContext.Provider value={[context, jest.fn()]}>

@@ -38,7 +38,7 @@ function Store() {
   async function purchasedProfilePicture(id) {
     try {
       await axios.post(`/store/buy/${id}`);
-      window.location.reload();
+      navigation(0);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         // Display modal if lacking money to purchase item
@@ -98,7 +98,7 @@ function Store() {
                   variant="primary"
                   onClick={() => navigation("/home")}
                 >
-                  <i class="bi bi-house-fill"></i>
+                  <i className="bi bi-house-fill"></i>
                 </Button>
               </div>
             </Col>
