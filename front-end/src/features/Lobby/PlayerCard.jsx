@@ -8,7 +8,7 @@ import { Card, Col, Row } from "react-bootstrap";
  * @param {boolean} props.drawing Indicate if the player is drawing
  * @param {boolean} props.host Indicate if the player is the host
  * @param {Function} props.kick Function to call if they are to be kicked from the lobby
- * @returns
+ * @returns {React.Component} Component displaying all of the player information and kicking functionality
  */
 function PlayerCard({ player, points, picture, drawing, host, kick }) {
   const address = `../${picture}`;

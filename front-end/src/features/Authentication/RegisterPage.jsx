@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 /**
  * React component to create the register page
- * @class RegisterPage
+ * @returns {React.Component} Component for the user to make a new account
  */
 function RegisterPage() {
   // Define states to store input about registration

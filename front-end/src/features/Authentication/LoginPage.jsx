@@ -5,7 +5,7 @@ import { Form, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 /**
  * Login Page to allow the user to authenticate themselves
- * @class LoginPage
+ * @returns {React.Component} Component for the user to sign in
  */
 function LoginPage() {
   // Define navigate object and React states to store information

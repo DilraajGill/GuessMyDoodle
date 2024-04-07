@@ -10,13 +10,14 @@ import {
 } from "react-bootstrap";
 /**
  * Allow for customisation of gameplay settings
- * @class GameCustomisation
  * @param {object} props.socket Socket object of the user
  * @param {number} props.rounds The number of rounds to play
  * @param {number} props.minutes The number of minutes the rounds should have
  * @param {string} props.lobbyType The lobby type (private or public)
  * @param {string} props.customWords The custom words to be mixed with the normal words
  * @param {number} props.length Number of players in the lobby
+ * @returns {React.Component} Component to change the settings of the lobby
+ *
  */
 function GameCustomisation({
   socket,

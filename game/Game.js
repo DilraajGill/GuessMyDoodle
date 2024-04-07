@@ -316,7 +316,7 @@ class Game {
    * Handle user guesses and update points as required for drawing and guessing users
    * @param {string} word - Word to be checked against drawing word
    * @param {object} socket - User's socket
-   * @returns
+   * @returns {boolean} Flag if the user guessed the word correctly or not
    */
   guessWord(word, socket) {
     // Check if guess was correct and the word has not been revealed
@@ -518,7 +518,7 @@ class Game {
    * Check if the username is already in the game session and being joined elsewhere
    * @param {object} socket - Socket of chosen user
    * @param {string} username - Username of chosen user
-   * @returns
+   * @returns {boolean} Returns if socket making a request is connected to a user
    */
   activePlayer(socket, username) {
     return this.players.some(

@@ -2,8 +2,8 @@ import React from "react";
 
 /**
  * Allow the user drawing to change the colour they wish to draw with
- * @class ColourChooser
  * @param {function} toCanvas - Modify state and update through callback function
+ * @returns {React.Component} Component to change the colour when drawing
  */
 function ColourChooser({ toCanvas }) {
   // Create state to store the chosen colour

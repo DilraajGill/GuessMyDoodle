@@ -6,7 +6,7 @@ import React from "react";
  * @param {string} props.word The word being drawn
  * @param {boolean} props.hidden Determine if the word should be hidden
  * @param {boolean} props.drawing Determine if the user is drawing
- * @returns
+ * @returns {React.Component} Component displaying hints to the length of the word (or the actual word if drawing)
  */
 function Hints({ word, hidden, drawing }) {
   return (

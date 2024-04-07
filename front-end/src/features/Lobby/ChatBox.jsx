@@ -6,6 +6,7 @@ import "../../styles/ChatBox.css";
  * Function to handle receiving a message and updating state
  * @param {object} data - Message received
  * @param {function} setMessages - Function to be executed to update state
+ * @returns {React.Component} Component to send and receive messages
  */
 export function receiveMessage(data, setMessages) {
   setMessages((prevMessages) => [data, ...prevMessages]);
@@ -13,7 +14,6 @@ export function receiveMessage(data, setMessages) {
 
 /**
  * Display chatbox component
- * @class ChatBox
  * @param {object} socket - Socket to emit from for communication
  * @param {string} username - Username of player signed in
  * @param {string} lobbyId - lobbyId to emit the message into

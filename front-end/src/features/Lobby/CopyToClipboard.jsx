@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 /**
  * Allow the users to press the button to store the lobby URL into the clipboard
  * @param {string} props.lobbyId - ID of the lobby to be stored
- * @returns
+ * @returns {React.Component} Component copying URL directly to clipboard
  */
 function CopyToClipboard({ lobbyId }) {
   const [copied, setCopied] = React.useState(false);

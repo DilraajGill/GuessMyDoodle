@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
  * Display the options as buttons to display to the user
  * @param {Array<string>} props.list Array of words to be chosen as choices
  * @param {Function} props.click Function when word is clicked
- * @returns
+ * @returns {React.Component} Component displaying the list of word options to draw
  */
 function ChooseWords({ list, click }) {
   return (
