@@ -381,3 +381,14 @@ Diary
 - Display responsiveness improvements to adjust according to screen size
 - Custom command to run front and back end servers simultaneously
 - Updating final report
+
+06/04/24 - 09/04/24
+
+- Refactored the Expired Session modal out of the lobby and into it's own individual component with TDD unit test
+- Bug fix from testing to fix issue when clearing and kicking user
+- Refactored canvas toolbar outside of Lobby into it's own individual component with TDD unit test
+- Completed documentation testing to ensure the documentation is of high standard
+- Refactored RevealWord into new component alongside TDD unit test
+- Refactored Podium into new component alongside TDD unit test
+- Usability enhancements by allowing messages to flash green if guessing word correctly
+- Bug fix to avoid issue where user triggers keybinds typing in custom words
