@@ -4,22 +4,21 @@ This repository has been created to store your final year project.
 
 You may edit it as you like, but please do not remove the default topics or the project members list. These need to stay as currently defined in order for your supervisor to be able to find your project.
 
+The above directories contain the front-end and back-end servers for my website. When deploying a key aspect to consider is that due to missing a .env directory, this means that oAuth 2.0 will not be able to deploy, which may cause issues when deploying the program.
+
 # Running The Application
 
-In order to run the application, the user must have Node.js downloaded. The installer can be found on the following website:
+To run the application, the user must have Node.js downloaded. The installer can be found on the following website:
 https://nodejs.org/en/download
-
-Once you have Node installed on the device, clone the Git repository to your local computer. Open a terminal up within the git repository and run the command (npm i) from the back-end folder and the front-end folder. This will install the node modules required for both servers.
-For deploying the system, I recommend opening two terminals, one located in the root directory (to run back-end) and one located in the front-end file.
-To run the back-end server, simply type into the back-end folder terminal
-Nodemon server.js
-During development, Nodemon is incredibly useful to restart the server if there have been any files changes within the directory of the back-end server, therefore any modifications to the server code will automatically restart it.
-
-To run the front-end server, simply type into the front-end folder terminal
-Npm start
-
-This will run the website and the back-end server to allow for interaction between the two. Currently, I am using MongoDB on my local device as a temporary solution, therefore anyone attempting to deploy the website will struggle to login / register (unless they have it installed on their local machine), however once I move the database over to the cloud solution, it should provide a fix for this issue.  
-In order to deploy the website within it’s current form, the user requires MongoDB on their local machine. This can be done through the following website:
-https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
+Once you have Node installed on the device, clone the Git repository to your local computer or download the files. Open a terminal up within the repository and run the command
+npm i
+from the back-end folder and the front-end folder. This will install the node modules required for both servers.
+To deploy the system, I have created a custom npm script following [18] that will run both front-end and back-end servers at the same time. In the terminal located in the root of the repository, run the command
+npm run start
+to deploy both servers. If there is an issue involving concurrently, whereby it says it is not installed on the system you can either install it using npm i concurrently on the back-end, or manually run the servers. This can be achieved through opening a terminal in the root directory and run
+node server.js and open another terminal in the front-end directory and run npm start
+This will run the website and the back-end server to allow for interaction between the two. My system uses a local MongoDB database on the local device, therefore anyone attempting to deploy the website will require MongoDB on their machine. To use the project with a database (which a requirement from deployment), you must install mongodb on your device which can be found in the following links:
+https://www.mongodb.com/docs/manual/installation/
 or through mongosh (after installing the server) via:
 https://www.mongodb.com/docs/mongodb-shell/?_ga=2.80922007.1681306570.1701989949-391924372.1690298159
+Another difficulty when running the application will be trying to use oAuth 2.0. This uses a .env file, as the information within is sensitive and relevant to my Google account, hence is unable to be shared publicly. As a result, oAuth 2.0 will not work without these credentials.

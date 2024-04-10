@@ -1,2 +1,0 @@
-Here is a video showcasing the interaction of the website & running of all TDD unit tests
-https://www.youtube.com/watch?v=UBCNegzowms
