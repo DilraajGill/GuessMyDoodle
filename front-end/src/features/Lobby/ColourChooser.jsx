@@ -5,9 +5,9 @@ import React from "react";
  * @param {function} toCanvas - Modify state and update through callback function
  * @returns {React.Component} Component to change the colour when drawing
  */
-function ColourChooser({ toCanvas }) {
+function ColourChooser({ toCanvas, current }) {
   // Create state to store the chosen colour
-  const [selectedColour, setSelectedColour] = React.useState("#000000");
+  const [selectedColour, setSelectedColour] = React.useState(current);
   const availableLightColours = [
     "#FFFFFF",
     "#A5A3A3",

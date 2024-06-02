@@ -375,7 +375,10 @@ function Lobby() {
                   </Col>
                   <Col md={12} className="canvas-toolbar">
                     <div className="toolbar-group left-side">
-                      <ColourChooser toCanvas={setSelectedColour} />
+                      <ColourChooser
+                        toCanvas={setSelectedColour}
+                        current={selectedColour}
+                      />
                       <LineThicknessButton
                         thickness={lineThickness}
                         setLineThickness={setLineThickness}

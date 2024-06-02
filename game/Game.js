@@ -478,6 +478,8 @@ class Game {
    * Reset the game state back to the beginning to let users play again
    */
   async playAgain() {
+    this.io.to(this.id).emit("clear-canvas");
+    this.drawingHistory = [];
     this.state = "settings";
     this.roundCount = 0;
     this.resetPlayerPoints();
